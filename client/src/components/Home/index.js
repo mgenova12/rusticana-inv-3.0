@@ -1,13 +1,7 @@
 import React from 'react'
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { GET_STORES } from './stores.query'
 
-	const GET_STORES = gql`
-		query {
-		  stores  {
-		    name
-		  }
-		}
-		`
 
 const Home = () => {
   const result = useQuery(GET_STORES)
