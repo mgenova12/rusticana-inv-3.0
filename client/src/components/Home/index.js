@@ -12,6 +12,7 @@ const Home = () => {
 
   return (
     <div>
+    	TEST
       {result.data.stores.map(p => p.name).join(', ')}
     </div>
   )
