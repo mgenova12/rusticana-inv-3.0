@@ -1,11 +1,32 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
+d = ["HOLT",
+"WALMART",
+"SYSCO",
+"US FOODS", 
+"TRAPPE",
+"JETRO [RESTAURANT DEPOT]",
+"FERRARA FOODS",
+"TEDDY BEAR FRESH",
+"AMAZON",
+"SAMS CLUB",
+"WALMART",
+"WEBSTAURANT STORE",
+"COCA COLA"]
+
+d.each do |x|
+  Distributor.create!(name:x)
+end
+
+y = ["Dry", "Frozen", "Refrigerated"]
+
+y.each do |x|
+  Category.create!(name:x)
+end
+
+
+Product.all.destroy_all
 
 require 'net/http'
 require 'uri'
@@ -56,19 +77,24 @@ response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
 end
 
 # response.code
+puts JSON.parse(response.body)['data']['products']
+
 JSON.parse(response.body)['data']['products'].each do |product|
+  dis = Distributor.find_by(name:product['distributor']['name'])
+  cat = Category.find_by(name:product['category']['name'])
+
+
   Product.create!(
     name: product['name'], 
     prepped: false,
     case_quantity: product['caseQuantity'],
     mark_up: product['markUp'],
-    price: product['price']
+    price: product['price'],
+    marked_up_price: product['markedUpPrice'],
+    distributor_id: dis.id,
+    category_id: cat.id
   )
 end
-
-
-
-
 
 
 

@@ -1,6 +1,5 @@
 module Types
   class MutationType < Types::BaseObject
-    # field :create_store, mutation: Mutations::Stores::CreateStore
-
+    field :edit_product, mutation: Mutations::EditProduct
   end
 end

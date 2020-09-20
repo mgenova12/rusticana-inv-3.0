@@ -8,6 +8,15 @@ import { gql } from '@apollo/client';
 		    markUp
 		    caseQuantity
 		    price
+		    markedUpPrice
+		    category {
+		    	id
+		    	name
+		    }
+		    distributor {
+		    	id
+		    	name
+		    }		    
 		  }
 		}
 		`

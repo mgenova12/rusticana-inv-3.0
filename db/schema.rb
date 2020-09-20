@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_19_183933) do
+ActiveRecord::Schema.define(version: 2020_09_19_211615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "distributors", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "prepcenters", force: :cascade do |t|
     t.string "name"
@@ -29,6 +41,18 @@ ActiveRecord::Schema.define(version: 2020_09_19_183933) do
     t.integer "mark_up"
     t.decimal "price"
     t.integer "case_quantity"
+    t.integer "distributor_id"
+    t.integer "category_id"
+    t.text "description"
+    t.string "distributor_number"
+    t.string "brand"
+    t.string "unit_size"
+    t.integer "portion_size"
+    t.decimal "marked_up_price"
+    t.integer "p_id"
+    t.integer "aisle_number"
+    t.integer "days_till_expire"
+    t.bigint "barcode"
   end
 
   create_table "stores", force: :cascade do |t|

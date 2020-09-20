@@ -12,11 +12,11 @@ const Home = () => {
   const result = useQuery(GET_STORES)
 
   if (result.loading)  {
-    return <div>loading...</div>
+    return <h2>loading...</h2>
   }
 
   return (
-    <div className="list-group container">
+    <div className="container">
     	
     	<h4>Management Center</h4>
       <List component="nav">
