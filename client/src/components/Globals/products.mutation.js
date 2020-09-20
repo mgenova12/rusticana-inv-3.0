@@ -3,51 +3,66 @@ import { gql } from '@apollo/client';
 export const EDIT_PRODUCT = gql`
 	mutation editProduct(
 	    $id: Int!,
-		  $name: String!, 
-		  $distributor: String!, 
-		  $category: String!, 
-		  $price: Float!, 
+		  $name: String!,
+		  $distributorId: Int!,
+		  $categoryId: Int!,
+		  $caseQuantity: Int,
 		  $markUp: Int!, 
-		  $caseQuantity: Int, 
-		  $prepped: Boolean!,
-	    $description: String,
-	    $unitSize: String ,
-	    $brand: String,
-	    $distributorNumber: String,
-	    $barcode: Int
+		  $price: Float!, 
 	  ) {
 	    editProduct(input: { 
 	      id: $id,
 	    	name: $name, 
-	    	distributor: $distributor,
-	    	category: $category,
-	    	price: $price,
-	    	markUp: $markUp,
+	    	distributorId: $distributorId,
+	    	categoryId: $categoryId,
 	    	caseQuantity: $caseQuantity,
-	    	prepped: $prepped,
-	      description: $description,
-	      unitSize: $unitSize,
-	      brand: $brand,
-	      distributorNumber: $distributorNumber,
-	      barcode: $barcode
+	    	markUp: $markUp,
+	    	price: $price,
+	    	
 	    }) {
 	      product {
-	        id
-	        name
-	        distributor {
-	          id
-	          name
-	        }
-	        category {
-	          id
-	          name
-	        }
-	        caseQuantity
-	        markUp
-	        price
-	        markedUpPrice
+			  	id
+			    name
+			    markUp
+			    caseQuantity
+			    price
+			    markedUpPrice
+			    category {
+			    	id
+			    	name
+			    }
+			    distributor {
+			    	id
+			    	name
+			    }	
 	      }
 	      errors
 	    }
 	  }
+`;
+
+
+
+export const DELETE_PRODUCT = gql`
+  mutation deleteProduct($id: Int!) {
+    deleteProduct(input: { id: $id }) {
+      product {
+		  	id
+		    name
+		    markUp
+		    caseQuantity
+		    price
+		    markedUpPrice
+		    category {
+		    	id
+		    	name
+		    }
+		    distributor {
+		    	id
+		    	name
+		    }	
+      }
+    	errors
+    }
+  }
 `;

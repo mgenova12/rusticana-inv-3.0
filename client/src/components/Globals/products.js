@@ -1,17 +1,30 @@
 import React from 'react'
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_PRODUCTS } from './products.query'
+import { GET_CATEGORIES } from './category.query'
+import { GET_DISTRIBUTORS } from './distributor.query'
 import { EDIT_PRODUCT } from './products.mutation'
+import { DELETE_PRODUCT } from './products.mutation'
 import MaterialTable from 'material-table';
 
 const Products = () => {  
-  const result = useQuery(GET_PRODUCTS)
-  const [editProduct, { data }] = useMutation(EDIT_PRODUCT);
+  const products = useQuery(GET_PRODUCTS)
+  const categories = useQuery(GET_CATEGORIES)
+  const distributors = useQuery(GET_DISTRIBUTORS)
+  const [editProduct] = useMutation(EDIT_PRODUCT);
+  const [deleteProduct, {data} ] = useMutation(DELETE_PRODUCT);
 
-  if (result.loading)  {
+  if (products.loading)  {
     return <h2>loading...</h2>
   }
-console.log(JSON.parse(JSON.stringify(result.data)).products)
+  if (categories.loading)  {
+    return <h2>loading...</h2>
+  }
+  if (distributors.loading)  {
+    return <h2>loading...</h2>
+  }  
+  let categoriesLookup = categories.data.categories.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
+  let distributorsLookup = distributors.data.distributors.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
 
   return (
     <div >
@@ -30,23 +43,29 @@ console.log(JSON.parse(JSON.stringify(result.data)).products)
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
-                  editProduct({ variables: { 
-                    // id: newData.id, 
-                    // name: newData.name,
-                    // distributor: newData.distributor,
-                    // category: newData.category,
-                    // price: newData.price,
-                    // markUp: newData.markUp,
-                    // caseQuantity: newData.caseQuantity,
-                  } });
+                    editProduct({ 
+                      variables: { 
+                        id: parseInt(newData.id), 
+                        name: newData.name,
+                        distributorId: parseInt(newData.distributor.id),
+                        categoryId: parseInt(newData.category.id),
+                        caseQuantity: parseInt(newData.caseQuantity),
+                        markUp: parseInt(newData.markUp),
+                        price: parseFloat(newData.price),
+                      }
+                    });
                 }, 600);
               }),
             onRowDelete: oldData =>
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
-
-                }, 600);
+                    deleteProduct({ 
+                      variables: { 
+                        id: parseInt(oldData.id)
+                      } 
+                    }).then(() => products.refetch());
+                }, 300);
               }), 
             }}
           columns={[
@@ -54,13 +73,13 @@ console.log(JSON.parse(JSON.stringify(result.data)).products)
             { title: 'Name', field: 'name' },
             { 
               title: 'Distributor', 
-              field: 'distributor.name',
-              // lookup: distributors,
+              field: 'distributor.id',
+              lookup: distributorsLookup,
             },
             { 
               title: 'Category', 
-              field: 'category.name',
-              // lookup: categories,
+              field: 'category.id',
+              lookup: categoriesLookup,
             },
             { title: 'Case Quantity', field: 'caseQuantity' },
             { title: 'Mark Up', field: 'markUp'},
@@ -68,7 +87,7 @@ console.log(JSON.parse(JSON.stringify(result.data)).products)
             { title: 'Final Price', field: 'markedUpPrice', editable: 'never', type: "currency" },
 
           ]}
-          data={JSON.parse(JSON.stringify(result.data)).products}           
+          data={JSON.parse(JSON.stringify(products.data)).products}           
         />
     </div>
   )
