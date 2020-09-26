@@ -6,7 +6,7 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 // import store from "./store/index";
 
@@ -19,11 +19,11 @@ const client = new ApolloClient({
 
 
 ReactDOM.render(
-	<BrowserRouter>
+	<HashRouter basename="/">
   	<ApolloProvider client={client}>
     	<App />
   	</ApolloProvider>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById('root')
 );
 
