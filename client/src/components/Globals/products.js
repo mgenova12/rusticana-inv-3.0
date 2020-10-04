@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_PRODUCTS } from './products.query'
 import { GET_CATEGORIES } from './category.query'
@@ -14,62 +15,67 @@ import AddBox from '@material-ui/icons/AddBox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
+  
 
 const Products = () => {  
-  const [state, setState] = React.useState({
-    open: false,
-    selectedProduct:[],
-    
-    prepped: true,
-    name: '',
-    category: '',
-    caseQuantity: '',
-    portionSize: '',
-    markUp: '',
-    barcode: '',
-    description: '',
-    daysTillExpire: ''    
-  });
+  console.log('render')
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = data => console.log(data);
 
-  const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
+  const {data: productsQuery, loading: productsQueryLoading} = useQuery(GET_PRODUCTS)
+  const {data: categoriesQuery, loading: categoriesQueryLoading} = useQuery(GET_CATEGORIES)
+  const {data: distributorsQuery, loading: distributorsQueryLoading} = useQuery(GET_DISTRIBUTORS)
+  
+
+  const [ products, setProducts ] = useState(undefined);
+  const [ currentProduct, setCurrentProduct] = useState('');
+
+  useEffect(() => {
+    if(!productsQueryLoading && productsQuery){
+      setProducts(JSON.parse(JSON.stringify(productsQuery.products)));
     }
+  }, [productsQuery, productsQueryLoading])
 
-    setState({ ...state, 'open': open });
-  };
+  
 
-  const handleChange = () => (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };  
+  const handleRowDelete = useCallback((oldData, products) => {
+    deleteProduct({ 
+      variables: { 
+        id: parseInt(oldData.id)
+      } 
+    })
 
+    const dataDelete = [...products];
+    const index = oldData.tableData.id;
+    dataDelete.splice(index, 1);
+    setProducts([...dataDelete]);
+    
+  },[])
+  
+  
+
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClick = useCallback(() => setIsOpen(current => !current), []);
+  // useEffect(() => {
+  //   console.log('isOpen')
+  // }, [isOpen]);
 
 
   const generateBarcode = () => {
     let barcode = Math.floor(Math.random() * 9000000000) + 1000000000;
-    setState({ ...state, 'barcode': barcode });
+    return barcode
   }  
 
-
-  const products = useQuery(GET_PRODUCTS)
-  const categories = useQuery(GET_CATEGORIES)
-  const distributors = useQuery(GET_DISTRIBUTORS)
-  
   const [editProduct] = useMutation(EDIT_PRODUCT);
   const [deleteProduct] = useMutation(DELETE_PRODUCT);
 
-  if (products.loading)  {
-    return <h2>loading...</h2>
-  }
-  if (categories.loading)  {
-    return <h2>loading...</h2>
-  }
-  if (distributors.loading)  {
-    return <h2>loading...</h2>
-  }  
-  let categoriesLookup = categories.data.categories.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let distributorsLookup = distributors.data.distributors.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-
+  if (productsQueryLoading) return 'Loading...'
+  if (categoriesQueryLoading) return 'Loading...'
+  if (distributorsQueryLoading) return 'Loading...'
+ 
+  let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
+  let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
+  
   return (
     <div >
         <link
@@ -87,6 +93,12 @@ const Products = () => {
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
+                    
+                    // const data = products;
+                    // const index = data.indexOf(oldData);
+                    // data[index] = newData;
+                    // setProducts({ ...products, data });
+
                     editProduct({ 
                       variables: { 
                         id: parseInt(newData.id), 
@@ -97,19 +109,16 @@ const Products = () => {
                         markUp: parseInt(newData.markUp),
                         price: parseFloat(newData.price),
                       }
+
                     });
-                }, 600);
+                }, 300);
               }),
             onRowDelete: oldData =>
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
-                    deleteProduct({ 
-                      variables: { 
-                        id: parseInt(oldData.id)
-                      } 
-                    }).then(() => products.refetch());
-                }, 300);
+                  handleRowDelete(oldData, products)
+                }, 100);
               }), 
             }}
             actions={[
@@ -118,10 +127,11 @@ const Products = () => {
                 tooltip: 'Add',
                 onClick: (event, rowData) => {
                   // event.stopPropagation()
-                  setState({ ...state, 'open': true, 'selectedProduct':rowData});
+                  handleClick()
+                  setCurrentProduct(rowData)
                 }
-              },           
-            ]}            
+              },
+            ]}
           columns={[
             { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Name', field: 'name' },
@@ -141,28 +151,27 @@ const Products = () => {
             { title: 'Final Price', field: 'markedUpPrice', editable: 'never', type: "currency" },
 
           ]}
-          data={JSON.parse(JSON.stringify(products.data)).products}           
+          data={products}           
         />
       
       <Drawer 
-          open={state['open']}
-          onClose={toggleDrawer(false)}
-          variant="temporary"
-          keepMounted={true}
-          anchor="right"
-      >
+        open={isOpen}
+        variant="temporary"
+        anchor="right"
+        // onClose={handleClick}
+      > 
       <div style={{width:'600px'}}>
-      <form >
-        <h3 align="center">{state['selectedProduct'].name}</h3>
+ 
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <h3 align="center">{currentProduct.name}</h3>
         <List >
         
         <ListItem>
           <TextField
               required
               label="Prepped Name"
-              value={state['name']}
-              onChange={handleChange()}
               name="name"
+              inputRef={register}
               placeholder="Add Prepped Name"
               fullWidth
               margin="normal"
@@ -176,12 +185,11 @@ const Products = () => {
           <ListItem>
             <TextField
                 select
+                inputRef={register}
                 label="Category"
-                name="category"
-                value={state['category']}
+                name="categoryId"
                 placeholder="Select a Category"
                 fullWidth
-                onChange={handleChange()}
                 margin="normal"
                 variant="outlined"
                 InputLabelProps={{
@@ -194,7 +202,7 @@ const Products = () => {
               >
               <option key='' value=''></option>
               {
-                categories.data.categories.map(category => {
+                categoriesQuery.categories.map(category => {
                   return <option key={category.id} value={category.id}>{category.name}</option>
                 })
               }
@@ -204,13 +212,12 @@ const Products = () => {
 
             <ListItem>
               <TextField
+                  inputRef={register}
                   label="Case Quantity"
                   name="caseQuantity"
-                  value={state['caseQuantity']}
                   type="number"
                   placeholder="Leave Blank If Not Case"
                   fullWidth
-                  onChange={handleChange()}
                   margin="normal"
                   variant="outlined"
                   InputLabelProps={{
@@ -221,11 +228,10 @@ const Products = () => {
             
             <ListItem>
               <TextField
+                  inputRef={register}
                   required
                   type="number"
                   label="Portion Size"
-                  value={state['portionSize']}
-                  onChange={handleChange()}
                   name="portionSize"
                   placeholder="Add Portion Size"
                   fullWidth
@@ -239,14 +245,13 @@ const Products = () => {
             
             <ListItem>
               <TextField
+                  inputRef={register}
                   required
                   label="Mark Up"
                   name="markUp"
                   type="number"
-                  value={state['markUp']}
                   placeholder="Add Mark Up"
                   fullWidth
-                  onChange={handleChange()}
                   margin="normal"
                   variant="outlined"
                   InputLabelProps={{
@@ -260,14 +265,14 @@ const Products = () => {
             
             <ListItem>                                                        
               <TextField
+                inputRef={register}
                 placeholder="Add or Generate Barcode"
                 variant="outlined"
                 type="number"
                 margin="normal"
                 label="Barcode"
+                name="barcode"
                 fullWidth
-                value={state['barcode']}
-                onChange={handleChange()}
                 InputLabelProps={{
                   shrink: true,
                 }}    
@@ -284,13 +289,12 @@ const Products = () => {
             
             <ListItem>
               <TextField
+                  inputRef={register}
                   select
                   label="Days Till Expire"
                   name="daysTillExpire"
-                  value={state['daysTillExpire']}
                   placeholder="Select a Day Till Expire"
                   fullWidth
-                  onChange={handleChange()}
                   margin="normal"
                   variant="outlined"
                   InputLabelProps={{
@@ -310,13 +314,13 @@ const Products = () => {
             
             <ListItem>
               <TextField
+                inputRef={register}
+                name="description"
                 placeholder="Add Description"
                 variant="outlined"
                 margin="normal"
                 label="Description"
                 fullWidth
-                value={state['description']}
-                onChange={handleChange()}
                 multiline={true}
                 rows={3}
                 rowsMax={5}
