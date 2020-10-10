@@ -15,20 +15,16 @@ import AddBox from '@material-ui/icons/AddBox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
+
   
-
-const Products = () => {  
+const Products = () => {
   console.log('render')
-  const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
-
   const {data: productsQuery, loading: productsQueryLoading} = useQuery(GET_PRODUCTS)
   const {data: categoriesQuery, loading: categoriesQueryLoading} = useQuery(GET_CATEGORIES)
   const {data: distributorsQuery, loading: distributorsQueryLoading} = useQuery(GET_DISTRIBUTORS)
   
-
   const [ products, setProducts ] = useState(undefined);
-  const [ currentProduct, setCurrentProduct] = useState('');
+  const [ currentProduct, setCurrentProduct ] = useState('');
 
   useEffect(() => {
     if(!productsQueryLoading && productsQuery){
@@ -36,7 +32,8 @@ const Products = () => {
     }
   }, [productsQuery, productsQueryLoading])
 
-  
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClick = useCallback(() => setIsOpen(prevIsOpen => !prevIsOpen), []);
 
   const handleRowDelete = useCallback((oldData, products) => {
     deleteProduct({ 
@@ -49,22 +46,15 @@ const Products = () => {
     const index = oldData.tableData.id;
     dataDelete.splice(index, 1);
     setProducts([...dataDelete]);
-    
   },[])
   
-  
+  const [randomNumber, setRandomNumber] = useState('');
+  const generateRandomNumber = useCallback(
+    () => setRandomNumber(Math.floor(Math.random() * 9000000000) + 1000000000),
+  [],);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const handleClick = useCallback(() => setIsOpen(current => !current), []);
-  // useEffect(() => {
-  //   console.log('isOpen')
-  // }, [isOpen]);
-
-
-  const generateBarcode = () => {
-    let barcode = Math.floor(Math.random() * 9000000000) + 1000000000;
-    return barcode
-  }  
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = data => console.log(data);
 
   const [editProduct] = useMutation(EDIT_PRODUCT);
   const [deleteProduct] = useMutation(DELETE_PRODUCT);
@@ -75,7 +65,7 @@ const Products = () => {
  
   let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
   let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  
+
   return (
     <div >
         <link
@@ -94,11 +84,6 @@ const Products = () => {
                 setTimeout(() => {
                   resolve();
                     
-                    // const data = products;
-                    // const index = data.indexOf(oldData);
-                    // data[index] = newData;
-                    // setProducts({ ...products, data });
-
                     editProduct({ 
                       variables: { 
                         id: parseInt(newData.id), 
@@ -158,9 +143,9 @@ const Products = () => {
         open={isOpen}
         variant="temporary"
         anchor="right"
-        // onClose={handleClick}
+        onClose={handleClick}
       > 
-      <div style={{width:'600px'}}>
+      <div>
  
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3 align="center">{currentProduct.name}</h3>
@@ -270,6 +255,7 @@ const Products = () => {
                 variant="outlined"
                 type="number"
                 margin="normal"
+                // value={randomNumber}
                 label="Barcode"
                 name="barcode"
                 fullWidth
@@ -279,7 +265,7 @@ const Products = () => {
                 InputProps={{
                   endAdornment: 
                     <InputAdornment>
-                      <IconButton style={{ outline: 'none' }} onClick={() => generateBarcode()}>
+                      <IconButton style={{ outline: 'none' }} onClick={generateRandomNumber}>
                         <AddBox/>
                       </IconButton>
                     </InputAdornment>,
