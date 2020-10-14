@@ -15,3 +15,12 @@ a:link {
 button:focus {
 	outline:0;
 }
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 65vh;	
+}

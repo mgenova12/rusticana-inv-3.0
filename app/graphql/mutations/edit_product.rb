@@ -7,14 +7,6 @@ class Mutations::EditProduct < Mutations::BaseMutation
   argument :mark_up, Integer, required: true
   argument :price, Float, required: true
 
-
-  # argument :prepped, Boolean, required: false
-  # argument :description, String, required: false
-  # argument :unit_size, String, required: false
-  # argument :brand, String, required: false
-  # argument :distributor_number, String, required: false
-  # argument :barcode, Integer, required: false
-
   field :product, Types::ProductType, null: false
   field :errors, [String], null: false
 
@@ -30,13 +22,6 @@ class Mutations::EditProduct < Mutations::BaseMutation
       mark_up: mark_up,
       price: price, 
       marked_up_price: marked_up_price,
-
-      # prepped: prepped,
-      # description: description,
-      # unit_size: unit_size,
-      # brand: brand,
-      # distributor_number: distributor_number,
-      # barcode: barcode,
     )
       # Successful creation, return the created object with no errors
       {

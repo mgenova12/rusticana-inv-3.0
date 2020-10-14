@@ -26,6 +26,9 @@ import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
 import EventNote from '@material-ui/icons/EventNote';
 import Description from '@material-ui/icons/Description';
 
+import { useHistory } from 'react-router-dom';
+import { deleteToken } from './token'
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -42,6 +45,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Navbar = () => {
+  const history = useHistory();
   const classes = useStyles();
   const [state, setState] = React.useState({
     open: false,
@@ -134,9 +138,18 @@ export const Navbar = () => {
               <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>          
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Logout</Button>
+            </IconButton>
+
+              <Button 
+                color="inherit"
+                onClick={() => {
+                  deleteToken()
+                  history.push('/login')
+                }}
+              >
+                Logout
+              </Button>
+
         </Toolbar>
       </AppBar>
       

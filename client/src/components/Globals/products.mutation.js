@@ -41,8 +41,6 @@ export const EDIT_PRODUCT = gql`
 	  }
 `;
 
-
-
 export const DELETE_PRODUCT = gql`
   mutation deleteProduct($id: Int!) {
     deleteProduct(input: { id: $id }) {
@@ -66,3 +64,44 @@ export const DELETE_PRODUCT = gql`
     }
   }
 `;
+
+
+export const CREATE_PREPPED_PRODUCT = gql`
+  mutation createPreppedProduct(
+	  $name: String!,
+	  $categoryId: Int!,
+	  $caseQuantity: Int,
+	  $portionSize: Int!,
+	  $barcode: Int,
+	  $markUp: Int!, 
+	  $daysTillExpire: Int,
+	  $description: String,
+	  $pId: Int!,
+	  $price: Float!
+  ) {
+    createPreppedProduct(input: { 
+    	name: $name, 
+    	categoryId: $categoryId,
+    	caseQuantity: $caseQuantity,
+    	portionSize: $portionSize,
+    	barcode: $barcode,
+    	markUp: $markUp,
+    	daysTillExpire: $daysTillExpire,
+    	description: $description,
+    	pId: $pId,
+    	price: $price
+    }) {
+      product {
+		  	id
+		    name
+      }
+    	errors
+    }
+  }
+`;
+
+
+
+
+
+

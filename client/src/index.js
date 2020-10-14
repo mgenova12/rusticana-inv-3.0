@@ -5,18 +5,31 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 import * as serviceWorker from './serviceWorker';
-import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { HashRouter } from 'react-router-dom'
+import { getToken } from './token'
+import { setContext } from '@apollo/client/link/context';
 
-// import store from "./store/index";
+const httpLink = createHttpLink({
+  uri: `${process.env.REACT_APP_API_URL}/graphql`
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = getToken()
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({
-    uri: `${process.env.REACT_APP_API_URL}/graphql`,
-  })
+  link: authLink.concat(httpLink)
 })
-
 
 ReactDOM.render(
 	<HashRouter basename="/">
