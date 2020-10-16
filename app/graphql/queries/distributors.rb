@@ -6,7 +6,7 @@ module Queries
     type [Types::DistributorType], null: false
 
     def resolve
-      Distributor.all
+      Distributor.order("created_at DESC")
     end
 
   end

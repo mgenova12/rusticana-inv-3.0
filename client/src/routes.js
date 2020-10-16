@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './components/Home';
 import Products from './components/Globals/products.js';
+import Distributors from './components/Globals/distributors.js';
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -13,7 +14,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
       render={props => {
       	console.log(props)
       	console.log(`isAuth - ${!!getToken()}`)
-      	
+
       	const isLoggedIn = !!getToken();
         if (isLoggedIn) {
           return <Component {...props} />;
@@ -38,8 +39,9 @@ export const Routes = () => {
     <div>
 
       <Switch>
-	        <PrivateRoute exact path="/"  component={Home}  />
-	        <PrivateRoute exact path="/globals/products"  component={Products} />
+	        <PrivateRoute exact path="/" component={Home}  />
+	        <PrivateRoute exact path="/globals/products" component={Products} />
+	        <PrivateRoute exact path="/globals/distributors" component={Distributors} />
       		
       		<Route exact path='/login' component={Login} />
       </Switch>

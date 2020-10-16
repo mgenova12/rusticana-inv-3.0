@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +9,6 @@ import { setToken } from '../../token'
 import { LOGIN_MUTATION } from './login.mutation'
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom'
-// import logo from '../Common/Imgs/newcroplogo.png';
 
 const Login = () => {
   const history = useHistory();
@@ -39,11 +38,12 @@ const Login = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className="center">
+        <img src="/newcroplogo.png" alt="logo" width={100} height={100}/>
         <Typography align="center" component="h1" variant="h5">
           Sign in
         </Typography>
         <div>
-        </div>          
+        </div> 
         <form onSubmit={(e) => {login(); e.preventDefault();}}>
           <TextField
             variant="outlined"

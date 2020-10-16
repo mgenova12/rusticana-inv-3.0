@@ -1,6 +1,7 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import { deleteToken } from './token'
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,7 +15,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-
 import Home from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import LocalDining from '@material-ui/icons/LocalDining';
@@ -25,29 +25,11 @@ import NoteAdd from '@material-ui/icons/NoteAdd';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
 import EventNote from '@material-ui/icons/EventNote';
 import Description from '@material-ui/icons/Description';
-
-import { useHistory } from 'react-router-dom';
-import { deleteToken } from './token'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },	
-  list: {
-    width: '250',
-  },
-}));
+import LocalShipping from '@material-ui/icons/LocalShipping';
 
 export const Navbar = () => {
   const history = useHistory();
-  const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     open: false,
   });
 
@@ -61,7 +43,6 @@ export const Navbar = () => {
 
 	const drawerList =(
 		<div 
-		className={classes.list}
 		role="presentation"
 		>
 	    <List onClick={toggleDrawer(false)}>
@@ -73,6 +54,11 @@ export const Navbar = () => {
 	          <ListItemIcon><Home/></ListItemIcon>
 	          <ListItemText primary={'Home'} />
 	        </ListItem> 
+
+          <ListItem component={Link} to={`/globals/distributors`} key={'Distrubtors'}>
+            <ListItemIcon><LocalShipping/></ListItemIcon>
+            <ListItemText primary={'Distrubtors'} />
+          </ListItem> 
 
           <ListItem key={'Store Orders'}>
             <ListItemIcon><ChromeReaderMode/></ListItemIcon>
@@ -119,36 +105,36 @@ export const Navbar = () => {
 	)
 
   return (
-    <div className={classes.root}>
+    <div >
       <AppBar position="static">
         <Toolbar>
           <IconButton 
           	onClick={toggleDrawer(!state['open'])} 
           	edge="start" 
-          	className={classes.menuButton} 
           	color="inherit" 
           	aria-label="Menu"
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" style={{flexGrow: 1}}>
             Rusticana
           </Typography>
+           
            <IconButton color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Badge badgeContent={0} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
 
-              <Button 
-                color="inherit"
-                onClick={() => {
-                  deleteToken()
-                  history.push('/login')
-                }}
-              >
-                Logout
-              </Button>
+            <Button 
+              color="inherit"
+              onClick={() => {
+                deleteToken()
+                history.push('/login')
+              }}
+            >
+              Logout
+            </Button>
 
         </Toolbar>
       </AppBar>

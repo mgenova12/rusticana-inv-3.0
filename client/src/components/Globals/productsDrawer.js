@@ -49,7 +49,7 @@ const ProductsDrawer = ({ categories, visible, currentProduct, onClose }) => {
           onClose={onClose}
       >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3 align="center">{currentProduct.name}</h3>
+        <h3 className="mr-2 ml-2" align="center">{currentProduct.name}</h3>
         <List >
         
         <ListItem>

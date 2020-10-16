@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_PRODUCTS } from './products.query'
 import { GET_CATEGORIES } from './category.query'
@@ -7,37 +7,29 @@ import { EDIT_PRODUCT } from './products.mutation'
 import { DELETE_PRODUCT } from './products.mutation'
 import MaterialTable from 'material-table';
 import ProductsDrawer from './productsDrawer.js'
+import NewProductDrawer from './newProductDrawer.js'
 
 const Products = () => {
-  console.log('render')
-  const {data: productsQuery, loading: productsQueryLoading } = useQuery(GET_PRODUCTS)
+  const {data: productsQuery, loading: productsQueryLoading, refetch: productsRetch } = useQuery(GET_PRODUCTS)
   const {data: categoriesQuery, loading: categoriesQueryLoading} = useQuery(GET_CATEGORIES)
   const {data: distributorsQuery, loading: distributorsQueryLoading} = useQuery(GET_DISTRIBUTORS)
   
-  const [ products, setProducts ] = useState(undefined);
   const [ currentProduct, setCurrentProduct ] = useState('');
-
-  useEffect(() => {
-    if(!productsQueryLoading && productsQuery){
-      setProducts(JSON.parse(JSON.stringify(productsQuery.products)));
-    }
-  }, [productsQuery, productsQueryLoading])
 
   const [visible, setVisible] = useState(false);
   const onOpen = useCallback(() => setVisible(true), []);
   const onClose = useCallback(() => setVisible(false), []);
 
-  const handleRowDelete = (oldData, products) => {
+  const [visibleNewProductDrawer, setVisibleNewProductDrawer] = useState(false);
+  const openNewProductDrawer = useCallback(() => setVisibleNewProductDrawer(true), []);
+  const closeNewProductDrawer = useCallback(() => setVisibleNewProductDrawer(false), []);  
+
+  const handleRowDelete = (oldData) => {
     deleteProduct({ 
       variables: { 
         id: parseInt(oldData.id)
       } 
-    })
-
-    const dataDelete = [...products];
-    const index = oldData.tableData.id;
-    dataDelete.splice(index, 1);
-    setProducts([...dataDelete]);
+    }).then(() => productsRetch())
   }
   
   const [editProduct] = useMutation(EDIT_PRODUCT);
@@ -86,11 +78,17 @@ const Products = () => {
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
-                  handleRowDelete(oldData, products)
+                  handleRowDelete(oldData)
                 }, 100);
               }), 
             }}
             actions={[
+              {
+                icon: "add_box",
+                tooltip: "add product",
+                position: "toolbar",
+                onClick: () => {openNewProductDrawer()}
+              },              
               {
                 icon: 'add',
                 tooltip: 'Add',
@@ -120,7 +118,7 @@ const Products = () => {
             { title: 'Final Price', field: 'markedUpPrice', editable: 'never', type: "currency" },
 
           ]}
-          data={products}           
+          data={JSON.parse(JSON.stringify(productsQuery.products))}           
         />
       
         <ProductsDrawer
@@ -129,7 +127,12 @@ const Products = () => {
           onClose={onClose}
           currentProduct={currentProduct}
         />  
-
+        <NewProductDrawer
+          visible={visibleNewProductDrawer} 
+          onClose={closeNewProductDrawer}
+          distributors={distributorsQuery.distributors}
+          categories={categoriesQuery.categories}
+        />  
     </div>
   )
 }
