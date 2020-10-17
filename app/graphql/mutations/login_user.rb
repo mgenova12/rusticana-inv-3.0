@@ -7,7 +7,7 @@ class Mutations::LoginUser < Mutations::BaseMutation
   field :errors, [String], null: false
 
   def resolve(email:, password:)
-    user = User.find_by(email: email)
+    user = User.find_by(email: email.downcase)
     
     return unless user
     return unless user.authenticate(password)

@@ -5,5 +5,6 @@ module Types
     field :create_prepped_product, mutation: Mutations::CreatePreppedProduct
     field :login_user, mutation: Mutations::LoginUser
     field :create_distributor, mutation: Mutations::CreateDistributor
+    field :create_product, mutation: Mutations::CreateProduct
   end
 end

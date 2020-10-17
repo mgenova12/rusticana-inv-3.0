@@ -46,19 +46,7 @@ export const DELETE_PRODUCT = gql`
     deleteProduct(input: { id: $id }) {
       product {
 		  	id
-		    name
-		    markUp
-		    caseQuantity
-		    price
-		    markedUpPrice
-		    category {
-		    	id
-		    	name
-		    }
-		    distributor {
-		    	id
-		    	name
-		    }	
+		    name	
       }
     	errors
     }
@@ -100,7 +88,43 @@ export const CREATE_PREPPED_PRODUCT = gql`
   }
 `;
 
-
+export const CREATE_PRODUCT = gql`
+  mutation createProduct(
+	  $name: String!,
+	  $distributorId: Int!,
+	  $categoryId: Int!,
+	  $caseQuantity: Int,
+	  $markUp: Int!, 
+	  $price: Float!, 
+	  $brand: String, 
+	  $unitSize: String, 
+	  $distributorNumber: String, 
+	  $barcode: Int,
+	  $aisleNumber: Int,
+	  $description: String,
+  ) {
+    createProduct(input: { 
+    	name: $name, 
+    	distributorId: $distributorId,
+    	categoryId: $categoryId,
+    	caseQuantity: $caseQuantity,
+    	markUp: $markUp,
+    	price: $price,
+    	brand: $brand,
+    	unitSize: $unitSize,
+    	distributorNumber: $distributorNumber,
+    	barcode: $barcode,
+    	aisleNumber: $aisleNumber,
+    	description: $description,
+    }) {
+      product {
+		  	id
+		    name
+      }
+    	errors
+    }
+  }
+`;
 
 
 

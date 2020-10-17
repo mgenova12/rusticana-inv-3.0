@@ -26,6 +26,8 @@ import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
 import EventNote from '@material-ui/icons/EventNote';
 import Description from '@material-ui/icons/Description';
 import LocalShipping from '@material-ui/icons/LocalShipping';
+import LocalPizza from '@material-ui/icons/LocalPizza';
+import Restaurant from '@material-ui/icons/Restaurant';
 
 export const Navbar = () => {
   const history = useHistory();
@@ -54,6 +56,16 @@ export const Navbar = () => {
 	          <ListItemIcon><Home/></ListItemIcon>
 	          <ListItemText primary={'Home'} />
 	        </ListItem> 
+
+          <ListItem component={Link} to={`/globals/products`} key={'Products'}>
+            <ListItemIcon><Restaurant/></ListItemIcon>
+            <ListItemText primary={'Products'} />
+          </ListItem>           
+
+          <ListItem component={Link} to={`/globals/prepped_products`} key={'Prepped Products'}>
+            <ListItemIcon><LocalPizza/></ListItemIcon>
+            <ListItemText primary={'Prepped Products'} />
+          </ListItem> 
 
           <ListItem component={Link} to={`/globals/distributors`} key={'Distrubtors'}>
             <ListItemIcon><LocalShipping/></ListItemIcon>

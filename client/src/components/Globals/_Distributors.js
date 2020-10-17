@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
-import DistributorsDrawer from './distributorsDrawer.js'
+import DistributorsDrawer from './_DistributorsDrawer.js'
 import { GET_DISTRIBUTORS } from './distributor.query'
 
 const Distributors = () => {

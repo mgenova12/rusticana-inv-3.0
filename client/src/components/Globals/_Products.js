@@ -6,8 +6,8 @@ import { GET_DISTRIBUTORS } from './distributor.query'
 import { EDIT_PRODUCT } from './products.mutation'
 import { DELETE_PRODUCT } from './products.mutation'
 import MaterialTable from 'material-table';
-import ProductsDrawer from './productsDrawer.js'
-import NewProductDrawer from './newProductDrawer.js'
+import ProductsDrawer from './_ProductsDrawer.js'
+import NewProductDrawer from './_NewProductDrawer.js'
 
 const Products = () => {
   const {data: productsQuery, loading: productsQueryLoading, refetch: productsRetch } = useQuery(GET_PRODUCTS)
@@ -132,6 +132,7 @@ const Products = () => {
           onClose={closeNewProductDrawer}
           distributors={distributorsQuery.distributors}
           categories={categoriesQuery.categories}
+          productsRetch={productsRetch}
         />  
     </div>
   )

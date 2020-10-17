@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import MuiAlert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
 import { useForm } from "react-hook-form";
 import { useMutation } from '@apollo/client';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import NumberFormat from 'react-number-format'
 import IconButton from '@material-ui/core/IconButton';
 import AddBox from '@material-ui/icons/AddBox';
-// import { CREATE_PRODUCT } from './products.mutation'
+import { CREATE_PRODUCT } from './products.mutation'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -31,18 +37,37 @@ function NumberFormatCustom(props) {
   );
 }
 
-const NewProductDrawer = ({ visible, onClose, distributors, categories }) => {
-  // const [createProduct = useMutation(CREATE_PRODUCT);
+const NewProductDrawer = ({ visible, onClose, distributors, categories, productsRetch }) => {
+  const [createProduct] = useMutation(CREATE_PRODUCT);
   
   const { register, handleSubmit, errors, setValue, reset } = useForm({mode: "onBlur"});
+
+  const [isOpen, setOpen] = useState(false);
+  const handleOpen = useCallback(() => setOpen(true), []);
+  const handleClose = useCallback(() => setOpen(false), []);
+
   
   const onSubmit = data => {
-    // createProduct({ 
-    //   variables: { 
-    //     name: data.name,
-    //   }
-    // });
+    var price = Number(data.price.replace(/[^0-9.-]+/g,""));
 
+    createProduct({ 
+      variables: { 
+        name: data.name,
+        distributorId: parseInt(data.distributorId),
+        categoryId: parseInt(data.categoryId),
+        caseQuantity: parseInt(data.caseQuantity),
+        markUp: parseInt(data.markUp),
+        price: price,
+        brand: data.brand,
+        unitSize: data.unitSize,
+        distributorNumber: data.distributorNumber,
+        barcode: parseInt(data.barcode),
+        aisleNumber: parseInt(data.aisleNumber),
+        description: data.description,
+      }
+    });
+    handleOpen()
+    productsRetch()
 		reset()
 		onClose()
   }
@@ -53,6 +78,20 @@ const NewProductDrawer = ({ visible, onClose, distributors, categories }) => {
 
   return (
     <div>
+      <Snackbar 
+        open={isOpen} 
+        autoHideDuration={6000} 
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}        
+      >
+        <Alert onClose={handleClose} severity="success">
+          Product has been saved!
+        </Alert>
+      </Snackbar>
+
 			<Drawer 
         open={visible}
         variant="temporary"
@@ -84,7 +123,7 @@ const NewProductDrawer = ({ visible, onClose, distributors, categories }) => {
             <TextField
                 select
                 label="Distributor"
-                name="distributor"
+                name="distributorId"
                 placeholder="Select a Distributor"
                 inputRef={register({required: true})}
                 error={errors.name ? true : false}                
