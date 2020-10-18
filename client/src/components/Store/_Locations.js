@@ -1,38 +1,42 @@
 import React, {useState, useCallback} from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
-import DistributorsDrawer from './_DistributorsDrawer.js'
-import { GET_DISTRIBUTORS } from './distributor.query'
-import { DELETE_DISTRIBUTOR } from './distributor.mutation'
+import NewLocationDrawer from './_NewLocationDrawer.js'
+import { GET_LOCATIONS } from './locations.query'
+import { DELETE_LOCATION } from './locations.mutation'
 
-const Distributors = () => {
-  const {data: distributorsQuery, loading: distributorsQueryLoading, refetch: distributorsRefetch} = useQuery(GET_DISTRIBUTORS)
+const Locations = ({...props}) => {
+  const {data: locationsQuery, loading: locationsQueryLoading, refetch: locationsRefetch} = useQuery(GET_LOCATIONS, {
+    variables: {
+      storeId: parseInt(props.match.params.storeId)
+    }
+  })
 
   const handleRowDelete = (oldData) => {
-    deleteDistributor({ 
+    deleteLocation({ 
       variables: { 
         id: parseInt(oldData.id)
       } 
-    }).then(() => distributorsRefetch())
-  }  
-  
-  const [deleteDistributor] = useMutation(DELETE_DISTRIBUTOR);
+    }).then(() => locationsRefetch())
+  }    
+
+  const [deleteLocation] = useMutation(DELETE_LOCATION);
 
   const [visible, setVisible] = useState(false);
   const onOpen = useCallback(() => setVisible(true), []);
   const onClose = useCallback(() => setVisible(false), []);
   
-  if (distributorsQueryLoading) return 'Loading...'
-
+  if (locationsQueryLoading) return 'Loading...'
+  
   return (
     <div>
  
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />         
+        />
         <MaterialTable
-          title="Distributors"
+          title="Locations"
           options={{
             paging: false,
             actionsColumnIndex: -1
@@ -45,11 +49,11 @@ const Distributors = () => {
                   handleRowDelete(oldData)
               }, 100);
             }), 
-          }}           
+          }}            
           actions={[
             {
               icon: "add_box",
-              tooltip: "add distributor",
+              tooltip: "add location",
               position: "toolbar",
               onClick: () => {onOpen()}
             }
@@ -58,18 +62,20 @@ const Distributors = () => {
             { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Name', field: 'name' },
           ]}
-          data={JSON.parse(JSON.stringify(distributorsQuery.distributors))}           
+          data={JSON.parse(JSON.stringify(locationsQuery.locations))}           
         />      	
-        <DistributorsDrawer
+        <NewLocationDrawer
           visible={visible} 
           onClose={onClose}
-          distributorsRefetch={distributorsRefetch}
-        />          
+          locationsRefetch={locationsRefetch}
+          storeId={props.match.params.storeId}
+
+        />            
     </div>
   )
 }
 
-export default Distributors
+export default Locations
 
 
 

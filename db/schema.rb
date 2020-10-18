@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_11_162637) do
+ActiveRecord::Schema.define(version: 2020_10_17_221351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,28 @@ ActiveRecord::Schema.define(version: 2020_10_11_162637) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "containers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "count_bies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "distributors", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.integer "store_id"
+    t.integer "row_order"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -53,6 +73,20 @@ ActiveRecord::Schema.define(version: 2020_10_11_162637) do
     t.integer "aisle_number"
     t.integer "days_till_expire"
     t.bigint "barcode"
+  end
+
+  create_table "store_goods", force: :cascade do |t|
+    t.integer "store_id"
+    t.integer "product_id"
+    t.integer "location_id"
+    t.integer "count_by_id"
+    t.integer "max_amount"
+    t.string "replenish_by"
+    t.string "delivery_day"
+    t.integer "amount_in_stock"
+    t.integer "container_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "stores", force: :cascade do |t|

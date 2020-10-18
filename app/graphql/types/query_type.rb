@@ -6,5 +6,8 @@ module Types
     field :distributors, resolver: Queries::Distributors
     field :categories, resolver: Queries::Categories
     field :prepcenters, resolver: Queries::Prepcenters
+    field :locations, resolver: Queries::Locations
+    field :store_goods, resolver: Queries::StoreGoods
+    field :store_products, resolver: Queries::StoreProducts
   end
 end

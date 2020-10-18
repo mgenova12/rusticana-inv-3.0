@@ -6,19 +6,20 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import { useForm } from "react-hook-form";
 import { useMutation } from '@apollo/client';
-import { CREATE_DISTRIBUTOR } from './distributor.mutation'
+import { CREATE_LOCATION } from './locations.mutation'
 
-const DistributorsDrawer = ({ visible, onClose, distributorsRefetch }) => {
-  const [createDistributor] = useMutation(CREATE_DISTRIBUTOR);
+const NewLocationDrawer = ({ visible, onClose, locationsRefetch, storeId }) => {
+  const [createLocation] = useMutation(CREATE_LOCATION);
   
   const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});
   
   const onSubmit = data => {
-    createDistributor({ 
+    createLocation({ 
       variables: { 
         name: data.name,
+        storeId: parseInt(storeId),
       }
-    }).then(() => distributorsRefetch())
+    }).then(() => locationsRefetch());
 		reset()
 		onClose()
   }
@@ -33,16 +34,16 @@ const DistributorsDrawer = ({ visible, onClose, distributorsRefetch }) => {
         onClose={onClose}
       >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3 className="mr-2 ml-2" align="center">Add New Distributor</h3>
+        <h3 className="mr-2 ml-2" align="center">Add New Location</h3>
         <List >
         
         <ListItem>
           <TextField
-              label="Distributor Name"
+              label="Location Name"
               name="name"
               inputRef={register({required: true})}
               error={errors.name ? true : false}
-              placeholder="Add Distributor Name"
+              placeholder="Add Location Name"
               fullWidth
               margin="normal"
               variant="outlined"
@@ -54,7 +55,7 @@ const DistributorsDrawer = ({ visible, onClose, distributorsRefetch }) => {
 
           <ListItem> 
            <Button type='submit' variant="contained" color="primary">
-                Save Distributor
+                Save Location
            </Button>
           </ListItem>
 
@@ -65,4 +66,4 @@ const DistributorsDrawer = ({ visible, onClose, distributorsRefetch }) => {
   );
 };
 
-export default DistributorsDrawer
+export default NewLocationDrawer

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from "react-router-dom";
 import { deleteToken } from './token'
 
 import AppBar from '@material-ui/core/AppBar';
@@ -29,7 +28,7 @@ import LocalShipping from '@material-ui/icons/LocalShipping';
 import LocalPizza from '@material-ui/icons/LocalPizza';
 import Restaurant from '@material-ui/icons/Restaurant';
 
-export const Navbar = () => {
+export const Navbar = ({...props}) => {
   const history = useHistory();
   const [state, setState] = useState({
     open: false,
@@ -39,11 +38,12 @@ export const Navbar = () => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, 'open': open });
   };
 
-	const drawerList =(
+  let path = props.match.path.split('/')[1]
+
+  const drawerList =(
 		<div 
 		role="presentation"
 		>
@@ -51,31 +51,34 @@ export const Navbar = () => {
 	        <ListItem>
 	          <ListItemText primary={'Rusticana'} />
 	        </ListItem>
-
 	        <ListItem component={Link} to={`/`} key={'Home'}>
 	          <ListItemIcon><Home/></ListItemIcon>
 	          <ListItemText primary={'Home'} />
 	        </ListItem> 
 
-          <ListItem component={Link} to={`/globals/products`} key={'Products'}>
-            <ListItemIcon><Restaurant/></ListItemIcon>
-            <ListItemText primary={'Products'} />
-          </ListItem>           
+          { path === 'globals' &&
+            <React.Fragment>
+              <ListItem component={Link} to={`/globals/products`} key={'Products'}>
+                <ListItemIcon><Restaurant/></ListItemIcon>
+                <ListItemText primary={'Products'} />
+              </ListItem>           
 
-          <ListItem component={Link} to={`/globals/prepped_products`} key={'Prepped Products'}>
-            <ListItemIcon><LocalPizza/></ListItemIcon>
-            <ListItemText primary={'Prepped Products'} />
-          </ListItem> 
+              <ListItem component={Link} to={`/globals/prepped_products`} key={'Prepped Products'}>
+                <ListItemIcon><LocalPizza/></ListItemIcon>
+                <ListItemText primary={'Prepped Products'} />
+              </ListItem> 
 
-          <ListItem component={Link} to={`/globals/distributors`} key={'Distrubtors'}>
-            <ListItemIcon><LocalShipping/></ListItemIcon>
-            <ListItemText primary={'Distrubtors'} />
-          </ListItem> 
+              <ListItem component={Link} to={`/globals/distributors`} key={'Distrubtors'}>
+                <ListItemIcon><LocalShipping/></ListItemIcon>
+                <ListItemText primary={'Distrubtors'} />
+              </ListItem> 
+            </React.Fragment>
+          }
 
           <ListItem key={'Store Orders'}>
             <ListItemIcon><ChromeReaderMode/></ListItemIcon>
             <ListItemText primary={'Store Orders'} />
-          </ListItem>  
+          </ListItem>
 
           <ListItem ket={'Inventory'}>
             <ListItemIcon><Description/></ListItemIcon>
@@ -92,7 +95,7 @@ export const Navbar = () => {
             <ListItemText primary={'Print Labels'} />
           </ListItem> 
 
-          <ListItem key={'Store Goods'}>
+          <ListItem key={'Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/store_goods`}>
             <ListItemIcon><LocalDining/></ListItemIcon>
             <ListItemText primary={'Store Goods'} />
           </ListItem>
@@ -102,12 +105,12 @@ export const Navbar = () => {
             <ListItemText primary={'Adjust Inventory'} />
           </ListItem>  
 
-          <ListItem key={'Add Store Goods'}>
+          <ListItem key={'Add Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/add_store_goods`}>
             <ListItemIcon><AddShoppingCart/></ListItemIcon>
             <ListItemText primary={'Add Store Goods'} />
           </ListItem>
 
-          <ListItem key={'Locations'}>
+          <ListItem key={'Locations'} component={Link} to={`/store/${props.match.params.storeId}/locations`}>
             <ListItemIcon><LocationCity/></ListItemIcon>
             <ListItemText primary={'Locations'} />
           </ListItem>

@@ -3,6 +3,9 @@ import Home from './components/Home';
 import Products from './components/Globals/_Products.js';
 import PreppedProducts from './components/Globals/_PreppedProducts.js';
 import Distributors from './components/Globals/_Distributors.js';
+import Locations from './components/Store/_Locations.js';
+import StoreGoods from './components/Store/_StoreGoods.js';
+import AddStoreGood from './components/Store/_AddStoreGood.js';
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -20,7 +23,7 @@ const PrivateRoute = ({ component: Component, nav, ...rest }) => {
         if (isLoggedIn) {
           return (
             <React.Fragment>
-              <Navbar />
+              <Navbar {...props}/>
               <Component {...props} />;
             </React.Fragment> 
           )
@@ -49,6 +52,10 @@ export const Routes = () => {
 	        <PrivateRoute exact path="/globals/products" component={Products}/>
           <PrivateRoute exact path="/globals/prepped_products" component={PreppedProducts} />
 	        <PrivateRoute exact path="/globals/distributors" component={Distributors} />
+          
+          <PrivateRoute exact path="/store/:storeId/locations" component={Locations} />
+          <PrivateRoute exact path="/store/:storeId/store_goods" component={StoreGoods} />
+          <PrivateRoute exact path="/store/:storeId/add_store_goods" component={AddStoreGood} />
       		
       		<Route exact path='/login' component={Login} />
       </Switch>

@@ -10,3 +10,16 @@ export const CREATE_DISTRIBUTOR = gql`
     }
   }
 `;
+
+export const DELETE_DISTRIBUTOR = gql`
+  mutation deleteDistributor($id: Int!) {
+    deleteDistributor(input: { id: $id }) {
+      distributor {
+		  	id
+		    name	
+      }
+    	errors
+    }
+  }
+`;
+
