@@ -95,25 +95,29 @@ export const Navbar = ({...props}) => {
             <ListItemText primary={'Print Labels'} />
           </ListItem> 
 
-          <ListItem key={'Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/store_goods`}>
-            <ListItemIcon><LocalDining/></ListItemIcon>
-            <ListItemText primary={'Store Goods'} />
-          </ListItem>
+          { path === 'store' &&
+          <React.Fragment>
+            <ListItem key={'Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/store_goods`}>
+              <ListItemIcon><LocalDining/></ListItemIcon>
+              <ListItemText primary={'Store Goods'} />
+            </ListItem>
 
-          <ListItem key={'Adjust Inventory'}>
-            <ListItemIcon><NoteAdd/></ListItemIcon>
-            <ListItemText primary={'Adjust Inventory'} />
-          </ListItem>  
+            <ListItem key={'Adjust Inventory'}>
+              <ListItemIcon><NoteAdd/></ListItemIcon>
+              <ListItemText primary={'Adjust Inventory'} />
+            </ListItem>  
 
-          <ListItem key={'Add Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/add_store_goods`}>
-            <ListItemIcon><AddShoppingCart/></ListItemIcon>
-            <ListItemText primary={'Add Store Goods'} />
-          </ListItem>
+            <ListItem key={'Add Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/add_store_goods`}>
+              <ListItemIcon><AddShoppingCart/></ListItemIcon>
+              <ListItemText primary={'Add Store Goods'} />
+            </ListItem>
 
-          <ListItem key={'Locations'} component={Link} to={`/store/${props.match.params.storeId}/locations`}>
-            <ListItemIcon><LocationCity/></ListItemIcon>
-            <ListItemText primary={'Locations'} />
-          </ListItem>
+            <ListItem key={'Locations'} component={Link} to={`/store/${props.match.params.storeId}/locations`}>
+              <ListItemIcon><LocationCity/></ListItemIcon>
+              <ListItemText primary={'Locations'} />
+            </ListItem>
+          </React.Fragment>
+          }
 
 	    </List>
     </div>

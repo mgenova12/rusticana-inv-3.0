@@ -12,7 +12,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { Navbar } from './navbar'
 
 
-const PrivateRoute = ({ component: Component, nav, ...rest }) => {
+const PrivateRoute = ({ component: Component, navbar, ...rest }) => {
   return (
     <Route
       {...rest}
@@ -24,7 +24,7 @@ const PrivateRoute = ({ component: Component, nav, ...rest }) => {
           return (
             <React.Fragment>
               <Navbar {...props}/>
-              <Component {...props} />;
+              <Component {...props} />
             </React.Fragment> 
           )
         } else {
@@ -49,6 +49,7 @@ export const Routes = () => {
       
       <Switch>
 	        <PrivateRoute exact path="/" component={Home}  />
+          
 	        <PrivateRoute exact path="/globals/products" component={Products}/>
           <PrivateRoute exact path="/globals/prepped_products" component={PreppedProducts} />
 	        <PrivateRoute exact path="/globals/distributors" component={Distributors} />

@@ -9,5 +9,7 @@ module Types
     field :locations, resolver: Queries::Locations
     field :store_goods, resolver: Queries::StoreGoods
     field :store_products, resolver: Queries::StoreProducts
+    field :count_bies, resolver: Queries::CountBies
+    field :containers, resolver: Queries::Containers
   end
 end

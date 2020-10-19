@@ -8,13 +8,19 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_STORE_GOOD } from './storeGoods.mutation'
 import { GET_LOCATIONS } from './locations.query'
+import { GET_COUNT_BIES } from './countBy.query'
+import { GET_CONTAINERS } from './container.query'
+import { GET_DISTRIBUTORS } from '../Globals/distributor.query'
 
 const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, currentProduct }) => {
-  const {data: locationsQuery, loading: locationsQueryLoading, refetch: locationsRefetch} = useQuery(GET_LOCATIONS, {
+  const {data: locationsQuery, loading: locationsQueryLoading} = useQuery(GET_LOCATIONS, {
     variables: {
       storeId: parseInt(storeId)
     }
   })
+  const {data: distributorsQuery, loading: distributorsQueryLoading} = useQuery(GET_DISTRIBUTORS)
+  const {data: countBiesQuery, loading: countBiesQueryLoading} = useQuery(GET_COUNT_BIES)
+  const {data: containersQuery, loading: containersQueryLoading} = useQuery(GET_CONTAINERS)
 
   const [createStoreGood] = useMutation(CREATE_STORE_GOOD);
   
@@ -39,6 +45,9 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
   }
 
   if (locationsQueryLoading) return 'Loading...'
+  if (distributorsQueryLoading) return 'Loading...'
+  if (countBiesQueryLoading) return 'Loading...'
+  if (containersQueryLoading) return 'Loading...'
 
   return (
     <div>
@@ -93,7 +102,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
                 locationsQuery.locations.map(location => {
                   return <option key={location.id} value={location.id}>{location.name}</option>
                 })
-              }
+              }              
             </TextField>          
           </ListItem>
 
@@ -116,6 +125,11 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
                 }}              
               >
               <option key='' value=''></option>
+              {
+                distributorsQuery.distributors.map(distributor => {
+                  return <option key={distributor.id} value={distributor.id}>{distributor.name}</option>
+                })
+              }              
             </TextField>          
           </ListItem>
 
@@ -164,7 +178,11 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
                 }}              
               >
               <option key='' value=''></option>
-
+              {
+                countBiesQuery.countBies.map(countBy => {
+                  return <option key={countBy.id} value={countBy.id}>{countBy.name}</option>
+                })
+              }
             </TextField>           
           </ListItem>
 
@@ -187,12 +205,17 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
                 }}              
               >
               <option key='' value=''></option>
+              {
+                countBiesQuery.countBies.map(countBy => {
+                  return <option key={countBy.id} value={countBy.name}>{countBy.name}</option>
+                })
+              }              
             </TextField>          
           </ListItem>
 
           <ListItem>
             <TextField
-                inputRef={register}
+                inputRef={register} 
                 select
                 label="Container Type"
                 name="containerId"
@@ -208,7 +231,11 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
                 }}              
               >
               <option key='' value=''></option>
-
+              {
+                containersQuery.containers.map(container => {
+                  return <option key={container.id} value={container.id}>{container.name}</option>
+                })
+              } 
             </TextField>          
           </ListItem>
 
