@@ -64,11 +64,11 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
         
           <ListItem>
             <TextField
-                inputRef={register({required: true})}
-                error={errors.name ? true : false}              
                 type="number"
                 label="Max Amount"
                 name="maxAmount"
+                inputRef={register({required: true})}
+                error={errors.name ? true : false}              
                 placeholder="Max Amount"
                 fullWidth
                 margin="normal"

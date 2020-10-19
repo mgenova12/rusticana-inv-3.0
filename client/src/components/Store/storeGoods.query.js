@@ -10,6 +10,10 @@ import { gql } from '@apollo/client';
 	        barcode
 	        prepped
 	      }
+	      container {
+	      	id
+	      	name
+	      }
 	      location {
 	        id
 	        name

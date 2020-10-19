@@ -1,29 +1,39 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
-d = ["HOLT",
-"WALMART",
-"SYSCO",
-"US FOODS", 
-"TRAPPE",
-"JETRO [RESTAURANT DEPOT]",
-"FERRARA FOODS",
-"TEDDY BEAR FRESH",
-"AMAZON",
-"SAMS CLUB",
-"WALMART",
-"WEBSTAURANT STORE",
-"COCA COLA"]
+d = [
+  "HOLT",
+  "WALMART",
+  "SYSCO",
+  "US FOODS", 
+  "TRAPPE",
+  "JETRO [RESTAURANT DEPOT]",
+  "FERRARA FOODS",
+  "TEDDY BEAR FRESH",
+  "AMAZON",
+  "SAMS CLUB",
+  "WALMART",
+  "WEBSTAURANT STORE",
+  "COCA COLA"
+]
 
 d.each do |x|
   Distributor.create!(name:x)
 end
 
-y = ["Dry", "Frozen", "Refrigerated"]
+cat = ["Dry", "Frozen", "Refrigerated"]
 
-y.each do |x|
+cat.each do |x|
   Category.create!(name:x)
 end
+
+cb = ['%', 'EA', 'BIN', 'SLEEVE', 'CASE']
+
+cb.each do |x|
+  CountBy.create!(name:x)
+end
+
+
 
 
 Product.all.destroy_all

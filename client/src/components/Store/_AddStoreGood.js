@@ -17,7 +17,6 @@ const AddStoreGood = ({...props}) => {
   const onClose = useCallback(() => setVisible(false), []);
   
   if (storeProductsQueryLoading) return 'Loading...'
-
   return (
     <div>
         <link
