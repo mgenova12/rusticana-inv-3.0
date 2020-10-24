@@ -46,6 +46,7 @@ const StoreGoods = ({...props}) => {
   let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
   let countBiesLookup = countBiesQuery.countBies.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
   let containerLookup = containersQuery.containers.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
+  let replenishByLookup = countBiesQuery.countBies.reduce((obj, item) => (obj[item.name] = item.name, obj) ,{}); 
 
   return (
     <div>
@@ -105,16 +106,19 @@ const StoreGoods = ({...props}) => {
                 lookup: distributorsLookup
               },
               { title: 'Amount In Stock', field: 'amountInStock' },
-              { title: 'Count By', 
+              { 
+                title: 'Count By', 
                 field: 'countBy.id',
                 lookup: countBiesLookup
               },
               { title: 'Max Amount', field: 'maxAmount' },
-              { title: 'Replenish By', 
-                field: 'countBy.id',
-                lookup: countBiesLookup
+              { 
+                title: 'Replenish By', 
+                field: 'replenishBy',
+                lookup: replenishByLookup
               },
-              { title: 'Container', 
+              { 
+                title: 'Container', 
                 field: 'container.id',
                 lookup: containerLookup
               },              

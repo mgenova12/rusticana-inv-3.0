@@ -1,4 +1,5 @@
 class StoreGood < ApplicationRecord
+  has_many :inventories
   belongs_to :store
   belongs_to :product
   belongs_to :location

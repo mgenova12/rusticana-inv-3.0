@@ -68,7 +68,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
                 label="Max Amount"
                 name="maxAmount"
                 inputRef={register({required: true})}
-                error={errors.name ? true : false}              
+                error={errors.maxAmount ? true : false}              
                 placeholder="Max Amount"
                 fullWidth
                 margin="normal"
@@ -82,7 +82,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
           <ListItem>
             <TextField
                 inputRef={register({required: true})}
-                error={errors.name ? true : false}              
+                error={errors.locationId ? true : false}              
                 select
                 label="Location"
                 name="locationId"
@@ -109,7 +109,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
           <ListItem>
             <TextField
                 inputRef={register({required: true})}
-                error={errors.name ? true : false}              
+                error={errors.distributorId ? true : false}              
                 select
                 label="Local Distributor"
                 name="distributorId"
@@ -136,7 +136,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
           <ListItem>
             <TextField
                 inputRef={register({required: true})}
-                error={errors.name ? true : false}             
+                error={errors.deliveryDay ? true : false}             
                 select
                 label="Delivery Day"
                 name="deliveryDay"
@@ -162,7 +162,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
           <ListItem>
             <TextField
                 inputRef={register({required: true})}
-                error={errors.name ? true : false}              
+                error={errors.countById ? true : false}              
                 select
                 label="Count By"
                 name="countById"
@@ -189,7 +189,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
           <ListItem>
             <TextField
                 inputRef={register({required: true})}
-                error={errors.name ? true : false}              
+                error={errors.replenishBy ? true : false}              
                 select
                 label="Replenish By"
                 name="replenishBy"

@@ -80,7 +80,7 @@ export const Navbar = ({...props}) => {
             <ListItemText primary={'Store Orders'} />
           </ListItem>
 
-          <ListItem ket={'Inventory'}>
+          <ListItem key={'Start Inventory'} component={Link} to={`/store/${props.match.params.storeId}/start_inventory`}>
             <ListItemIcon><Description/></ListItemIcon>
             <ListItemText primary={'Start Inventory'} />
           </ListItem> 

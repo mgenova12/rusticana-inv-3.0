@@ -3,7 +3,7 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"engines": {
-		"node":"11.10.1",
+		"node":"14.13.0",
 		"yarn": "1.12.3"
 	},
 	"scripts": {

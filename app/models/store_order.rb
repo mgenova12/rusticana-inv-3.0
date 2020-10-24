@@ -1,0 +1,3 @@
+class StoreOrder < ApplicationRecord
+  has_many :orders
+end
