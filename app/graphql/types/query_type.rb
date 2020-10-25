@@ -11,5 +11,7 @@ module Types
     field :store_products, resolver: Queries::StoreProducts
     field :count_bies, resolver: Queries::CountBies
     field :containers, resolver: Queries::Containers
+    field :order_status, resolver: Queries::OrderStatus
+    field :inventories, resolver: Queries::Inventories
   end
 end

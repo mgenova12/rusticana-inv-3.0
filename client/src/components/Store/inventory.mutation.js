@@ -7,3 +7,12 @@ export const CREATE_INVENTORY = gql`
     }
   }
 `;
+
+
+export const DELETE_INVENTORY = gql`
+  mutation deleteInventory($orderId: Int!) {
+    deleteInventory(input: { orderId: $orderId }) {
+    	errors
+    }
+  }
+`;

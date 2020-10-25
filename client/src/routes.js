@@ -7,20 +7,23 @@ import Locations from './components/Store/_Locations.js';
 import StoreGoods from './components/Store/_StoreGoods.js';
 import AddStoreGood from './components/Store/_AddStoreGood.js';
 import StartInventory from './components/Store/_StartInventory.js';
+import Inventory from './components/Store/_Inventory.js';
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Navbar } from './navbar'
 
 
-const PrivateRoute = ({ component: Component, navbar, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props => {
       	console.log(props)
-      	console.log(`isAuth - ${!!getToken()}`)
-      	const isLoggedIn = !!getToken();
+        console.log(props.match.params)
+
+      	
+        const isLoggedIn = !!getToken();
         if (isLoggedIn) {
           return (
             <React.Fragment>
@@ -55,10 +58,14 @@ export const Routes = () => {
           <PrivateRoute exact path="/globals/prepped_products" component={PreppedProducts} />
 	        <PrivateRoute exact path="/globals/distributors" component={Distributors} />
           
+
           <PrivateRoute exact path="/store/:storeId/locations" component={Locations} />
           <PrivateRoute exact path="/store/:storeId/store_goods" component={StoreGoods} />
           <PrivateRoute exact path="/store/:storeId/add_store_goods" component={AddStoreGood} />
           <PrivateRoute exact path="/store/:storeId/start_inventory" component={StartInventory} />
+
+          <PrivateRoute exact path="/store/:storeId/inventory" component={Inventory} />
+
       		
       		<Route exact path='/login' component={Login} />
       </Switch>

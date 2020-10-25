@@ -13,5 +13,6 @@ module Types
     field :create_store_good, mutation: Mutations::CreateStoreGood
     field :edit_store_good, mutation: Mutations::EditStoreGood
     field :create_inventory, mutation: Mutations::CreateInventory
+    field :delete_inventory, mutation: Mutations::DeleteInventory
   end
 end

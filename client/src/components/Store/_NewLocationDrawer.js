@@ -9,9 +9,9 @@ import { useMutation } from '@apollo/client';
 import { CREATE_LOCATION } from './locations.mutation'
 
 const NewLocationDrawer = ({ visible, onClose, locationsRefetch, storeId }) => {
-  const [createLocation] = useMutation(CREATE_LOCATION);
-  
   const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});
+
+  const [createLocation] = useMutation(CREATE_LOCATION);
   
   const onSubmit = data => {
     createLocation({ 
