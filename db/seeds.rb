@@ -33,8 +33,10 @@ cb.each do |x|
   CountBy.create!(name:x)
 end
 
-
-
+con = ['GREEN', 'RED','GREY','BLUE','BASKET','BULK FROZEN','BULK DRY','BULK REFRIGERATED']
+con.each do |x|
+  Container.create!(name:x)
+end
 
 Product.all.destroy_all
 

@@ -4,28 +4,47 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { GET_LOCATIONS } from './locations.query'
 import { GET_INVENTORY} from './inventory.query'
+import { EDIT_INVENTORY_QUANTITY} from './inventory.mutation'
+import { EDIT_INVENTORY_QUANTITY_NEEDED} from './inventory.mutation'
 import { useForm } from "react-hook-form";
 
 const Inventory = ({...props}) => {
   const { register, handleSubmit, errors, getValues } = useForm({mode: "onBlur"});
+  const [editInventoryQuantity] = useMutation(EDIT_INVENTORY_QUANTITY);
+  const [editInventoryQuantityNeeded] = useMutation(EDIT_INVENTORY_QUANTITY_NEEDED);
 
-  const {data: inventoryQuery, loading: inventoryQueryLoading, refetch: inventoryRefetch} = useQuery(GET_INVENTORY, {
+  const {data: inventoryQuery, loading: inventoryQueryLoading} = useQuery(GET_INVENTORY, {
+    fetchPolicy: "network-only",
     variables: {
       storeId: parseInt(props.match.params.storeId)
     }
   })
-  const {data: locationsQuery, loading: locationsQueryLoading, refetch: locationsRefetch} = useQuery(GET_LOCATIONS, {
+  const {data: locationsQuery, loading: locationsQueryLoading} = useQuery(GET_LOCATIONS, {
+    fetchPolicy: "network-only",
     variables: {
       storeId: parseInt(props.match.params.storeId)
     }
   })
 
   const handleSave = (inventoryId) => {
-    let quantity = getValues(inventoryId)
-    console.log(quantity)
+    let quantity = parseInt(getValues(inventoryId))
+
+    if (Number.isInteger(quantity)){
+      editInventoryQuantity({
+        variables: { 
+          inventoryId: parseInt(inventoryId),
+          quantity: quantity
+        }
+      }); 
+    }
   }
 
   const onSubmit = data => {
+    editInventoryQuantityNeeded({
+      variables: { 
+        storeId: parseInt(props.match.params.storeId),
+      }
+    }).then(() => props.history.push(`/store/${props.match.params.storeId}/inventory_success`)); 
     console.log(data)
   }
   
@@ -62,6 +81,7 @@ const Inventory = ({...props}) => {
                           pattern="\d*"
                           type="number"
                           label="Quantity"
+                          defaultValue={inventory.quantity}
                           name={inventory.id}
                           fullWidth
                           margin="normal"
@@ -80,6 +100,7 @@ const Inventory = ({...props}) => {
                           select
                           label="Quantity"
                           name={inventory.id}
+                          defaultValue={inventory.quantity}
                           placeholder="Select Quantity"
                           fullWidth
                           margin="normal"

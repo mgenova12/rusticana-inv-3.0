@@ -12,6 +12,7 @@ const StartInventory = ({...props}) => {
   const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});
   
   const {data: orderStatusQuery, loading: orderStatusQueryLoading, refetch: orderStatusRefetch} = useQuery(GET_ORDER_STATUS, {
+    fetchPolicy: "network-only",
     variables: {
       storeId: parseInt(props.match.params.storeId)
     }

@@ -16,3 +16,20 @@ export const DELETE_INVENTORY = gql`
     }
   }
 `;
+
+export const EDIT_INVENTORY_QUANTITY = gql`
+  mutation editInventoryQuantity($inventoryId: Int!, $quantity: Int!) {
+    editInventoryQuantity(input: {inventoryId: $inventoryId, quantity: $quantity }) {
+      errors   
+    }
+  }
+`;
+
+
+export const EDIT_INVENTORY_QUANTITY_NEEDED = gql`
+  mutation editInventoryQuantityNeeded($storeId: Int!) {
+    editInventoryQuantityNeeded(input: {storeId: $storeId }) {
+      errors   
+    }
+  }
+`;
