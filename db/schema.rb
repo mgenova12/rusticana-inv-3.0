@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2020_10_24_181806) do
     t.integer "store_id"
     t.integer "product_id"
     t.integer "location_id"
-    t.integer "count_by_id"
+    t.integer "count_by_id" 
     t.integer "max_amount"
     t.string "replenish_by"
     t.string "delivery_day"
