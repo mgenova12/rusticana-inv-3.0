@@ -8,7 +8,7 @@ module Types
     field :price, Float, null: true
     field :mark_up, Integer, null: true
     field :prepped, Boolean, null: true
-    field :barcode, BigInt, null: true
+    field :barcode, ID, null: true
     field :description, String, null: true
     field :distributor_number, String, null: true
     field :brand, String, null: true
