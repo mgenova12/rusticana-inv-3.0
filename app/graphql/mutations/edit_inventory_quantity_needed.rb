@@ -6,8 +6,8 @@ class Mutations::EditInventoryQuantityNeeded < Mutations::BaseMutation
   def resolve(store_id:)
     inventories = Inventory.where(store_id: store_id, status: 'pending')
 
-    order_id = inventories.first.order_id
-    Order.find(order_id).update(status: 'pending')
+    order = Store.find(store_id).orders.find_by(status: 'incomplete')
+    order.update(status: 'pending')
     
     inventories.each do |inventory|
       store_good = inventory.store_good

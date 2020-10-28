@@ -18,7 +18,7 @@ const StartInventory = ({...props}) => {
     }
   })
 
-  const [createInventory] = useMutation(CREATE_INVENTORY);
+  const [createInventory, { loading: createInventoryLoading }] = useMutation(CREATE_INVENTORY);
   const [deleteInventory] = useMutation(DELETE_INVENTORY);
 
   const handleDeleteInventory = () => {
@@ -28,6 +28,7 @@ const StartInventory = ({...props}) => {
           orderId: parseInt(orderStatusQuery.orderStatus.id)
         }
       }).then(() => orderStatusRefetch());
+
     }
   }
 
@@ -45,6 +46,7 @@ const StartInventory = ({...props}) => {
   }
 
   if (orderStatusQueryLoading) return 'Loading...'
+  if (createInventoryLoading) return 'Loading...'
 
   return (
     <Container component="main" maxWidth="sm">
@@ -97,7 +99,6 @@ const StartInventory = ({...props}) => {
         </div>
 
       )}
-
 
     </Container>
   )

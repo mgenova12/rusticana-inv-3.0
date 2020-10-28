@@ -9,9 +9,9 @@ import { EDIT_INVENTORY_QUANTITY_NEEDED} from './inventory.mutation'
 import { useForm } from "react-hook-form";
 
 const Inventory = ({...props}) => {
-  const { register, handleSubmit, errors, getValues } = useForm({mode: "onBlur"});
+  const { register, handleSubmit, errors, getValues } = useForm({mode: "onChange"});
   const [editInventoryQuantity] = useMutation(EDIT_INVENTORY_QUANTITY);
-  const [editInventoryQuantityNeeded] = useMutation(EDIT_INVENTORY_QUANTITY_NEEDED);
+  const [editInventoryQuantityNeeded, { loading: inventoryQuantityNeededLoading }] = useMutation(EDIT_INVENTORY_QUANTITY_NEEDED);
 
   const {data: inventoryQuery, loading: inventoryQueryLoading} = useQuery(GET_INVENTORY, {
     fetchPolicy: "network-only",
@@ -39,17 +39,26 @@ const Inventory = ({...props}) => {
     }
   }
 
+  const handleEnter = (event) =>  {
+    if (event.keyCode === 13) {
+      var form = event.target.form;
+      var index = Array.prototype.indexOf.call(form, event.target);
+      form.elements[index + 2].focus();
+      event.preventDefault();
+    }
+  }
+
   const onSubmit = data => {
     editInventoryQuantityNeeded({
       variables: { 
         storeId: parseInt(props.match.params.storeId),
       }
     }).then(() => props.history.push(`/store/${props.match.params.storeId}/inventory_success`)); 
-    console.log(data)
   }
   
   if (inventoryQueryLoading) return 'Loading...'
   if (locationsQueryLoading) return 'Loading...'
+  if (inventoryQuantityNeededLoading) return 'Loading...'
   
   return (
     <div>
@@ -79,6 +88,7 @@ const Inventory = ({...props}) => {
                           error={errors[inventory.id] ? true : false} 
                           onChange={() => handleSave(inventory.id)}                    
                           pattern="\d*"
+                          onKeyDown={handleEnter}
                           type="number"
                           label="Quantity"
                           defaultValue={inventory.quantity}
@@ -96,7 +106,8 @@ const Inventory = ({...props}) => {
                         <TextField
                           inputRef={register({required: true})}
                           error={errors[inventory.id] ? true : false}    
-                          onChange={() => handleSave(inventory.id)}                          
+                          onChange={() => handleSave(inventory.id)}
+                          onKeyDown={handleEnter}                          
                           select
                           label="Quantity"
                           name={inventory.id}
