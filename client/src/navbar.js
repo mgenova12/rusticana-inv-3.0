@@ -75,25 +75,33 @@ export const Navbar = ({...props}) => {
             </React.Fragment>
           }
 
-          <ListItem key={'Store Orders'}>
-            <ListItemIcon><ChromeReaderMode/></ListItemIcon>
-            <ListItemText primary={'Store Orders'} />
-          </ListItem>
+          { path === 'prepcenter' &&
+            <ListItem key={'Store Orders'}>
+              <ListItemIcon><ChromeReaderMode/></ListItemIcon>
+              <ListItemText primary={'Store Orders'} />
+            </ListItem>
+          }
 
-          <ListItem key={'Start Inventory'} component={Link} to={`/store/${props.match.params.storeId}/start_inventory`}>
-            <ListItemIcon><Description/></ListItemIcon>
-            <ListItemText primary={'Start Inventory'} />
-          </ListItem> 
+          { (path === 'prepcenter' || path === 'store') &&
+            <React.Fragment>
+              <ListItem key={'Start Inventory'} component={Link} to={`/store/${props.match.params.storeId}/start_inventory`}>
+                <ListItemIcon><Description/></ListItemIcon>
+                <ListItemText primary={'Start Inventory'} />
+              </ListItem> 
 
-          <ListItem  key={'Orders'}>
-            <ListItemIcon><EventNote/></ListItemIcon>
-            <ListItemText primary={'Submitted Inventory'} />
-          </ListItem>                          
+              <ListItem  key={'Orders'} component={Link} to={`/store/${props.match.params.storeId}/orders`}>
+                <ListItemIcon><EventNote/></ListItemIcon>
+                <ListItemText primary={'Submitted Inventory'} />
+              </ListItem> 
+            </React.Fragment>
+          }
 
-          <ListItem key={'Print Labels'}>
-            <ListItemIcon><Print/></ListItemIcon>
-            <ListItemText primary={'Print Labels'} />
-          </ListItem> 
+          { path === 'prepcenter' &&
+            <ListItem key={'Print Labels'}>
+              <ListItemIcon><Print/></ListItemIcon>
+              <ListItemText primary={'Print Labels'} />
+            </ListItem> 
+          } 
 
           { path === 'store' &&
           <React.Fragment>
@@ -123,18 +131,23 @@ export const Navbar = ({...props}) => {
     </div>
 	)
 
+
   return (
     <div >
       <AppBar position="static">
         <Toolbar>
-          <IconButton 
-          	onClick={toggleDrawer(!state['open'])} 
-          	edge="start" 
-          	color="inherit" 
-          	aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
+
+          { path !== '' &&
+            <IconButton 
+            	onClick={toggleDrawer(!state['open'])} 
+            	edge="start" 
+            	color="inherit" 
+            	aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+          }
+
           <Typography variant="h6" style={{flexGrow: 1}}>
             Rusticana
           </Typography>

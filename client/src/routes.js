@@ -9,6 +9,8 @@ import AddStoreGood from './components/Store/_AddStoreGood.js';
 import StartInventory from './components/Store/_StartInventory.js';
 import Inventory from './components/Store/_Inventory.js';
 import InventorySuccess from './components/Store/_InventorySuccess.js';
+import Orders from './components/Store/_Orders.js';
+import Order from './components/Store/_Order.js';
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -67,6 +69,9 @@ export const Routes = () => {
 
           <PrivateRoute exact path="/store/:storeId/inventory" component={Inventory} />
           <PrivateRoute exact path="/store/:storeId/inventory_success" component={InventorySuccess} />
+
+          <PrivateRoute exact path="/store/:storeId/orders" component={Orders} />
+          <PrivateRoute exact path="/store/:storeId/orders/:orderId" component={Order} />
 
       		
       		<Route exact path='/login' component={Login} />

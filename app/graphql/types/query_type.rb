@@ -13,5 +13,6 @@ module Types
     field :containers, resolver: Queries::Containers
     field :order_status, resolver: Queries::OrderStatus
     field :inventories, resolver: Queries::Inventories
+    field :orders, resolver: Queries::Orders
   end
 end

@@ -7,7 +7,7 @@ module Queries
     type [Types::InventoryType], null: false
 
     def resolve(store_id:)
-      Inventory.where(store_id: store_id, status: 'pending').order(:location_id)
+      Inventory.where(store_id: store_id, status: 'pending').order(:created_at)
     end
   end
 end
