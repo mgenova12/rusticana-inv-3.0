@@ -14,5 +14,6 @@ module Types
     field :order_status, resolver: Queries::OrderStatus
     field :inventories, resolver: Queries::Inventories
     field :orders, resolver: Queries::Orders
+    field :order_inventories, resolver: Queries::OrderInventories
   end
 end

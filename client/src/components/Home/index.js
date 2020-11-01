@@ -32,7 +32,7 @@ const Home = () => {
     	<h4>Stores</h4>
       <List component="nav">
 	      {storesQuery.stores.map(store => 
-	        <ListItem key={store.id} button className="border" component={Link} to={`store/${store.id}/store_goods`}>
+	        <ListItem key={store.id} button className="border" component={Link} to={`store/${store.id}/orders`}>
 	          <ListItemText primary={store.name} />
 	        </ListItem>
 	      )}	

@@ -1,10 +1,10 @@
-import React, {useState, useCallback} from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import React from 'react';
+import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
 import { GET_ORDERS } from './orders.query'
 
 const Orders = ({...props}) => {
-  const {data: ordersQuery, loading: ordersQueryLoading, refetch: ordersRefetch} = useQuery(GET_ORDERS, {
+  const {data: ordersQuery, loading: ordersQueryLoading} = useQuery(GET_ORDERS, {
     fetchPolicy: "network-only",
     variables: {
       storeId: parseInt(props.match.params.storeId)
@@ -12,7 +12,9 @@ const Orders = ({...props}) => {
   })
 
   const handleRowClick = (event, rowData) => {
-    props.history.push(`/store/${props.match.params.storeId}/orders/${rowData.id}`)
+    if (rowData.status !== 'incomplete') {
+      props.history.push(`/store/${props.match.params.storeId}/orders/${rowData.id}`)
+    }
   }
 
   if (ordersQueryLoading) return 'Loading...'
