@@ -9,6 +9,7 @@ import AddStoreGood from './components/Store/_AddStoreGood.js';
 import StartInventory from './components/Store/_StartInventory.js';
 import Inventory from './components/Store/_Inventory.js';
 import InventorySuccess from './components/Store/_InventorySuccess.js';
+import StoreOrders from './components/Prepcenter/_StoreOrders.js';
 import Orders from './components/Store/_Orders.js';
 import Order from './components/Store/_Order.js';
 import Login from './components/Auth/Login.js';
@@ -72,6 +73,8 @@ export const Routes = () => {
 
           <PrivateRoute exact path="/store/:storeId/orders" component={Orders} />
           <PrivateRoute exact path="/store/:storeId/orders/:orderId" component={Order} />
+
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders" component={StoreOrders} />
 
       		
       		<Route exact path='/login' component={Login} />

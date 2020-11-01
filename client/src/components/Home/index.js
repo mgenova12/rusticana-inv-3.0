@@ -41,7 +41,7 @@ const Home = () => {
     	<h4>Prepcenters</h4>
       <List component="nav">
         {prepcentersQuery.prepcenters.map(prepcenter => 
-          <ListItem key={prepcenter.id} button className="border" component={Link} to={`prepcenter/${prepcenter.id}`}>
+          <ListItem key={prepcenter.id} button className="border" component={Link} to={`prepcenter/${prepcenter.id}/store_orders`}>
             <ListItemText primary={prepcenter.name} />
           </ListItem>
         )}  

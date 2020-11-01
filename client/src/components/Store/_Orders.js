@@ -35,7 +35,9 @@ const Orders = ({...props}) => {
           }}          
           columns={[
             { title: 'ID', field: 'id', editable: 'never' },
-            { title: 'Time Placed', field: 'createdAt' },
+            { title: 'Time Placed', field: 'createdAt', 
+              render: row => <span>{ new Date(row["createdAt"]).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
+            },
             { title: 'Store', field: 'store.name' },
             { title: 'Delivery Day', field: 'deliveryDay' },
             { title: 'Status', field: 'status' },

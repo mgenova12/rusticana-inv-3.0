@@ -76,13 +76,13 @@ export const Navbar = ({...props}) => {
           }
 
           { path === 'prepcenter' &&
-            <ListItem key={'Store Orders'}>
+            <ListItem key={'Store Orders'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/store_orders`}>
               <ListItemIcon><ChromeReaderMode/></ListItemIcon>
               <ListItemText primary={'Store Orders'} />
             </ListItem>
           }
 
-          { (path === 'prepcenter' || path === 'store') &&
+          { ( path === 'store') &&
             <React.Fragment>
               <ListItem key={'Start Inventory'} component={Link} to={`/store/${props.match.params.storeId}/start_inventory`}>
                 <ListItemIcon><Description/></ListItemIcon>
