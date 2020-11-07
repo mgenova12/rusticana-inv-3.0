@@ -8,6 +8,15 @@ const StoreOrders = ({...props}) => {
 
   const {data: storeOrdersQuery, loading: storeOrdersQueryLoading} = useQuery(GET_STORE_ORDERS)
 
+  const handleRowClick = (event, rowData) => {
+    props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}`)
+  }
+
+  const handleOrderClick = (event, order) => {
+    event.stopPropagation()
+    props.history.push(`/prepcenter/${props.match.params.prepcenterId}/orders/${order.id}`)
+  }
+
   if (storeOrdersQueryLoading) return 'Loading...'
 
   return (
@@ -19,7 +28,7 @@ const StoreOrders = ({...props}) => {
         />
         <MaterialTable
           title="Store Orders"
-
+          onRowClick={handleRowClick}
           options={{
             paging: false,
             actionsColumnIndex: -1,
@@ -30,19 +39,21 @@ const StoreOrders = ({...props}) => {
               title: 'Stores',
               field: 'url',
               render: rowData => (
+                
                 rowData.orders.map((order) => 
                   <span key={order.id}>
-                   <Avatar>{order.store.name[0]}</Avatar>
+                   <Avatar onClick={(e) => handleOrderClick(e, order)}>{order.store.name[0]}</Avatar>
                   </span>
                 )
+
               )
-            },            
+            },
             { title: 'Delivery Day', field: 'deliveryDate',
-              render: row => <span>{ new Date(row["deliveryDate"]).toLocaleDateString([], "en-US", { weekday: 'long'})}</span>
+              render: row => <span>{ new Date(row["deliveryDate"].replace(/-/g, '/')).toLocaleDateString([], "en-US", { weekday: 'long'})}</span>
             },
             { title: 'Status', field: 'status' },
             { title: 'Last Updated', field: 'updatedAt',
-              render: row => <span>{ new Date(row["updatedAt"]).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
+              render: row => <span>{ new Date(row["updatedAt"].replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
             },
           ]}
           data={JSON.parse(JSON.stringify(storeOrdersQuery.storeOrders))}           

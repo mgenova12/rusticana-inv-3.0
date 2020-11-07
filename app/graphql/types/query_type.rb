@@ -16,5 +16,6 @@ module Types
     field :orders, resolver: Queries::Orders
     field :order_inventories, resolver: Queries::OrderInventories
     field :store_orders, resolver: Queries::StoreOrders
+    field :combined_store_orders, resolver: Queries::CombinedStoreOrders
   end
 end
