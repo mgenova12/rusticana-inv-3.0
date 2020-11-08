@@ -9,6 +9,7 @@ import { gql } from '@apollo/client';
 		    updatedAt
 		    orders{
 		    	id
+		    	status
 		    	store {
 		    		id
 		    		name
@@ -25,6 +26,7 @@ import { gql } from '@apollo/client';
 	      quantity
 	      quantityNeeded
 	      storeGood {
+	      	replenishBy
 	      	container {
 	      		id
 	      	}

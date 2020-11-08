@@ -15,7 +15,7 @@ const CombinedStoreOrders = ({...props}) => {
   })
 
   const [activeTab, setActiveTab] = useState('nonPrepped');
-  const selectTab = useCallback((distributorId) => setActiveTab(distributorId), []);
+  const selectTab = useCallback((prepped) => setActiveTab(prepped), []);
 
   if (combinedStoreOrdersQueryLoading) return 'Loading...'
   
@@ -43,7 +43,6 @@ const CombinedStoreOrders = ({...props}) => {
           />
 
           <Tab
-            key={'prepped'}
             label='Prepped'
             style={{outlineStyle:'none'}}
             onClick={() => selectTab('prepped')}

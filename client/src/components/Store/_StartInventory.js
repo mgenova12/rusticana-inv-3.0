@@ -78,7 +78,7 @@ const StartInventory = ({...props}) => {
           </TextField> 
 
            <Button type='submit' variant="contained" color="primary" size="large" >
-                Start Inventory
+              Start Inventory
            </Button>
         </form>  
       </div>

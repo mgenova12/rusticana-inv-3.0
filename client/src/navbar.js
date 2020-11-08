@@ -135,7 +135,7 @@ export const Navbar = ({...props}) => {
   return (
     <div >
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar >
 
           { path !== '' &&
             <IconButton 

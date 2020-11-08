@@ -40,9 +40,12 @@ const StoreOrders = ({...props}) => {
               field: 'url',
               render: rowData => (
                 
-                rowData.orders.map((order) => 
+                rowData.orders.filter((order => order.status === 'pending')).map((order) => 
                   <span key={order.id} className="d-inline-block m-1">
-                   <Avatar onClick={(e) => handleOrderClick(e, order, rowData)}>{order.store.name[0]}</Avatar>
+                   <Avatar 
+                      className="border border-success" 
+                      onClick={(e) => handleOrderClick(e, order, rowData)}>{order.store.name[0]}
+                   </Avatar>
                   </span>
                 )
 
