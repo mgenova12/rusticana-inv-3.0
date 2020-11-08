@@ -12,9 +12,9 @@ const StoreOrders = ({...props}) => {
     props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}`)
   }
 
-  const handleOrderClick = (event, order) => {
+  const handleOrderClick = (event, order, rowData) => {
     event.stopPropagation()
-    props.history.push(`/prepcenter/${props.match.params.prepcenterId}/orders/${order.id}`)
+    props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}/orders/${order.id}`)
   }
 
   if (storeOrdersQueryLoading) return 'Loading...'
@@ -41,8 +41,8 @@ const StoreOrders = ({...props}) => {
               render: rowData => (
                 
                 rowData.orders.map((order) => 
-                  <span key={order.id}>
-                   <Avatar onClick={(e) => handleOrderClick(e, order)}>{order.store.name[0]}</Avatar>
+                  <span key={order.id} className="d-inline-block m-1">
+                   <Avatar onClick={(e) => handleOrderClick(e, order, rowData)}>{order.store.name[0]}</Avatar>
                   </span>
                 )
 
