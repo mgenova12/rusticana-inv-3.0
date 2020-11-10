@@ -25,6 +25,8 @@ import { gql } from '@apollo/client';
 	      id
 	      quantity
 	      quantityNeeded
+	      scanned
+	      invoicedQuantity
 	      storeGood {
 	      	replenishBy
 	      	container {

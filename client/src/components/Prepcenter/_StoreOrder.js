@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Container from '@material-ui/core/Container';
@@ -9,10 +9,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { GET_CONTAINERS } from '../Store/container.query'
 import { GET_STORE_ORDER } from './storeOrders.query'
+import { SCAN_INVENTORY } from './storeOrders.mutation'
+import { useForm } from "react-hook-form";
 
 const StoreOrder = ({...props}) => {
+  const [scanInventory] = useMutation(SCAN_INVENTORY);
 
-  const {data: storeOrderInventoriesQuery, loading: storeOrderInventoriesLoading} = useQuery(GET_STORE_ORDER, {
+  const {data: storeOrderInventoriesQuery, loading: storeOrderInventoriesLoading, refetch: storeOrderInventoriesRefetch} = useQuery(GET_STORE_ORDER, {
     variables: {
       orderId: parseInt(props.match.params.orderId)
     }
@@ -23,12 +26,24 @@ const StoreOrder = ({...props}) => {
   const [activeTab, setActiveTab] = useState('unscanned');
   const selectTab = useCallback((scanned) => setActiveTab(scanned), []);
 
+  const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});
+
+  const onSubmit = data => {
+    scanInventory({
+      variables: { 
+        barcode: parseInt(data.barcode),
+        orderId: parseInt(props.match.params.orderId)
+      }
+    }).then(() => storeOrderInventoriesRefetch())
+    reset()
+  }  
+
   if (storeOrderInventoriesLoading) return 'Loading...'
   if (containersQueryLoading) return 'Loading...'
 
   const results = activeTab === 'unscanned'
-    ? storeOrderInventoriesQuery.storeOrderInventories.filter(inventory => !inventory.scanned)
-    : storeOrderInventoriesQuery.storeOrderInventories.filter(inventory => inventory.scanned)    
+    ? storeOrderInventoriesQuery.storeOrderInventories.filter(inventory => inventory.quantityNeeded > 0)
+    : storeOrderInventoriesQuery.storeOrderInventories.filter(inventory => inventory.scanned)
 
   return (
     <div>
@@ -37,21 +52,24 @@ const StoreOrder = ({...props}) => {
       <div align="center" className="mt-2">
         <Button variant="contained" color="primary" size="large"> Next Step</Button> 
       </div>
-      
-      <TextField
-          label="Search Product by barcode"
-          required
-          name="barcode"
-          placeholder="Search Product by barcode"
-          fullWidth
-          margin="normal"
-          type="number"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            label="Search Product by barcode"
+            inputRef={register({required: true})}
+            name="barcode"
+            error={errors.barcode ? true : false}
+            placeholder="Search Product by barcode"
+            fullWidth
+            margin="normal"
+            type="number"
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </form>
+
       </Container>
 
        <AppBar position="static" color="default">
@@ -88,7 +106,7 @@ const StoreOrder = ({...props}) => {
                 <th>Barcode</th>
                 <th>Product</th>
                 <th>Store Quantity</th>
-                <th>Quantity Needed</th>
+                <th>{activeTab === 'scanned' ? 'Quantity Invoiced' : 'Quantity Needed'}</th>
               </tr>
             </thead>
 
@@ -105,7 +123,7 @@ const StoreOrder = ({...props}) => {
                       <td>{inventory.product.barcode}</td>                
                       <td>{inventory.product.name}</td>
                       <td>{inventory.quantity} {inventory.storeGood.countBy.name}</td> 
-                      <td>{inventory.quantityNeeded} {inventory.storeGood.replenishBy}</td> 
+                      <td>{activeTab === 'scanned'? inventory.invoicedQuantity : inventory.quantityNeeded}  {inventory.storeGood.replenishBy}</td> 
                     </tr> 
                   )
                 ))}
