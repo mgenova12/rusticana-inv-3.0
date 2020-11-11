@@ -50,7 +50,12 @@ const StoreOrder = ({...props}) => {
 
     <Container component="main" maxWidth="md">
       <div align="center" className="mt-2">
-        <Button variant="contained" color="primary" size="large"> Next Step</Button> 
+        <Button 
+          onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${props.match.params.storeOrderId}/orders/${props.match.params.orderId}/reason_codes`)} 
+          variant="contained" 
+          color="primary" 
+          size="large"
+        > Next Step </Button> 
       </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>

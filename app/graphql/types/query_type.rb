@@ -18,5 +18,6 @@ module Types
     field :store_orders, resolver: Queries::StoreOrders
     field :combined_store_orders, resolver: Queries::CombinedStoreOrders
     field :store_order_inventories, resolver: Queries::StoreOrderInventories
+    field :unscanned_store_order_inventories, resolver: Queries::UnscannedStoreOrderInventories
   end
 end

@@ -46,6 +46,21 @@ import { gql } from '@apollo/client';
 	  }
 	`;
 
+	export const GET_UNSCANNED_STORE_ORDER = gql`
+	  query unscannedStoreOrderInventories($orderId: Int!) { 
+	    unscannedStoreOrderInventories(orderId: $orderId) {
+	      id
+	      product {
+	      	id 
+	      	name
+	      }
+
+	    }
+	  }
+	`;
+
+
+
 	export const GET_COMBINED_STORE_ORDERS = gql`
 	  query combinedStoreOrders($storeOrderId: Int!) { 
 	    combinedStoreOrders(storeOrderId: $storeOrderId) {
