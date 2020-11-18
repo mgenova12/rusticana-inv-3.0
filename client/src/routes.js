@@ -3,18 +3,24 @@ import Home from './components/Home';
 import Products from './components/Globals/_Products.js';
 import PreppedProducts from './components/Globals/_PreppedProducts.js';
 import Distributors from './components/Globals/_Distributors.js';
+
 import Locations from './components/Store/_Locations.js';
 import StoreGoods from './components/Store/_StoreGoods.js';
 import AddStoreGood from './components/Store/_AddStoreGood.js';
 import StartInventory from './components/Store/_StartInventory.js';
 import Inventory from './components/Store/_Inventory.js';
 import InventorySuccess from './components/Store/_InventorySuccess.js';
+import Orders from './components/Store/_Orders.js';
+import Order from './components/Store/_Order.js';
+
+import StartPrepcenterInventory from './components/Prepcenter/_StartInventory.js';
 import StoreOrders from './components/Prepcenter/_StoreOrders.js';
 import StoreOrder from './components/Prepcenter/_StoreOrder.js';
 import ReasonCodes from './components/Prepcenter/_ReasonCodes.js';
+import PrepcenterStoreGoods from './components/Prepcenter/_StoreGoods.js';
 import CombinedStoreOrders from './components/Prepcenter/_CombinedStoreOrders.js';
-import Orders from './components/Store/_Orders.js';
-import Order from './components/Store/_Order.js';
+import PrepcenterLocations from './components/Prepcenter/_Locations.js';
+
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -81,7 +87,9 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId/orders/:orderId" component={StoreOrder} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId/orders/:orderId/reason_codes" component={ReasonCodes} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId" component={CombinedStoreOrders} />
-
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/start_inventory" component={StartPrepcenterInventory} />
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_goods" component={PrepcenterStoreGoods} />
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/locations" component={PrepcenterLocations} />
       		
       		<Route exact path='/login' component={Login} />
       </Switch>

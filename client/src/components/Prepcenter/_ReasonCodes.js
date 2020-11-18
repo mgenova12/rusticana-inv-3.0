@@ -1,11 +1,13 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_UNSCANNED_STORE_ORDER } from './storeOrders.query'
+import { GET_UNSCANNED_STORE_ORDER } from './prepcenter.query'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { useForm } from "react-hook-form";
 
 
 const ReasonCodes = ({...props}) => {
+  const { register, handleSubmit, errors} = useForm({mode: "onChange"});
 
   const {data: unscannedStoreOrderInventoriesQuery, loading: unscannedStoreOrdernventoriesLoading} = useQuery(GET_UNSCANNED_STORE_ORDER, {
     variables: {
@@ -13,15 +15,22 @@ const ReasonCodes = ({...props}) => {
     }
   })
 
+  const onSubmit = data => {
+    console.log(data)
+    
+  }
+
   if (unscannedStoreOrdernventoriesLoading) return 'Loading...'
   
   return (
     <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div align="center" className="m-2">
         <Button 
           variant="contained" 
           color="primary" 
           size="large"
+          type='submit'
         > Finish Order </Button> 
       </div>
 
@@ -41,24 +50,26 @@ const ReasonCodes = ({...props}) => {
                   <td>{inventory.product.name}</td>
                   <td>
                     <TextField
-                        select
-                        label="Reason Code"
-                        name="reasonCode"
-                        placeholder="Select a Reason Code"
-                        fullWidth
-                        margin="normal"
-                        variant="outlined"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        SelectProps={{
-                          native: true,
-                        }}
-                      >
-                        <option key='' value=''></option>
-                        <option key='reason1' value='Out of Stock'>Out of Stock</option>
-                        <option key='reason2' value='Not Ready'>Not Ready</option>
-                        <option key='reason3' value='Waiting on Delivery'>Waiting on Delivery</option>
+                      select
+                      inputRef={register({required: true})}
+                      error={errors[inventory.id] ? true : false}                         
+                      label="Reason Code"
+                      name={inventory.id}
+                      placeholder="Select a Reason Code"
+                      fullWidth
+                      margin="normal"
+                      variant="outlined"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      SelectProps={{
+                        native: true,
+                      }}
+                    >
+                      <option key='' value=''></option>
+                      <option key='reason1' value='Out of Stock'>Out of Stock</option>
+                      <option key='reason2' value='Not Ready'>Not Ready</option>
+                      <option key='reason3' value='Waiting on Delivery'>Waiting on Delivery</option>
 
                       </TextField>  
 
@@ -68,6 +79,7 @@ const ReasonCodes = ({...props}) => {
             </thead>
           </table> 
       </div>
+    </form>
     </div>
   )
 }

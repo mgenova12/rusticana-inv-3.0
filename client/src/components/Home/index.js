@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client';
-import { GET_STORES } from './stores.query'
-import { GET_PREPCENTERS } from './prepcenters.query'
+import { GET_STORES } from './home.query'
+import { GET_PREPCENTERS } from './home.query'
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import List from '@material-ui/core/List';

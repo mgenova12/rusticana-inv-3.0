@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_10_012620) do
+ActiveRecord::Schema.define(version: 2020_11_17_234422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_11_10_012620) do
     t.string "reason_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "prepcenter_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 2020_11_10_012620) do
     t.integer "row_order"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "prepcenter_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -72,6 +74,7 @@ ActiveRecord::Schema.define(version: 2020_11_10_012620) do
     t.boolean "paid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "prepcenter_id"
   end
 
   create_table "prepcenters", force: :cascade do |t|
@@ -115,6 +118,8 @@ ActiveRecord::Schema.define(version: 2020_11_10_012620) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "distributor_id"
+    t.boolean "prepcenter", default: false
+    t.integer "prepcenter_id"
   end
 
   create_table "store_orders", force: :cascade do |t|

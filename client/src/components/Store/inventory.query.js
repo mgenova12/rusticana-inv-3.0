@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 	  query orderStatus($storeId: Int!) { 
 	    orderStatus(storeId: $storeId) {
 	      id
-	      status                     
+	      status
 	    }
 	  }
 	`

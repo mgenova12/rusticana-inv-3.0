@@ -8,8 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { GET_CONTAINERS } from '../Store/container.query'
-import { GET_STORE_ORDER } from './storeOrders.query'
-import { SCAN_INVENTORY } from './storeOrders.mutation'
+import { GET_STORE_ORDER } from './prepcenter.query'
+import { SCAN_INVENTORY } from './prepcenter.mutation'
 import { useForm } from "react-hook-form";
 
 const StoreOrder = ({...props}) => {
@@ -30,13 +30,13 @@ const StoreOrder = ({...props}) => {
 
   const onSubmit = data => {
     scanInventory({
-      variables: { 
+      variables: {
         barcode: parseInt(data.barcode),
         orderId: parseInt(props.match.params.orderId)
       }
     }).then(() => storeOrderInventoriesRefetch())
     reset()
-  }  
+  }
 
   if (storeOrderInventoriesLoading) return 'Loading...'
   if (containersQueryLoading) return 'Loading...'
@@ -59,7 +59,7 @@ const StoreOrder = ({...props}) => {
       </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <TextField
+          <TextField        
             label="Search Product by barcode"
             inputRef={register({required: true})}
             name="barcode"

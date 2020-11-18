@@ -19,5 +19,8 @@ module Types
     field :combined_store_orders, resolver: Queries::CombinedStoreOrders
     field :store_order_inventories, resolver: Queries::StoreOrderInventories
     field :unscanned_store_order_inventories, resolver: Queries::UnscannedStoreOrderInventories
+    field :prepcenter_order_status, resolver: Queries::PrepcenterOrderStatus
+    field :prepcenter_store_goods, resolver: Queries::PrepcenterStoreGoods
+    field :prepcenter_locations, resolver: Queries::PrepcenterLocations
   end
 end

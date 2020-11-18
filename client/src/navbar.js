@@ -97,10 +97,28 @@ export const Navbar = ({...props}) => {
           }
 
           { path === 'prepcenter' &&
+          <React.Fragment>
+            <ListItem key={'Start Inventory'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/start_inventory`}>
+              <ListItemIcon><Description/></ListItemIcon>
+              <ListItemText primary={'Start Inventory'} />
+            </ListItem> 
+            
+            <ListItem key={'Store Goods'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/store_goods`}>
+              <ListItemIcon><Description/></ListItemIcon>
+              <ListItemText primary={'Store Goods'} />
+            </ListItem> 
+
             <ListItem key={'Print Labels'}>
               <ListItemIcon><Print/></ListItemIcon>
               <ListItemText primary={'Print Labels'} />
             </ListItem> 
+
+            <ListItem key={'Locations'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/locations`}>
+              <ListItemIcon><Description/></ListItemIcon>
+              <ListItemText primary={'Locations'} />
+            </ListItem> 
+
+          </React.Fragment>
           } 
 
           { path === 'store' &&

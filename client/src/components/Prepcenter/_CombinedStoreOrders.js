@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
-import { GET_COMBINED_STORE_ORDERS} from './storeOrders.query'
+import { GET_COMBINED_STORE_ORDERS} from './prepcenter.query'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';

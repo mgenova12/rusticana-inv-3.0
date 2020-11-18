@@ -22,7 +22,8 @@ class Mutations::CreateStoreGood < Mutations::BaseMutation
       replenish_by: replenish_by,
       delivery_day: delivery_day,
       count_by_id: count_by_id,
-      container_id: container_id
+      container_id: container_id,
+      prepcenter: distributor_id == 11 ? true : false
     )
 
     if store_good.save

@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
 import Avatar from '@material-ui/core/Avatar';
-import { GET_STORE_ORDERS } from './storeOrders.query'
+import { GET_STORE_ORDERS } from './prepcenter.query'
 
 const StoreOrders = ({...props}) => {
 

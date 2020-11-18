@@ -4,6 +4,7 @@ import { gql } from '@apollo/client';
 	  query storeGoods($storeId: Int!) {   
 	    storeGoods(storeId: $storeId) {
 	    	id
+	    	prepcenter
 	      product{
 					id
 	        name

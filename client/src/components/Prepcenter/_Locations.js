@@ -1,32 +1,32 @@
 import React, {useState, useCallback} from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
-import NewLocationDrawer from './_NewLocationDrawer.js'
-import { GET_LOCATIONS } from './locations.query'
-import { DELETE_LOCATION } from './locations.mutation'
+// import NewLocationDrawer from './_NewLocationDrawer.js'
+import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
+// import { DELETE_LOCATION } from './locations.mutation'
 
 const Locations = ({...props}) => {
-  const {data: locationsQuery, loading: locationsQueryLoading, refetch: locationsRefetch} = useQuery(GET_LOCATIONS, {
+  const {data: prepcenterLocationsQuery, loading: prepcenterLocationsQueryLoading, refetch: prepcenterLocationsRefetch} = useQuery(GET_PREPCENTER_LOCATIONS, {
     variables: {
-      storeId: parseInt(props.match.params.storeId)
+      prepcenterId: parseInt(props.match.params.prepcenterId)
     }
   })
 
   const handleRowDelete = (oldData) => {
-    deleteLocation({ 
-      variables: { 
-        id: parseInt(oldData.id)
-      } 
-    }).then(() => locationsRefetch())
+    // deleteLocation({ 
+    //   variables: { 
+    //     id: parseInt(oldData.id)
+    //   } 
+    // }).then(() => prepcenterLocationsQueryLoading())
   }    
 
-  const [deleteLocation] = useMutation(DELETE_LOCATION);
+  // const [deleteLocation] = useMutation(DELETE_LOCATION);
 
   const [visible, setVisible] = useState(false);
   const onOpen = useCallback(() => setVisible(true), []);
   const onClose = useCallback(() => setVisible(false), []);
   
-  if (locationsQueryLoading) return 'Loading...'
+  if (prepcenterLocationsQueryLoading) return 'Loading...'
   
   return (
     <div>
@@ -62,18 +62,11 @@ const Locations = ({...props}) => {
             { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Name', field: 'name' },
           ]}
-          data={JSON.parse(JSON.stringify(locationsQuery.locations))}           
+          data={JSON.parse(JSON.stringify(prepcenterLocationsQuery.prepcenterLocations))}           
         />      	
-        <NewLocationDrawer
-          visible={visible} 
-          onClose={onClose}
-          locationsRefetch={locationsRefetch}
-          storeId={props.match.params.storeId}
-
-        />            
+           
     </div>
   )
 }
 
 export default Locations
-

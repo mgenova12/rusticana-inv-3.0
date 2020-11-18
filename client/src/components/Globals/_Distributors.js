@@ -51,7 +51,7 @@ const Distributors = () => {
               icon: "add_box",
               tooltip: "add distributor",
               position: "toolbar",
-              onClick: () => {onOpen()}
+              onClick: () => {onOpen()},
             }
           ]}          
           columns={[
