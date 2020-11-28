@@ -9,7 +9,7 @@ module Queries
     def resolve(order_id:)
       # order_ids = StoreOrder.find(store_order_id).orders.ids
       # Order.find(order_id).inventories.joins(store_goods: { distributor_id: 11 })
-      Order.find(order_id).inventories.joins({:store_good => :distributor }).where(store_goods: { distributor_id: 11 })
+      Order.find(order_id).inventories.joins({:store_good => :distributor }).where(store_goods: { is_prepcenter: true })
     end
 
   end

@@ -42,11 +42,11 @@ const StoreGoods = ({...props}) => {
   if (countBiesQueryLoading) return 'Loading...'
   if (containersQueryLoading) return 'Loading...'
 
-  let locationsLookup = locationsQuery.locations.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let countBiesLookup = countBiesQuery.countBies.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let containerLookup = containersQuery.containers.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let replenishByLookup = countBiesQuery.countBies.reduce((obj, item) => (obj[item.name] = item.name, obj) ,{}); 
+  let locationsLookup = locationsQuery.locations.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let countBiesLookup = countBiesQuery.countBies.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let containerLookup = containersQuery.containers.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let replenishByLookup = countBiesQuery.countBies.reduce((obj, item) => ((obj[item.name] = item.name, obj)) ,{}); 
 
   return (
     <div>

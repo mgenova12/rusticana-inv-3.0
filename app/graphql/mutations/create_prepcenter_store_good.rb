@@ -1,5 +1,5 @@
-class Mutations::CreateStoreGood < Mutations::BaseMutation
-  argument :store_id, Integer, required: true
+class Mutations::CreatePrepcenterStoreGood < Mutations::BaseMutation
+  argument :prepcenter_id, Integer, required: true
   argument :product_id, Integer, required: true
   argument :max_amount, Integer, required: true
   argument :location_id, Integer, required: true
@@ -12,9 +12,9 @@ class Mutations::CreateStoreGood < Mutations::BaseMutation
   field :store_good, Types::StoreGoodType, null: false
   field :errors, [String], null: false
 
-  def resolve(store_id:, product_id:, location_id:, distributor_id:, count_by_id:, max_amount:, replenish_by:, delivery_day:, container_id:)
+  def resolve(prepcenter_id:, product_id:, location_id:, distributor_id:, count_by_id:, max_amount:, replenish_by:, delivery_day:, container_id:)
     store_good = StoreGood.new(
-      store_id: store_id, 
+      prepcenter_id: prepcenter_id, 
       product_id: product_id,
       location_id: location_id,
       distributor_id: distributor_id,
@@ -23,7 +23,7 @@ class Mutations::CreateStoreGood < Mutations::BaseMutation
       delivery_day: delivery_day,
       count_by_id: count_by_id,
       container_id: container_id,
-      is_prepcenter: distributor_id == 11 ? true : false
+      prepcenter: distributor_id == 11 ? true : false
     )
 
     if store_good.save

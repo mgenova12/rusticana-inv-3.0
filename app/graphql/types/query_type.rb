@@ -22,5 +22,6 @@ module Types
     field :prepcenter_order_status, resolver: Queries::PrepcenterOrderStatus
     field :prepcenter_store_goods, resolver: Queries::PrepcenterStoreGoods
     field :prepcenter_locations, resolver: Queries::PrepcenterLocations
+    field :prepcenter_products, resolver: Queries::PrepcenterProducts
   end
 end

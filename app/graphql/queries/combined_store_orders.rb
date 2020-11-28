@@ -7,7 +7,7 @@ module Queries
     type [Types::ProductType], null: false
 
     def resolve(store_order_id:)
-      Product.distinct.joins(:store_goods).where(store_goods: { prepcenter: true }).order(:name)
+      Product.distinct.joins(:store_goods).where(store_goods: { is_prepcenter: true }).order(:name)
     end
 
   end

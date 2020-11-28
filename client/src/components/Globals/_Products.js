@@ -39,8 +39,8 @@ const Products = () => {
   if (categoriesQueryLoading) return 'Loading...'
   if (distributorsQueryLoading) return 'Loading...'
  
-  let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
+  let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
 
   return (
     <div >

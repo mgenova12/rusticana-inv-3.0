@@ -8,12 +8,15 @@ class Mutations::DeleteInventory < Mutations::BaseMutation
     inventories = order.inventories.where(status: 'pending')
     store_order = order.store_order
 
-    store_order.decrement!(:orders_complete, 1)
+    if store_order
+      store_order.decrement!(:orders_complete, 1)
 
-    if store_order.orders_complete == 0 
-      store_order.destroy
+      if store_order.orders_complete == 0 
+        store_order.destroy
+      end
+
     end
-
+    
     if order.destroy
       inventories.destroy_all
     end

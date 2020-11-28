@@ -1,5 +1,36 @@
 import { gql } from '@apollo/client';
 
+export const CREATE_PREPCENTER_STORE_GOOD = gql`
+  mutation createPrepcenterStoreGood(
+    $prepcenterId: Int!,
+    $productId: Int!,
+    $maxAmount: Int!,
+    $locationId: Int!,
+    $distributorId: Int!,
+    $deliveryDay: String!,
+    $countById: Int!,
+    $replenishBy: String!,
+    $containerId: Int
+  ) {
+    createPrepcenterStoreGood(input: {
+      prepcenterId: $prepcenterId,
+      productId: $productId,
+      maxAmount: $maxAmount,
+      locationId: $locationId,
+      distributorId: $distributorId,
+      deliveryDay: $deliveryDay,
+      countById: $countById,
+      replenishBy: $replenishBy,
+      containerId: $containerId
+    }) {
+      storeGood{
+        id
+      }
+    }
+  }
+`;
+
+
 export const SCAN_INVENTORY = gql`
   mutation scanInventory($barcode: Float!, $orderId: Int!) {
     scanInventory(input: { barcode: $barcode, orderId: $orderId }) {
@@ -16,4 +47,14 @@ export const CREATE_PREPCENTER_INVENTORY = gql`
   }
 `;
 
+export const CREATE_PREPCENTER_LOCATION = gql`
+  mutation createPrepcenterLocation($name: String!, $prepcenterId: Int!) {
+    createPrepcenterLocation(input: { name: $name, prepcenterId: $prepcenterId }) {
+      location{
+        id
+        name
+      }
+    }
+  }
+`;
 

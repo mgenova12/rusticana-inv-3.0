@@ -20,6 +20,7 @@ import ReasonCodes from './components/Prepcenter/_ReasonCodes.js';
 import PrepcenterStoreGoods from './components/Prepcenter/_StoreGoods.js';
 import CombinedStoreOrders from './components/Prepcenter/_CombinedStoreOrders.js';
 import PrepcenterLocations from './components/Prepcenter/_Locations.js';
+import AddPrepcenterStoreGood from './components/Prepcenter/_AddStoreGood.js';
 
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
@@ -32,8 +33,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props => {
-      	console.log(props)
-        console.log(props.match.params)
+      	// console.log(props)
+        // console.log(props.match.params)
 
       	
         const isLoggedIn = !!getToken();
@@ -71,7 +72,6 @@ export const Routes = () => {
           <PrivateRoute exact path="/globals/prepped_products" component={PreppedProducts} />
 	        <PrivateRoute exact path="/globals/distributors" component={Distributors} />
           
-
           <PrivateRoute exact path="/store/:storeId/locations" component={Locations} />
           <PrivateRoute exact path="/store/:storeId/store_goods" component={StoreGoods} />
           <PrivateRoute exact path="/store/:storeId/add_store_goods" component={AddStoreGood} />
@@ -90,6 +90,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/start_inventory" component={StartPrepcenterInventory} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_goods" component={PrepcenterStoreGoods} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/locations" component={PrepcenterLocations} />
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/add_store_goods" component={AddPrepcenterStoreGood} />
       		
       		<Route exact path='/login' component={Login} />
       </Switch>

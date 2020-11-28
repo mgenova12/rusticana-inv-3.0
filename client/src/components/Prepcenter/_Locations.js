@@ -1,9 +1,9 @@
 import React, {useState, useCallback} from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
-// import NewLocationDrawer from './_NewLocationDrawer.js'
+import NewLocationDrawer from './_NewLocationDrawer.js'
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
-// import { DELETE_LOCATION } from './locations.mutation'
+import { DELETE_LOCATION } from '../Store/locations.mutation'
 
 const Locations = ({...props}) => {
   const {data: prepcenterLocationsQuery, loading: prepcenterLocationsQueryLoading, refetch: prepcenterLocationsRefetch} = useQuery(GET_PREPCENTER_LOCATIONS, {
@@ -13,14 +13,14 @@ const Locations = ({...props}) => {
   })
 
   const handleRowDelete = (oldData) => {
-    // deleteLocation({ 
-    //   variables: { 
-    //     id: parseInt(oldData.id)
-    //   } 
-    // }).then(() => prepcenterLocationsQueryLoading())
+    deleteLocation({ 
+      variables: { 
+        id: parseInt(oldData.id)
+      } 
+    }).then(() => prepcenterLocationsRefetch())
   }    
 
-  // const [deleteLocation] = useMutation(DELETE_LOCATION);
+  const [deleteLocation] = useMutation(DELETE_LOCATION);
 
   const [visible, setVisible] = useState(false);
   const onOpen = useCallback(() => setVisible(true), []);
@@ -64,7 +64,12 @@ const Locations = ({...props}) => {
           ]}
           data={JSON.parse(JSON.stringify(prepcenterLocationsQuery.prepcenterLocations))}           
         />      	
-           
+        <NewLocationDrawer
+          visible={visible} 
+          onClose={onClose}
+          locationsRefetch={prepcenterLocationsRefetch}
+          prepcenterId={props.match.params.prepcenterId}
+        />              
     </div>
   )
 }

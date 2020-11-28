@@ -2,8 +2,8 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
 import { GET_PREPCENTER_STORE_GOODS} from './prepcenter.query'
-// import { DELETE_STORE_GOOD } from './prepcenter.mutation'
-// import { EDIT_STORE_GOOD } from './prepcenter.mutation'
+import { DELETE_STORE_GOOD } from '../Store/storeGoods.mutation'
+import { EDIT_STORE_GOOD } from '../Store/storeGoods.mutation'
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
 import { GET_DISTRIBUTORS } from '../Globals/distributor.query'
 import { GET_COUNT_BIES } from '../Store/countBy.query'
@@ -26,15 +26,15 @@ const StoreGoods = ({...props}) => {
   const {data: containersQuery, loading: containersQueryLoading} = useQuery(GET_CONTAINERS)
 
   const handleRowDelete = (oldData) => {
-    // deleteStoreGood({ 
-    //   variables: { 
-    //     id: parseInt(oldData.id)
-    //   } 
-    // }).then(() => prepcenterStoreGoodsRefetch())
+    deleteStoreGood({ 
+      variables: { 
+        id: parseInt(oldData.id)
+      } 
+    }).then(() => prepcenterStoreGoodsRefetch())
   }
 
-  // const [deleteStoreGood] = useMutation(DELETE_STORE_GOOD);
-  // const [editStoreGood] = useMutation(EDIT_STORE_GOOD);
+  const [deleteStoreGood] = useMutation(DELETE_STORE_GOOD);
+  const [editStoreGood] = useMutation(EDIT_STORE_GOOD);
   
   if (prepcenterStoreGoodsQueryLoading) return 'Loading...'
   if (prepcenterLocationsQueryLoading) return 'Loading...'
@@ -42,11 +42,11 @@ const StoreGoods = ({...props}) => {
   if (countBiesQueryLoading) return 'Loading...'
   if (containersQueryLoading) return 'Loading...'
 
-  let locationsLookup = prepcenterLocationsQuery.prepcenterLocations.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let countBiesLookup = countBiesQuery.countBies.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let containerLookup = containersQuery.containers.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
-  let replenishByLookup = countBiesQuery.countBies.reduce((obj, item) => (obj[item.name] = item.name, obj) ,{}); 
+  let locationsLookup = prepcenterLocationsQuery.prepcenterLocations.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let countBiesLookup = countBiesQuery.countBies.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let containerLookup = containersQuery.containers.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let replenishByLookup = countBiesQuery.countBies.reduce((obj, item) => ((obj[item.name] = item.name, obj)) ,{}); 
 
   return (
     <div>
@@ -66,20 +66,19 @@ const StoreGoods = ({...props}) => {
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
-                    
-                    // editStoreGood({ 
-                    //   variables: { 
-                    //     id: parseInt(newData.id), 
-                    //     maxAmount: parseInt(newData.maxAmount),
-                    //     locationId: parseInt(newData.location.id),
-                    //     distributorId: parseInt(newData.distributor.id),
-                    //     deliveryDay: newData.deliveryDay,
-                    //     countById: parseInt(newData.countBy.id),
-                    //     replenishBy: newData.replenishBy,
-                    //     containerId: parseFloat(newData.container.id),
-                    //     amountInStock: parseFloat(newData.amountInStock),
-                    //   }
-                    // }).then(() => prepcenterStoreGoodsRefetch());
+                    editStoreGood({ 
+                      variables: { 
+                        id: parseInt(newData.id), 
+                        maxAmount: parseInt(newData.maxAmount),
+                        locationId: parseInt(newData.location.id),
+                        distributorId: parseInt(newData.distributor.id),
+                        deliveryDay: newData.deliveryDay,
+                        countById: parseInt(newData.countBy.id),
+                        replenishBy: newData.replenishBy,
+                        containerId: parseFloat(newData.container.id),
+                        amountInStock: parseFloat(newData.amountInStock),
+                      }
+                    }).then(() => prepcenterStoreGoodsRefetch());
 
                 }, 300);
               }),
@@ -123,7 +122,7 @@ const StoreGoods = ({...props}) => {
                 lookup: containerLookup
               },              
               { title: 'Delivery Day', field: 'deliveryDay',
-                lookup: {'Tuesday': 'Tuesday', 'Friday': 'Friday', 'Both': 'Both'}
+                lookup: {'Distributor': 'Distributor', 'Prepped': 'Prepped', 'Both': 'Both'}
               },
           ]}
           data={JSON.parse(JSON.stringify(prepcenterStoreGoodsQuery.prepcenterStoreGoods))}     

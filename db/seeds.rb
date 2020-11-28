@@ -1,10 +1,10 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-StoreGood.where(distributor_id: 11).update_all(prepcenter: true)
+# StoreGood.where(distributor_id: 11).update_all(prepcenter: true)
 
-Location.where(store_id: 1).update_all(store_id:nil, prepcenter_id: 1)
-Location.where(store_id: 3).update_all(store_id: 1)
-Location.where(store_id: 4).update_all(store_id: 3)
+# Location.where(store_id: 1).update_all(store_id:nil, prepcenter_id: 1)
+# Location.where(store_id: 3).update_all(store_id: 1)
+# Location.where(store_id: 4).update_all(store_id: 3)
 
 
 

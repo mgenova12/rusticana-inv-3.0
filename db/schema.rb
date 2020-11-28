@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_234422) do
+ActiveRecord::Schema.define(version: 2020_11_21_180040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_234422) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "distributor_id"
-    t.boolean "prepcenter", default: false
+    t.boolean "is_prepcenter", default: false
     t.integer "prepcenter_id"
   end
 

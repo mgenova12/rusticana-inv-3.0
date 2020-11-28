@@ -22,7 +22,7 @@ const PreppedProducts = () => {
   if (preppedProductsQueryLoading) return 'Loading...'
   if (categoriesQueryLoading) return 'Loading...'
 
-  let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => (obj[item.id] = item.name, obj) ,{});
+  let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
 
   return (  
     <div>

@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import { useForm } from "react-hook-form";
 import { CREATE_PREPCENTER_INVENTORY } from './prepcenter.mutation'
-// import { DELETE_INVENTORY } from './prepcenter.mutation'
+import { DELETE_INVENTORY } from '../Store/inventory.mutation'
 import { GET_PREPCENTER_ORDER_STATUS } from './prepcenter.query'
 
 const StartInventory = ({...props}) => {
@@ -19,17 +19,17 @@ const StartInventory = ({...props}) => {
   })
 
   const [createPrepcenterInventory, { loading: createInventoryLoading }] = useMutation(CREATE_PREPCENTER_INVENTORY);
-  // const [deleteInventory] = useMutation(DELETE_INVENTORY);
+  const [deleteInventory] = useMutation(DELETE_INVENTORY);
 
   const handleDeleteInventory = () => {
-    // if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
-    //   deleteInventory({ 
-    //     variables: { 
-    //       orderId: parseInt(prepcenterOrderStatusQuery.prepcenterOrderStatus.id)
-    //     }
-    //   }).then(() => prepcenterOrderStatusRefetch());
+    if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
+      deleteInventory({ 
+        variables: {
+          orderId: parseInt(prepcenterOrderStatusQuery.prepcenterOrderStatus.id)
+        }
+      }).then(() => prepcenterOrderStatusRefetch());
 
-    // }
+    }
   }
 
   const onSubmit = data => {
@@ -89,7 +89,7 @@ const StartInventory = ({...props}) => {
         <div className="center"> 
           <h1> An Inventory Has Already Been Started! </h1>
            <div className="d-inline-block"> 
-              <Button className="button mr-2 ml-2" type='submit' variant="contained" color="primary" size="large" onClick={() => props.history.push(`/store/${props.match.params.storeId}/inventory`)} >
+              <Button className="button mr-2 ml-2" type='submit' variant="contained" color="primary" size="large" onClick={() => props.history.push(`/prepcenter/${props.match.params.storeId}/inventory`)} >
                 Go To Inventory
               </Button>
 
