@@ -17,7 +17,7 @@ class Mutations::ScanInventory < Mutations::BaseMutation
     
     else
       {
-        errors: product.errors.full_messages
+        errors: ['no product found']
       }
     end
 

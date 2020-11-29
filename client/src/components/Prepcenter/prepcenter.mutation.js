@@ -34,7 +34,7 @@ export const CREATE_PREPCENTER_STORE_GOOD = gql`
 export const SCAN_INVENTORY = gql`
   mutation scanInventory($barcode: Float!, $orderId: Int!) {
     scanInventory(input: { barcode: $barcode, orderId: $orderId }) {
-			errors 
+      errors
     }
   }
 `;
