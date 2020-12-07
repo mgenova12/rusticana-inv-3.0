@@ -23,7 +23,6 @@ const CombinedStoreOrders = ({...props}) => {
     ? combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === false)
     : combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === true)
 
-
   return (
     <div>
        <AppBar position="static" color="default">
@@ -66,9 +65,9 @@ const CombinedStoreOrders = ({...props}) => {
           columns={[
             { title: 'Product', field: 'name' },
             {
-              title: 'Bypass',
+              title: 'Easton Bypass',
               render: rowData => (
-                (rowData.inventories.find(inventory => inventory.store.name === 'Bypass') !== undefined) && rowData.inventories.find(inventory => inventory.store.name === 'Bypass').quantityNeeded
+                (rowData.inventories.find(inventory => inventory.store.name === 'Easton Bypass') !== undefined) && rowData.inventories.find(inventory => inventory.store.name === 'Easton Bypass').quantityNeeded
               )
             },            
             {

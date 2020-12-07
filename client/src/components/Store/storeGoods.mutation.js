@@ -10,7 +10,6 @@ export const CREATE_STORE_GOOD = gql`
     $deliveryDay: String!,
     $countById: Int!,
     $replenishBy: String!,
-    $containerId: Int
   ) {
     createStoreGood(input: {
       storeId: $storeId,
@@ -21,7 +20,6 @@ export const CREATE_STORE_GOOD = gql`
       deliveryDay: $deliveryDay,
       countById: $countById,
       replenishBy: $replenishBy,
-      containerId: $containerId
     }) {
 			storeGood{
 	      id
@@ -51,7 +49,6 @@ export const EDIT_STORE_GOOD = gql`
     $deliveryDay: String!,
     $countById: Int!,
     $replenishBy: String!,
-    $containerId: Int,
     $amountInStock: Int
   ) {
     editStoreGood(input: { 
@@ -62,7 +59,6 @@ export const EDIT_STORE_GOOD = gql`
       deliveryDay: $deliveryDay,
       countById: $countById,
       replenishBy: $replenishBy,
-      containerId: $containerId,
       amountInStock: $amountInStock   
     }) {
       storeGood {

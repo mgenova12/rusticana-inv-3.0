@@ -7,12 +7,11 @@ class Mutations::CreatePrepcenterStoreGood < Mutations::BaseMutation
   argument :count_by_id, Integer, required: true
   argument :replenish_by, String, required: true
   argument :delivery_day, String, required: true
-  argument :container_id, Integer, required: false
 
   field :store_good, Types::StoreGoodType, null: false
   field :errors, [String], null: false
 
-  def resolve(prepcenter_id:, product_id:, location_id:, distributor_id:, count_by_id:, max_amount:, replenish_by:, delivery_day:, container_id:)
+  def resolve(prepcenter_id:, product_id:, location_id:, distributor_id:, count_by_id:, max_amount:, replenish_by:, delivery_day:)
     store_good = StoreGood.new(
       prepcenter_id: prepcenter_id, 
       product_id: product_id,
@@ -22,7 +21,6 @@ class Mutations::CreatePrepcenterStoreGood < Mutations::BaseMutation
       replenish_by: replenish_by,
       delivery_day: delivery_day,
       count_by_id: count_by_id,
-      container_id: container_id,
       prepcenter: distributor_id == 11 ? true : false
     )
 

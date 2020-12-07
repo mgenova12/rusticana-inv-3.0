@@ -1,13 +1,13 @@
-class Mutations::EditInventoryQuantityNeeded < Mutations::BaseMutation
-  argument :store_id, Integer, required: true
+class Mutations::EditPrepcenterInventoryQuantityNeeded < Mutations::BaseMutation
+  argument :prepcenter_id, Integer, required: true
 
   field :errors, [String], null: false
 
-  def resolve(store_id:)
-    order = Store.find(store_id).orders.find_by(status: 'incomplete')
+  def resolve(prepcenter_id:)
+    order = Prepcenter.find(prepcenter_id).orders.find_by(status: 'incomplete')
     order.update(status: 'pending')
     
-    inventories = Inventory.where(store_id: store_id, status: 'pending', order_id: order.id)
+    inventories = Inventory.where(prepcenter_id: prepcenter_id, status: 'pending', order_id: order.id)
     
     inventories.each do |inventory|
       store_good = inventory.store_good

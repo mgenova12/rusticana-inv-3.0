@@ -1,5 +1,13 @@
 import { gql } from '@apollo/client';
 
+export const EDIT_PREPCENTER_INVENTORY_QUANTITY_NEEDED = gql`
+  mutation editPrepcenterInventoryQuantityNeeded($prepcenterId: Int!) {
+    editPrepcenterInventoryQuantityNeeded(input: {prepcenterId: $prepcenterId }) {
+      errors   
+    }
+  }
+`;
+
 export const CREATE_PREPCENTER_STORE_GOOD = gql`
   mutation createPrepcenterStoreGood(
     $prepcenterId: Int!,
@@ -10,7 +18,6 @@ export const CREATE_PREPCENTER_STORE_GOOD = gql`
     $deliveryDay: String!,
     $countById: Int!,
     $replenishBy: String!,
-    $containerId: Int
   ) {
     createPrepcenterStoreGood(input: {
       prepcenterId: $prepcenterId,
@@ -21,7 +28,6 @@ export const CREATE_PREPCENTER_STORE_GOOD = gql`
       deliveryDay: $deliveryDay,
       countById: $countById,
       replenishBy: $replenishBy,
-      containerId: $containerId
     }) {
       storeGood{
         id
@@ -29,7 +35,6 @@ export const CREATE_PREPCENTER_STORE_GOOD = gql`
     }
   }
 `;
-
 
 export const SCAN_INVENTORY = gql`
   mutation scanInventory($barcode: Float!, $orderId: Int!) {

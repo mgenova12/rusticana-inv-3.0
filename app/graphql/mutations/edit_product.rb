@@ -6,11 +6,12 @@ class Mutations::EditProduct < Mutations::BaseMutation
   argument :case_quantity, Integer, required: false
   argument :mark_up, Integer, required: true
   argument :price, Float, required: true
+  argument :container_id, Integer, required: false
 
   field :product, Types::ProductType, null: false
   field :errors, [String], null: false
 
-  def resolve(id:, name:, distributor_id:, category_id:, case_quantity:, mark_up:, price:)
+  def resolve(id:, name:, distributor_id:, category_id:, case_quantity:, mark_up:, price:, container_id:)
     product = Product.find(id)
     marked_up_price = price + (price * (mark_up * 0.01))
 
@@ -22,6 +23,7 @@ class Mutations::EditProduct < Mutations::BaseMutation
       mark_up: mark_up,
       price: price, 
       marked_up_price: marked_up_price,
+      container_id: container_id
     )
       # Successful creation, return the created object with no errors
       {

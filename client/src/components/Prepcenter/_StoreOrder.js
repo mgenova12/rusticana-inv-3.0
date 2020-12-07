@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import { GET_CONTAINERS } from '../Store/container.query'
+import { GET_CONTAINERS } from '../Globals/globals.query'
 import { GET_STORE_ORDER } from './prepcenter.query'
 import { SCAN_INVENTORY } from './prepcenter.mutation'
 import { useForm } from "react-hook-form";
@@ -117,15 +117,15 @@ const StoreOrder = ({...props}) => {
 
             { containersQuery.containers.map((container) => (
               <thead className="thead-dark" key={container.id}>
-                <tr align='center'> 
+                <tr align='center'>
                   <th colSpan="5">{container.name}</th>
                 </tr>
 
                 {results.map((inventory) => (
-                  (inventory.storeGood.container.id === container.id &&
+                  (inventory.product.container.id === container.id &&
                     <tr key={inventory.id}> 
                       <td> <Checkbox value="checkedA" /> </td>
-                      <td>{inventory.product.barcode}</td>                
+                      <td>{inventory.product.barcode}</td>         
                       <td>{inventory.product.name}</td>
                       <td>{inventory.quantity} {inventory.storeGood.countBy.name}</td> 
                       <td>{activeTab === 'scanned'? inventory.invoicedQuantity : inventory.quantityNeeded}  {inventory.storeGood.replenishBy}</td> 

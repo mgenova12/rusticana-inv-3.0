@@ -29,6 +29,9 @@ import LocalPizza from '@material-ui/icons/LocalPizza';
 import Restaurant from '@material-ui/icons/Restaurant';
 
 export const Navbar = ({...props}) => {
+  
+  console.log(props.match.params)
+
   const history = useHistory();
   const [state, setState] = useState({
     open: false,
@@ -102,7 +105,12 @@ export const Navbar = ({...props}) => {
               <ListItemIcon><Description/></ListItemIcon>
               <ListItemText primary={'Start Inventory'} />
             </ListItem> 
-            
+
+            <ListItem key={'Submitted Inventory'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/orders`}>
+              <ListItemIcon><Description/></ListItemIcon>
+              <ListItemText primary={'Submitted Inventory'} />
+            </ListItem> 
+
             <ListItem key={'Print Labels'}>
               <ListItemIcon><Print/></ListItemIcon>
               <ListItemText primary={'Print Labels'} />

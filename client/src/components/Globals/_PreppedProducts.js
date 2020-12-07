@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
-import { GET_PREPPED_PRODUCTS } from './preppedProducts.query'
-import { GET_CATEGORIES } from './category.query'
-import { DELETE_PRODUCT } from './products.mutation'
+import { GET_PREPPED_PRODUCTS } from './globals.query'
+import { GET_CATEGORIES } from './globals.query'
+import { DELETE_PRODUCT } from './globals.mutation'
 
 const PreppedProducts = () => {
   const {data: preppedProductsQuery, loading: preppedProductsQueryLoading, refetch: preppedProductsRefetch} = useQuery(GET_PREPPED_PRODUCTS)

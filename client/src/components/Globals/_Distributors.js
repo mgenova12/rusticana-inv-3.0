@@ -2,8 +2,8 @@ import React, {useState, useCallback} from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
 import DistributorsDrawer from './_DistributorsDrawer.js'
-import { GET_DISTRIBUTORS } from './distributor.query'
-import { DELETE_DISTRIBUTOR } from './distributor.mutation'
+import { GET_DISTRIBUTORS } from './globals.query'
+import { DELETE_DISTRIBUTOR } from './globals.mutation'
 
 const Distributors = () => {
   const {data: distributorsQuery, loading: distributorsQueryLoading, refetch: distributorsRefetch} = useQuery(GET_DISTRIBUTORS)

@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import { useForm } from "react-hook-form";
 import { useMutation } from '@apollo/client';
-import { CREATE_PREPPED_PRODUCT } from './products.mutation'
+import { CREATE_PREPPED_PRODUCT } from './globals.mutation'
 
 const ProductsDrawer = ({ categories, visible, currentProduct, onClose }) => {
   const [createPreppedProduct] = useMutation(CREATE_PREPPED_PRODUCT);

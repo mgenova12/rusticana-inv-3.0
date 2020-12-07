@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_PRODUCTS } from './products.query'
-import { GET_CATEGORIES } from './category.query'
-import { GET_DISTRIBUTORS } from './distributor.query'
-import { EDIT_PRODUCT } from './products.mutation'
-import { DELETE_PRODUCT } from './products.mutation'
+import { GET_PRODUCTS } from './globals.query'
+import { GET_CATEGORIES } from './globals.query'
+import { GET_DISTRIBUTORS } from './globals.query'
+import { EDIT_PRODUCT } from './globals.mutation'
+import { DELETE_PRODUCT } from './globals.mutation'
+import { GET_CONTAINERS } from './globals.query'
 import MaterialTable from 'material-table';
 import ProductsDrawer from './_ProductsDrawer.js'
 import NewProductDrawer from './_NewProductDrawer.js'
@@ -13,6 +14,7 @@ const Products = () => {
   const {data: productsQuery, loading: productsQueryLoading, refetch: productsRetch } = useQuery(GET_PRODUCTS)
   const {data: categoriesQuery, loading: categoriesQueryLoading} = useQuery(GET_CATEGORIES)
   const {data: distributorsQuery, loading: distributorsQueryLoading} = useQuery(GET_DISTRIBUTORS)
+  const {data: containersQuery, loading: containersQueryLoading} = useQuery(GET_CONTAINERS)
   
   const [ currentProduct, setCurrentProduct ] = useState('');
 
@@ -38,9 +40,11 @@ const Products = () => {
   if (productsQueryLoading) return 'Loading...'
   if (categoriesQueryLoading) return 'Loading...'
   if (distributorsQueryLoading) return 'Loading...'
+  if (containersQueryLoading) return 'Loading...'
  
   let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let containerLookup = containersQuery.containers.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
 
   return (
     <div >
@@ -69,8 +73,9 @@ const Products = () => {
                         caseQuantity: parseInt(newData.caseQuantity),
                         markUp: parseInt(newData.markUp),
                         price: parseFloat(newData.price),
+                        containerId: parseInt(newData.container.id)
                       }
-                    });
+                    }).then(() => productsRetch());
 
                 }, 300);
               }),
@@ -112,6 +117,11 @@ const Products = () => {
               field: 'category.id',
               lookup: categoriesLookup,
             },
+            { 
+              title: 'Container', 
+              field: 'container.id',
+              lookup: containerLookup
+            },             
             { title: 'Case Quantity', field: 'caseQuantity' },
             { title: 'Mark Up', field: 'markUp'},
             { title: 'Price', field: 'price', type: "currency" },

@@ -19,5 +19,6 @@ module Types
     field :days_till_expire, Integer, null: true
     field :p_id, Integer, null: true
     field :inventories, [InventoryType], null: true
+    field :container, ContainerType, null: true
   end
 end

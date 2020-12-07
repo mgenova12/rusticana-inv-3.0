@@ -6,7 +6,6 @@ module Types
     field :location, LocationType, null: true
     field :distributor, DistributorType, null: true
     field :count_by, CountByType, null: true
-    field :container, ContainerType, null: true
     field :max_amount, Integer, null: true
     field :replenish_by, String, null: true
     field :delivery_day, String, null: true

@@ -4,6 +4,7 @@ module Types
     field :store_id, ID, null: true
     field :created_at, String, null: true
     field :store, StoreType, null: true
+    field :prepcenter, PrepcenterType, null: true
     field :delivery_day, String, null: true
     field :status, String, null: true
     field :sale_total, Float, null: true

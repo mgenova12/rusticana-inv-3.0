@@ -12,7 +12,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import NumberFormat from 'react-number-format'
 import IconButton from '@material-ui/core/IconButton';
 import AddBox from '@material-ui/icons/AddBox';
-import { CREATE_PRODUCT } from './products.mutation'
+import { CREATE_PRODUCT } from './globals.mutation'
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

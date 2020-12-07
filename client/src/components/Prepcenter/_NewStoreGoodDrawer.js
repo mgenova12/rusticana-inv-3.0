@@ -9,8 +9,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_PREPCENTER_STORE_GOOD } from './prepcenter.mutation'
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
 import { GET_COUNT_BIES } from '../Store/countBy.query'
-import { GET_CONTAINERS } from '../Store/container.query'
-import { GET_DISTRIBUTORS } from '../Globals/distributor.query'
+import { GET_DISTRIBUTORS } from '../Globals/globals.query'
 
 const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, prepcenterId, currentProduct }) => {
   const {data: prepcenterLocationsQuery, loading: prepcenterLocationsQueryLoading} = useQuery(GET_PREPCENTER_LOCATIONS, {
@@ -20,7 +19,6 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, prepcenter
   })
   const {data: distributorsQuery, loading: distributorsQueryLoading} = useQuery(GET_DISTRIBUTORS)
   const {data: countBiesQuery, loading: countBiesQueryLoading} = useQuery(GET_COUNT_BIES)
-  const {data: containersQuery, loading: containersQueryLoading} = useQuery(GET_CONTAINERS)
 
   const [createPrepcenterStoreGood] = useMutation(CREATE_PREPCENTER_STORE_GOOD);
   
@@ -47,7 +45,6 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, prepcenter
   if (prepcenterLocationsQueryLoading) return 'Loading...'
   if (distributorsQueryLoading) return 'Loading...'
   if (countBiesQueryLoading) return 'Loading...'
-  if (containersQueryLoading) return 'Loading...'
 
   return (
     <div>
@@ -210,32 +207,6 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, prepcenter
                   return <option key={countBy.id} value={countBy.name}>{countBy.name}</option>
                 })
               }              
-            </TextField>          
-          </ListItem>
-
-          <ListItem>
-            <TextField
-                inputRef={register} 
-                select
-                label="Container Type"
-                name="containerId"
-                placeholder="Select Containter"
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                SelectProps={{
-                  native: true,
-                }}              
-              >
-              <option key='' value=''></option>
-              {
-                containersQuery.containers.map(container => {
-                  return <option key={container.id} value={container.id}>{container.name}</option>
-                })
-              } 
             </TextField>          
           </ListItem>
 

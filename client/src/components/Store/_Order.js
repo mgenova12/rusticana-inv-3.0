@@ -5,8 +5,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { GET_ORDER } from './orders.query'
-import { GET_CATEGORIES } from '../Globals/category.query'
-import { GET_DISTRIBUTORS } from '../Globals/distributor.query'
+import { GET_CATEGORIES } from '../Globals/globals.query'
+import { GET_DISTRIBUTORS } from '../Globals/globals.query'
 
 const Order = ({...props}) => {
   const {data: orderInventoriesQuery, loading: orderInventoriesQueryLoading} = useQuery(GET_ORDER, {
