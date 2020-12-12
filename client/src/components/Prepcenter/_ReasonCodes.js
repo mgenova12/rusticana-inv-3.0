@@ -17,7 +17,6 @@ const ReasonCodes = ({...props}) => {
 
   const onSubmit = data => {
     console.log(data)
-    
   }
 
   if (unscannedStoreOrdernventoriesLoading) return 'Loading...'
@@ -71,7 +70,7 @@ const ReasonCodes = ({...props}) => {
                       <option key='reason2' value='Not Ready'>Not Ready</option>
                       <option key='reason3' value='Waiting on Delivery'>Waiting on Delivery</option>
 
-                      </TextField>  
+                    </TextField>  
 
                   </td> 
                 </tr> 

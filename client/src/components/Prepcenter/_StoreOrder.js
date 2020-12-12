@@ -13,7 +13,7 @@ import { SCAN_INVENTORY } from './prepcenter.mutation'
 import { useForm } from "react-hook-form";
 
 const StoreOrder = ({...props}) => {
-  const [scanInventory] = useMutation(SCAN_INVENTORY);
+  const [scanInventory, { data: mutationData}] = useMutation(SCAN_INVENTORY);
 
   const {data: storeOrderInventoriesQuery, loading: storeOrderInventoriesLoading, refetch: storeOrderInventoriesRefetch} = useQuery(GET_STORE_ORDER, {
     variables: {
@@ -57,6 +57,8 @@ const StoreOrder = ({...props}) => {
           size="large"
         > Next Step </Button> 
       </div>
+
+      {mutationData && mutationData.scanInventory.errors.length > 0 && <p className="text-danger">Error :( Product Does Not Exist</p>}
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField        

@@ -67,30 +67,30 @@ const CombinedStoreOrders = ({...props}) => {
             {
               title: 'Easton Bypass',
               render: rowData => (
-                (rowData.inventories.find(inventory => inventory.store.name === 'Easton Bypass') !== undefined) && rowData.inventories.find(inventory => inventory.store.name === 'Easton Bypass').quantityNeeded
+                (rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Easton Bypass') !== undefined) && rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Easton Bypass').quantityNeeded
               )
-            },            
+            },
             {
               title: 'Cambridge',
               render: rowData => (
-                (rowData.inventories.find(inventory => inventory.store.name === 'Cambridge') !== undefined) && rowData.inventories.find(inventory => inventory.store.name === 'Cambridge').quantityNeeded
+                (rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Cambridge') !== undefined) && rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Cambridge').quantityNeeded
               )
             },    
             {
               title: 'Dover Road',
               render: rowData => (
-                (rowData.inventories.find(inventory => inventory.store.name === 'Dover Road') !== undefined) && rowData.inventories.find(inventory => inventory.store.name === 'Dover Road').quantityNeeded
+                (rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Dover Road') !== undefined) && rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Dover Road').quantityNeeded
               )
             },  
             {
               title: 'Total',
               render: rowData => (
-                rowData.inventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)
+                rowData.inventories.filter(inventory => inventory.store).map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)
               )
             },    
             { title: 'On Hand', field: 'onHand',
               // render: rowData => (
-              //   rowData.inventories[0].store.prepcenter
+              //   rowData.inventories.filter(inventory => !inventory.store).
               // )            
 
             },

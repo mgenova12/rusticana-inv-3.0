@@ -8,7 +8,7 @@ module Queries
 
     def resolve(order_id:)
 
-      Order.find(order_id).inventories.where(scanned: [nil,false]).joins({:store_good => :distributor }).where(store_goods: { distributor_id: 11 })
+      Order.find(order_id).inventories.where(scanned: [nil,false]).joins(:store_good).where(store_goods: { is_prepcenter: true })
     end
 
   end

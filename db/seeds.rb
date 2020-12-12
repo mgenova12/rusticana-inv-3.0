@@ -1,7 +1,11 @@
 # # This file should contain all the record creation needed to seed the database with its default values.
 # # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
+# Product.all.each{|x| x.update(barcode:rand(10 ** 9...10 ** 10))}
+# Prepcenter.first.store_goods.where(is_prepcenter:true).update_all(is_prepcenter:false)
+
 # StoreGood.where(distributor_id: 5).update_all(is_prepcenter: true)
+
 # Container.create(name: "NO CONTAINER")
 # Product.update_all(container_id: 9)
 

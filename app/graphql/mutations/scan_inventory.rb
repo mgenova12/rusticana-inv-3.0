@@ -15,9 +15,13 @@ class Mutations::ScanInventory < Mutations::BaseMutation
       invoiced_quantity = inventory.invoiced_quantity + 1
       inventory.update(scanned: true, quantity_needed: quantity_needed, invoiced_quantity: invoiced_quantity)
     
-    else
       {
-        errors: ['no product found']
+        errors: [],
+      }
+    else
+      # Failed save, return the errors to the client
+      {
+        errors: ['No Product Found']
       }
     end
 
