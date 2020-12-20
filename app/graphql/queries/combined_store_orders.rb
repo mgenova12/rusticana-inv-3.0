@@ -1,14 +1,15 @@
 module Queries
   class CombinedStoreOrders < Queries::BaseQuery
-    argument :store_order_id, Integer, required: true
 
-    description 'Find all Combined Store Orders'
+    description 'Find all Products'
 
     type [Types::ProductType], null: false
 
-    def resolve(store_order_id:)
+    def resolve
       # Product.distinct.joins(:store_goods).where(store_goods: { is_prepcenter: true }).order(:name)
-      Product.all
+
+      # should this only be prepcenter store good products?
+      Product.order(:name)
     end
 
   end

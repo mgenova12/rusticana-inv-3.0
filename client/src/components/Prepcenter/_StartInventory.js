@@ -48,7 +48,6 @@ const StartInventory = ({...props}) => {
   if (prepcenterOrderStatusQueryLoading) return 'Loading...'
   if (createInventoryLoading) return 'Loading...'
 
-  console.log(prepcenterOrderStatusQuery)
   return (
     <Container component="main" maxWidth="sm">
     {!prepcenterOrderStatusQuery.prepcenterOrderStatus ? (

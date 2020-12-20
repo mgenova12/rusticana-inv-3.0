@@ -4,6 +4,8 @@
 # Product.all.each{|x| x.update(barcode:rand(10 ** 9...10 ** 10))}
 # Prepcenter.first.store_goods.where(is_prepcenter:true).update_all(is_prepcenter:false)
 
+# StoreGood.where(prepcenter_id: 1).select(:product_id).group(:product_id).having('count(*) > 1').size
+
 # StoreGood.where(distributor_id: 5).update_all(is_prepcenter: true)
 
 # Container.create(name: "NO CONTAINER")

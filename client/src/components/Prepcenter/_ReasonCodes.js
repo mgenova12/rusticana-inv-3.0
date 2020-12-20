@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_UNSCANNED_STORE_ORDER } from './prepcenter.query'
+import { EDIT_FINAL_INVENTORY_ORDER } from './prepcenter.mutation'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useForm } from "react-hook-form";
@@ -9,17 +10,26 @@ import { useForm } from "react-hook-form";
 const ReasonCodes = ({...props}) => {
   const { register, handleSubmit, errors} = useForm({mode: "onChange"});
 
-  const {data: unscannedStoreOrderInventoriesQuery, loading: unscannedStoreOrdernventoriesLoading} = useQuery(GET_UNSCANNED_STORE_ORDER, {
+  const {data: unscannedStoreOrderInventoriesQuery, loading: unscannedStoreOrderInventoriesLoading} = useQuery(GET_UNSCANNED_STORE_ORDER, {
     variables: {
       orderId: parseInt(props.match.params.orderId)
     }
   })
 
+  const [editFinalInventoryOrder, { loading: editFinalInventoryOrderLoading }] = useMutation(EDIT_FINAL_INVENTORY_ORDER);
+
   const onSubmit = data => {
-    console.log(data)
+    editFinalInventoryOrder({ 
+      variables: { 
+        orderId: parseInt(props.match.params.orderId),
+        storeOrderId: parseInt(props.match.params.storeOrderId),
+      }
+    }).then(() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory_success`)); 
+
   }
 
-  if (unscannedStoreOrdernventoriesLoading) return 'Loading...'
+  if (unscannedStoreOrderInventoriesLoading) return 'Loading...'
+  if (editFinalInventoryOrderLoading) return 'Loading...'
   
   return (
     <div>

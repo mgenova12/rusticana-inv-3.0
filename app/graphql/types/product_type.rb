@@ -20,5 +20,11 @@ module Types
     field :p_id, Integer, null: true
     field :inventories, [InventoryType], null: true
     field :container, ContainerType, null: true
+    field :store_goods, [StoreGoodType], null: true
+
+    field :product_inventories, [InventoryType], null: true do
+      argument :store_order_id, Int, required: false
+    end  
+
   end
 end

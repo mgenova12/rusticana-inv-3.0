@@ -167,17 +167,19 @@ export const GET_UNSCANNED_STORE_ORDER = gql`
 
 export const GET_COMBINED_STORE_ORDERS = gql`
   query combinedStoreOrders($storeOrderId: Int!) { 
-    combinedStoreOrders(storeOrderId: $storeOrderId) {
+    combinedStoreOrders {
       id
       name 
       prepped
-      inventories {
-      	id	      	
+      storeGoods {
+        prepcenterId
+        amountInStock
+      }
+
+      productInventories(storeOrderId: $storeOrderId) {
+      	id	       	
       	quantityNeeded
       	
-      	storeGood {
-      		amountInStock
-      	}
       	store {
       		id
       		name

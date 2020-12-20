@@ -1,5 +1,13 @@
 import { gql } from '@apollo/client';
 
+export const EDIT_FINAL_INVENTORY_ORDER = gql`
+  mutation editFinalInventoryOrder($orderId: Int!, $storeOrderId: Int!) {
+    editFinalInventoryOrder(input: {orderId: $orderId, storeOrderId: $storeOrderId}) {
+      errors   
+    }
+  }
+`;
+
 export const EDIT_PREPCENTER_INVENTORY_QUANTITY_NEEDED = gql`
   mutation editPrepcenterInventoryQuantityNeeded($prepcenterId: Int!) {
     editPrepcenterInventoryQuantityNeeded(input: {prepcenterId: $prepcenterId }) {

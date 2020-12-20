@@ -1,6 +1,7 @@
 module Types
   class StoreGoodType < Types::BaseObject
     field :id, ID, null: true
+    field :prepcenter_id, ID, null: true
     field :store, StoreType, null: true
     field :product, ProductType, null: true
     field :location, LocationType, null: true

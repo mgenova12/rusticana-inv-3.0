@@ -18,6 +18,7 @@ const CombinedStoreOrders = ({...props}) => {
   const selectTab = useCallback((prepped) => setActiveTab(prepped), []);
 
   if (combinedStoreOrdersQueryLoading) return 'Loading...'
+  console.log(combinedStoreOrdersQuery)
   
   const results = activeTab === 'nonPrepped'
     ? combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === false)
@@ -67,34 +68,40 @@ const CombinedStoreOrders = ({...props}) => {
             {
               title: 'Easton Bypass',
               render: rowData => (
-                (rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Easton Bypass') !== undefined) && rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Easton Bypass').quantityNeeded
+                rowData.productInventories.map(inventory => inventory.store.name === 'Easton Bypass' ? inventory.quantityNeeded : 'X')
               )
             },
             {
               title: 'Cambridge',
               render: rowData => (
-                (rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Cambridge') !== undefined) && rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Cambridge').quantityNeeded
+                rowData.productInventories.map(inventory => inventory.store.name === 'Cambridge' ? inventory.quantityNeeded : 'X')
               )
             },    
             {
               title: 'Dover Road',
               render: rowData => (
-                (rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Dover Road') !== undefined) && rowData.inventories.filter(inventory => inventory.store).find(inventory => inventory.store.name === 'Dover Road').quantityNeeded
+                rowData.productInventories.map(inventory => inventory.store.name === 'Dover Road' ? inventory.quantityNeeded : 'X')
               )
             },  
             {
               title: 'Total',
               render: rowData => (
-                rowData.inventories.filter(inventory => inventory.store).map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)
+                rowData.productInventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)
               )
             },    
-            { title: 'On Hand', field: 'onHand',
-              // render: rowData => (
-              //   rowData.inventories.filter(inventory => !inventory.store).
-              // )            
+            { 
+              title: 'On Hand', field: 'onHand',
+              render: rowData => (
+                rowData.storeGoods.map(storeGood => storeGood.prepcenterId ? storeGood.amountInStock : '' )
+              )            
 
             },
-            { title: 'Need', field: 'need' },
+            { 
+              title: 'Need', field: 'need',
+              render: rowData => (
+                (parseInt(rowData.storeGoods.map(storeGood => storeGood.prepcenterId ? storeGood.amountInStock : '' )[1])) - (parseInt(rowData.productInventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)))
+              )               
+            },
           ]}
           data={JSON.parse(JSON.stringify(results))}           
         />      	

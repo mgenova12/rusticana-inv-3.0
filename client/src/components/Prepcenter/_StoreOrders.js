@@ -14,7 +14,11 @@ const StoreOrders = ({...props}) => {
 
   const handleOrderClick = (event, order, rowData) => {
     event.stopPropagation()
-    props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}/orders/${order.id}`)
+
+    if(order.status !== 'incomplete'){
+      props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}/orders/${order.id}`)
+    }
+    
   }
 
   if (storeOrdersQueryLoading) return 'Loading...'
@@ -40,12 +44,14 @@ const StoreOrders = ({...props}) => {
               field: 'url',
               render: rowData => (
                 
-                rowData.orders.filter((order => order.status === 'pending')).map((order) => 
+                rowData.orders.map((order) => 
                   <span key={order.id} className="d-inline-block m-1">
+
                    <Avatar 
-                      className="border border-success" 
+                      className={(order.status === 'pending') ? ("border border-success") : ((order.status === 'complete') ? ("bg-success") : ("bg-warning"))}
                       onClick={(e) => handleOrderClick(e, order, rowData)}>{order.store.name[0]}
                    </Avatar>
+
                   </span>
                 )
 
