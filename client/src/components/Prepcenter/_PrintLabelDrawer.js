@@ -13,6 +13,12 @@ const PrintLabelDrawer = ({ visible, onClose, currentProduct }) => {
     content: () => componentRef.current,
   });
 
+  const getUsebyDate = (daysTillExpire) => {
+    const date = new Date();
+    date.setDate(date.getDate() + daysTillExpire);
+    return date.toLocaleDateString();
+  }
+
   return (
     <div>
 			<Drawer 
@@ -23,16 +29,16 @@ const PrintLabelDrawer = ({ visible, onClose, currentProduct }) => {
         onClose={onClose}
       >
         <h3 
-        className="mr-2 ml-2 text-wrap" 
-        align="center"
-        style={{width: "20rem"}}
-        >Print: {currentProduct.product.name}</h3>
+          className="mr-2 ml-2 text-wrap" 
+          style={{width: "20rem"}}
+          align="center">
+          Print: {currentProduct.product.name}
+        </h3>
         <List >
-
           <ListItem>{new Date().toLocaleString()}</ListItem>
           <ListItem>CATEGORY: {currentProduct.product.category.name}</ListItem>
           <ListItem>DAYS TILL EXPIRE: {currentProduct.product.daysTillExpire}</ListItem>
-          <ListItem>USE BY DATE: ???</ListItem>
+          <ListItem>USE BY DATE: {getUsebyDate(currentProduct.product.daysTillExpire)}</ListItem>
           <ListItem>POST THAW ____________________</ListItem>
           {currentProduct.product.category.name !== 'Dry' &&
             <ListItem>KEEP REFRIGERATED!</ListItem>

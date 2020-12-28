@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import { useForm } from "react-hook-form";
 import { useMutation } from '@apollo/client';
-import { CREATE_LOCATION } from './locations.mutation'
+import { CREATE_LOCATION } from './store.mutation'
 
 const NewLocationDrawer = ({ visible, onClose, locationsRefetch, storeId }) => {
   const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});

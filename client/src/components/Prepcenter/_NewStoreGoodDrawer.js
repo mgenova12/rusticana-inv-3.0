@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_PREPCENTER_STORE_GOOD } from './prepcenter.mutation'
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
-import { GET_COUNT_BIES } from '../Store/countBy.query'
+import { GET_COUNT_BIES } from '../Store/store.query'
 import { GET_DISTRIBUTORS } from '../Globals/globals.query'
 
 const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, prepcenterId, currentProduct }) => {
@@ -56,7 +56,12 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, prepcenter
         onClose={onClose}
       >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3 className="mr-2 ml-2" align="center">{currentProduct.name}</h3>
+        <h3 
+          className="mr-2 ml-2 text-wrap" 
+          style={{width: "20rem"}}
+          align="center">
+            {currentProduct.name}
+        </h3>
         <List >
         
           <ListItem>

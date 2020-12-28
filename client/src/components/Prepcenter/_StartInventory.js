@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import { useForm } from "react-hook-form";
 import { CREATE_PREPCENTER_INVENTORY } from './prepcenter.mutation'
-import { DELETE_INVENTORY } from '../Store/inventory.mutation'
+import { DELETE_INVENTORY } from '../Store/store.mutation'
 import { GET_PREPCENTER_ORDER_STATUS } from './prepcenter.query'
 
 const StartInventory = ({...props}) => {

@@ -2,11 +2,11 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
 import { GET_PREPCENTER_STORE_GOODS} from './prepcenter.query'
-import { DELETE_STORE_GOOD } from '../Store/storeGoods.mutation'
-import { EDIT_STORE_GOOD } from '../Store/storeGoods.mutation'
+import { DELETE_STORE_GOOD } from '../Store/store.mutation'
+import { EDIT_STORE_GOOD } from '../Store/store.mutation'
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
 import { GET_DISTRIBUTORS } from '../Globals/globals.query'
-import { GET_COUNT_BIES } from '../Store/countBy.query'
+import { GET_COUNT_BIES } from '../Store/store.query'
 
 const StoreGoods = ({...props}) => {
   const {data: prepcenterStoreGoodsQuery, loading: prepcenterStoreGoodsQueryLoading, refetch: prepcenterStoreGoodsRefetch} = useQuery(GET_PREPCENTER_STORE_GOODS, {

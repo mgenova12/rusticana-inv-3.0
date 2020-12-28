@@ -2,10 +2,10 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { GET_LOCATIONS } from './locations.query'
-import { GET_INVENTORY} from './inventory.query'
-import { EDIT_INVENTORY_QUANTITY} from './inventory.mutation'
-import { EDIT_INVENTORY_QUANTITY_NEEDED} from './inventory.mutation'
+import { GET_LOCATIONS } from './store.query'
+import { GET_INVENTORY} from './store.query'
+import { EDIT_INVENTORY_QUANTITY} from './store.mutation'
+import { EDIT_INVENTORY_QUANTITY_NEEDED} from './store.mutation'
 import { useForm } from "react-hook-form";
 
 const Inventory = ({...props}) => {

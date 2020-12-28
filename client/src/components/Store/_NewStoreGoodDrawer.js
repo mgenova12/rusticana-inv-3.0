@@ -6,9 +6,9 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_STORE_GOOD } from './storeGoods.mutation'
-import { GET_LOCATIONS } from './locations.query'
-import { GET_COUNT_BIES } from './countBy.query'
+import { CREATE_STORE_GOOD } from './store.mutation'
+import { GET_LOCATIONS } from './store.query'
+import { GET_COUNT_BIES } from './store.query'
 import { GET_DISTRIBUTORS } from '../Globals/globals.query'
 
 const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, currentProduct }) => {

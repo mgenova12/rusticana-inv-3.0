@@ -5,6 +5,12 @@ export class Label extends React.PureComponent {
   render() {
   	const { currentProduct } = this.props;
 
+	  const getUsebyDate = (daysTillExpire) => {
+	    const date = new Date();
+	    date.setDate(date.getDate() + daysTillExpire);
+	    return date.toLocaleDateString();
+	  }
+
     return (	
     	<div> 
 				<style dangerouslySetInnerHTML={{__html: `
@@ -39,7 +45,7 @@ export class Label extends React.PureComponent {
 		    	<h4> {new Date().toLocaleString()} </h4>
 		    	<h4> CATEGORY: {currentProduct.product.category.name} </h4>
 		    	<h4> DAYS TILL EXPIRE: {currentProduct.product.daysTillExpire} </h4>
-		    	<h4><span> USE BY DATE:  ???</span></h4>
+		    	<h4><span> USE BY DATE: {getUsebyDate(currentProduct.product.daysTillExpire)}</span></h4>
 		    	<h4> POST THAW ____________________</h4>
           {currentProduct.product.category.name !== 'Dry' &&
             <h4>KEEP REFRIGERATED!</h4>

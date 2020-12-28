@@ -4,9 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import { useForm } from "react-hook-form";
-import { CREATE_INVENTORY } from './inventory.mutation'
-import { DELETE_INVENTORY } from './inventory.mutation'
-import { GET_ORDER_STATUS } from './inventory.query'
+import { CREATE_INVENTORY } from './store.mutation'
+import { DELETE_INVENTORY } from './store.mutation'
+import { GET_ORDER_STATUS } from './store.query'
 
 const StartInventory = ({...props}) => {
   const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});

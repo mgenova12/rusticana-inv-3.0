@@ -2,8 +2,8 @@ import React, {useState, useCallback} from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
 import NewLocationDrawer from './_NewLocationDrawer.js'
-import { GET_LOCATIONS } from './locations.query'
-import { DELETE_LOCATION } from './locations.mutation'
+import { GET_LOCATIONS } from './store.query'
+import { DELETE_LOCATION } from './store.mutation'
 
 const Locations = ({...props}) => {
   const {data: locationsQuery, loading: locationsQueryLoading, refetch: locationsRefetch} = useQuery(GET_LOCATIONS, {

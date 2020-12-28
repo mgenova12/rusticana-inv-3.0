@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
-import { GET_ORDERS } from './orders.query'
+import { GET_ORDERS } from './store.query'
 
 const Orders = ({...props}) => {
   const {data: ordersQuery, loading: ordersQueryLoading} = useQuery(GET_ORDERS, {

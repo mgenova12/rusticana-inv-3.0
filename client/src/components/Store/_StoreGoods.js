@@ -1,12 +1,12 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
-import { GET_STORE_GOODS} from './storeGoods.query'
-import { DELETE_STORE_GOOD } from './storeGoods.mutation'
-import { EDIT_STORE_GOOD } from './storeGoods.mutation'
-import { GET_LOCATIONS } from './locations.query'
+import { GET_STORE_GOODS} from './store.query'
+import { DELETE_STORE_GOOD } from './store.mutation'
+import { EDIT_STORE_GOOD } from './store.mutation'
+import { GET_LOCATIONS } from './store.query'
 import { GET_DISTRIBUTORS } from '../Globals/globals.query'
-import { GET_COUNT_BIES } from './countBy.query'
+import { GET_COUNT_BIES } from './store.query'
 
 const StoreGoods = ({...props}) => {
   const {data: storeGoodsQuery, loading: storeGoodsQueryLoading, refetch: storeGoodsRefetch} = useQuery(GET_STORE_GOODS, {

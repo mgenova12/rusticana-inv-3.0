@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
 import { GET_PREPCENTER_INVENTORY} from './prepcenter.query'
-import { EDIT_INVENTORY_QUANTITY} from '../Store/inventory.mutation'
+import { EDIT_INVENTORY_QUANTITY} from '../Store/store.mutation'
 import { EDIT_PREPCENTER_INVENTORY_QUANTITY_NEEDED} from './prepcenter.mutation'
 import { useForm } from "react-hook-form";
 

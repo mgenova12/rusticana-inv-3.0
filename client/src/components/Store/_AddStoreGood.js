@@ -2,7 +2,7 @@ import React, {useState, useCallback} from 'react';
 import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
 import NewStoreGoodDrawer from './_NewStoreGoodDrawer.js'
-import { GET_STORE_PRODUCTS } from './storeGoods.query'
+import { GET_STORE_PRODUCTS } from './store.query'
 
 const AddStoreGood = ({...props}) => {
   const {data: storeProductsQuery, loading: storeProductsQueryLoading, refetch: storeProductsRefetch} = useQuery(GET_STORE_PRODUCTS, {

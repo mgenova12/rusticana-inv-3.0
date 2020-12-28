@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable from 'material-table';
 import NewLocationDrawer from './_NewLocationDrawer.js'
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
-import { DELETE_LOCATION } from '../Store/locations.mutation'
+import { DELETE_LOCATION } from '../Store/store.mutation'
 
 const Locations = ({...props}) => {
   const {data: prepcenterLocationsQuery, loading: prepcenterLocationsQueryLoading, refetch: prepcenterLocationsRefetch} = useQuery(GET_PREPCENTER_LOCATIONS, {

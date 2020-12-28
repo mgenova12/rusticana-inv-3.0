@@ -4,7 +4,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { GET_ORDER } from './orders.query'
+import { GET_ORDER } from './store.query'
 import { GET_CATEGORIES } from '../Globals/globals.query'
 import { GET_DISTRIBUTORS } from '../Globals/globals.query'
 
