@@ -1,5 +1,25 @@
 import { gql } from '@apollo/client';	
 
+export const GET_PREPCENTER_LABELS = gql`
+  query prepcenterStoreGoods($prepcenterId: Int!) {   
+    prepcenterStoreGoods(prepcenterId: $prepcenterId) {
+      id
+      product{
+        id
+        name
+        barcode
+        prepped 
+        daysTillExpire
+        category {
+          id
+          name
+        }        
+      }               
+    }
+
+  }
+`;
+
 export const GET_PREPCENTER_ORDERS = gql`
   query prepcenterOrders($prepcenterId: Int!) {   
     prepcenterOrders(prepcenterId: $prepcenterId) {

@@ -111,7 +111,7 @@ export const Navbar = ({...props}) => {
               <ListItemText primary={'Submitted Inventory'} />
             </ListItem> 
 
-            <ListItem key={'Print Labels'}>
+            <ListItem key={'Print Labels'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/print_labels`}>
               <ListItemIcon><Print/></ListItemIcon>
               <ListItemText primary={'Print Labels'} />
             </ListItem> 

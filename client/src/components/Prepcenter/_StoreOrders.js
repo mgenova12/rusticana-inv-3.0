@@ -15,7 +15,7 @@ const StoreOrders = ({...props}) => {
   const handleOrderClick = (event, order, rowData) => {
     event.stopPropagation()
 
-    if(order.status !== 'incomplete'){
+    if(order.status === 'pending'){
       props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}/orders/${order.id}`)
     }
     

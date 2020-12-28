@@ -16,6 +16,7 @@
     "material-table": "^1.69.1",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",
+    "react-barcode": "^1.4.0",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.8.6",
     "react-number-format": "^4.4.1",
@@ -23,6 +24,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
+    "react-to-print": "^2.12.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },

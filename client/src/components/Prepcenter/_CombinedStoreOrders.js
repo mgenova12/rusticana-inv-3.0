@@ -18,7 +18,6 @@ const CombinedStoreOrders = ({...props}) => {
   const selectTab = useCallback((prepped) => setActiveTab(prepped), []);
 
   if (combinedStoreOrdersQueryLoading) return 'Loading...'
-  console.log(combinedStoreOrdersQuery)
   
   const results = activeTab === 'nonPrepped'
     ? combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === false)
@@ -103,7 +102,7 @@ const CombinedStoreOrders = ({...props}) => {
               )               
             },
           ]}
-          data={JSON.parse(JSON.stringify(results))}           
+          data={JSON.parse(JSON.stringify(results))}
         />      	
           
     </div>

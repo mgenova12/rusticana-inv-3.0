@@ -23,6 +23,7 @@ import PrepcenterStoreGoods from './components/Prepcenter/_StoreGoods.js';
 import CombinedStoreOrders from './components/Prepcenter/_CombinedStoreOrders.js';
 import PrepcenterLocations from './components/Prepcenter/_Locations.js';
 import AddPrepcenterStoreGood from './components/Prepcenter/_AddStoreGood.js';
+import PrintLabels from './components/Prepcenter/_PrintLabels.js';
 
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
@@ -96,6 +97,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory" component={PrepcenterInventory} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory_success" component={InventorySuccess} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/orders" component={PrepcenterOrders} />
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/print_labels" component={PrintLabels} />
       		
       		<Route exact path='/login' component={Login} />
       </Switch>
