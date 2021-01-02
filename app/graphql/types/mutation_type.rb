@@ -22,5 +22,6 @@ module Types
     field :create_prepcenter_store_good, mutation: Mutations::CreatePrepcenterStoreGood
     field :edit_prepcenter_inventory_quantity_needed, mutation: Mutations::EditPrepcenterInventoryQuantityNeeded
     field :edit_final_inventory_order, mutation: Mutations::EditFinalInventoryOrder
+    field :edit_prepped_product, mutation: Mutations::EditPreppedProduct
   end
 end

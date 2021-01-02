@@ -1,5 +1,40 @@
 import { gql } from '@apollo/client';
 
+export const EDIT_PREPPED_PRODUCT = gql`
+  mutation editPreppedProduct(
+      $id: Int!,
+      $name: String!,
+      $categoryId: Int!,
+      $containerId: Int!
+    ) {
+      editPreppedProduct(input: { 
+        id: $id,
+        name: $name, 
+        categoryId: $categoryId,
+        containerId: $containerId
+      }) {
+        product {
+          id
+          name
+          markUp
+          caseQuantity
+          price
+          markedUpPrice
+          category {
+            id
+            name
+          }
+          container {
+            id
+            name
+          } 
+        }
+        errors
+      }
+    }
+`;
+
+
 export const CREATE_DISTRIBUTOR = gql`
   mutation createDistributor($name: String!) {
     createDistributor(input: { name: $name }) {
