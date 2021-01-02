@@ -25,5 +25,7 @@ module Types
     field :prepcenter_products, resolver: Queries::PrepcenterProducts
     field :prepcenter_inventories, resolver: Queries::PrepcenterInventories
     field :prepcenter_orders, resolver: Queries::PrepcenterOrders
+    field :store_name, resolver: Queries::StoreName
+    field :invoices, resolver: Queries::Invoices
   end
 end

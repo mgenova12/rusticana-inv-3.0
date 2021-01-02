@@ -136,6 +136,7 @@ const Products = () => {
           visible={visible} 
           onClose={onClose}
           currentProduct={currentProduct}
+          containers={containersQuery.containers}
         />  
         <NewProductDrawer
           visible={visibleNewProductDrawer} 
@@ -143,6 +144,7 @@ const Products = () => {
           distributors={distributorsQuery.distributors}
           categories={categoriesQuery.categories}
           productsRetch={productsRetch}
+          containers={containersQuery.containers}
         />  
     </div>
   )

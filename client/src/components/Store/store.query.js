@@ -1,5 +1,15 @@
 import { gql } from '@apollo/client';	
 
+	// export const GET_STORE_NAME = gql`
+	//   query storeName($id: Int, $storeName: String) {   
+	//     storeName(id: $id, storeName: $storeName) {
+	//       id
+	//       name                     
+	//     }
+
+	//   }
+	// `
+
 	export const GET_COUNT_BIES = gql`
 		query {
 		  countBies  {

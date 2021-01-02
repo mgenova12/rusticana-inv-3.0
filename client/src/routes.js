@@ -25,6 +25,8 @@ import PrepcenterLocations from './components/Prepcenter/_Locations.js';
 import AddPrepcenterStoreGood from './components/Prepcenter/_AddStoreGood.js';
 import PrintLabels from './components/Prepcenter/_PrintLabels.js';
 
+import Invoices from './components/Invoices/_Invoices.js';
+
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -36,7 +38,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props => {
-      	// console.log(props)
+       // console.log(props)
        //  console.log(props.match.params)
 
       	
@@ -98,6 +100,8 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory_success" component={InventorySuccess} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/orders" component={PrepcenterOrders} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/print_labels" component={PrintLabels} />
+
+          <PrivateRoute exact path="/invoices" component={Invoices} />
       		
       		<Route exact path='/login' component={Login} />
       </Switch>

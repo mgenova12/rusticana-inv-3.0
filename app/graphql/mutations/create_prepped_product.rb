@@ -9,11 +9,12 @@ class Mutations::CreatePreppedProduct < Mutations::BaseMutation
   argument :description, String, required: false
   argument :p_id, Integer, required: true
   argument :price, Float, required: true
+  argument :container_id, Integer, required: false
 
   field :product, Types::ProductType, null: false
   field :errors, [String], null: false
 
-  def resolve(name:, category_id:, case_quantity:, portion_size:, barcode:, mark_up:, days_till_expire:, description:, p_id:, price:)
+  def resolve(name:, category_id:, case_quantity:, portion_size:, barcode:, mark_up:, days_till_expire:, description:, p_id:, price:, container_id:)
     marked_up_price = (price / portion_size) * (1 + (mark_up * 0.01))
 
     product = Product.new(
@@ -27,7 +28,8 @@ class Mutations::CreatePreppedProduct < Mutations::BaseMutation
       portion_size: portion_size,
       days_till_expire: days_till_expire,
       p_id: p_id,
-      marked_up_price: marked_up_price
+      marked_up_price: marked_up_price,
+      container_id: container_id
     )
     
     if product.save

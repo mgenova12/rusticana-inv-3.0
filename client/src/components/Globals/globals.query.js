@@ -58,6 +58,10 @@ export const GET_PREPPED_PRODUCTS = gql`
 	    price
 	    portionSize
 	    markedUpPrice
+	    container {
+	    	id
+	    	name
+	    }	    
 	    category {
 	    	id
 	    	name

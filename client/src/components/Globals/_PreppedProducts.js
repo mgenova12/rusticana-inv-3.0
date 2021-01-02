@@ -55,6 +55,10 @@ const PreppedProducts = () => {
               field: 'category.id',
               lookup: categoriesLookup,
             },
+            { 
+              title: 'Container', 
+              field: 'container.name',
+            },             
             { title: 'Portion Size', field: 'portionSize' },
             { title: 'Case Quantity', field: 'caseQuantity' },
             { title: 'Mark Up', field: 'markUp', type: 'string'},

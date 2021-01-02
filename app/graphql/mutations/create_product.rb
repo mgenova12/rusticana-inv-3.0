@@ -11,11 +11,12 @@ class Mutations::CreateProduct < Mutations::BaseMutation
   argument :barcode, Integer, required: false
   argument :aisle_number, Integer, required: false
   argument :description, String, required: false
+  argument :container_id, Integer, required: false
 
   field :product, Types::ProductType, null: false
   field :errors, [String], null: false
 
-  def resolve(name:, distributor_id:, category_id:, case_quantity:, mark_up:, price:, brand:, unit_size:, distributor_number:, barcode:, aisle_number:, description:)
+  def resolve(name:, distributor_id:, category_id:, case_quantity:, mark_up:, price:, brand:, unit_size:, distributor_number:, barcode:, aisle_number:, description:, container_id:)
     marked_up_price = price + (price * (mark_up * 0.01))
 
     product = Product.new(
@@ -32,7 +33,8 @@ class Mutations::CreateProduct < Mutations::BaseMutation
       barcode: barcode, 
       aisle_number: aisle_number, 
       description: description,
-      marked_up_price: marked_up_price
+      marked_up_price: marked_up_price,
+      container_id: container_id
     )
     
     if product.save

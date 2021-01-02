@@ -28,9 +28,37 @@ import LocalShipping from '@material-ui/icons/LocalShipping';
 import LocalPizza from '@material-ui/icons/LocalPizza';
 import Restaurant from '@material-ui/icons/Restaurant';
 
+// import { GET_STORE_NAME } from './components/Store/store.query'
+// import { useQuery } from '@apollo/client';
+
 export const Navbar = ({...props}) => {
-  
-  console.log(props.match.params)
+  let path = props.match.path.split('/')[1]
+
+  // const {data: storeNameQuery, loading: storeNameQueryLoading} = useQuery(GET_STORE_NAME, {
+  //   fetchPolicy: "network-only",
+  //   variables: {
+  //     id: parseInt(1),
+  //     storeName: props.match.path.split('/')[1]
+  //   }
+  // })
+
+  const getName = () => {
+    let path = props.match.path.split('/')[1]
+    let id = props.match.params.storeId
+    if (path === 'prepcenter'){
+      return 'Trappe'
+    } else if(path === 'store' && id === '1'){
+      return 'Dover Road'
+    } else if(path === 'store' && id === '2'){
+      return 'Bypass'
+    } else if(path === 'store' && id === '3'){
+      return 'Cambridge'
+    } else {
+      return 'Rusticana'
+    }
+
+  };
+
 
   const history = useHistory();
   const [state, setState] = useState({
@@ -44,16 +72,17 @@ export const Navbar = ({...props}) => {
     setState({ ...state, 'open': open });
   };
 
-  let path = props.match.path.split('/')[1]
 
   const drawerList =(
 		<div 
 		role="presentation"
 		>
 	    <List onClick={toggleDrawer(false)}>
-	        <ListItem>
-	          <ListItemText primary={'Rusticana'} />
+	        <ListItem> 
+            <img src="/newcroplogo.png" alt="logo" width={45} height={45}/>
+	          <div className="h4" style={{fontFamily: 'cursive'}}> Rusticana </div>
 	        </ListItem>
+          <hr/>
 	        <ListItem component={Link} to={`/`} key={'Home'}>
 	          <ListItemIcon><Home/></ListItemIcon>
 	          <ListItemText primary={'Home'} />
@@ -162,7 +191,6 @@ export const Navbar = ({...props}) => {
     </div>
 	)
 
-
   return (
     <div >
       <AppBar position="static">
@@ -180,7 +208,7 @@ export const Navbar = ({...props}) => {
           }
 
           <Typography variant="h6" style={{flexGrow: 1}}>
-            Rusticana
+            {getName()}
           </Typography>
            
            <IconButton color="inherit">

@@ -89,7 +89,8 @@ export const CREATE_PREPPED_PRODUCT = gql`
     $daysTillExpire: Int,
     $description: String,
     $pId: Int!,
-    $price: Float!
+    $price: Float!,
+    $containerId: Int
   ) {
     createPreppedProduct(input: { 
       name: $name, 
@@ -101,7 +102,8 @@ export const CREATE_PREPPED_PRODUCT = gql`
       daysTillExpire: $daysTillExpire,
       description: $description,
       pId: $pId,
-      price: $price
+      price: $price,
+      containerId: $containerId
     }) {
       product {
         id
@@ -126,6 +128,7 @@ export const CREATE_PRODUCT = gql`
     $barcode: Int,
     $aisleNumber: Int,
     $description: String,
+    $containerId: Int
   ) {
     createProduct(input: { 
       name: $name, 
@@ -140,6 +143,7 @@ export const CREATE_PRODUCT = gql`
       barcode: $barcode,
       aisleNumber: $aisleNumber,
       description: $description,
+      containerId: $containerId
     }) {
       product {
         id

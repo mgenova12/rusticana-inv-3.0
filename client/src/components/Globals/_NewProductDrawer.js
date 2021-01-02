@@ -37,7 +37,7 @@ function NumberFormatCustom(props) {
   );
 }
 
-const NewProductDrawer = ({ visible, onClose, distributors, categories, productsRetch }) => {
+const NewProductDrawer = ({ visible, onClose, distributors, categories, productsRetch, containers }) => {
   const [createProduct] = useMutation(CREATE_PRODUCT);
   
   const { register, handleSubmit, errors, setValue, reset } = useForm({mode: "onBlur"});
@@ -64,6 +64,7 @@ const NewProductDrawer = ({ visible, onClose, distributors, categories, products
         barcode: parseInt(data.barcode),
         aisleNumber: parseInt(data.aisleNumber),
         description: data.description,
+        containerId: parseInt(data.containerId)
       }
     });
     handleOpen()
@@ -173,7 +174,35 @@ const NewProductDrawer = ({ visible, onClose, distributors, categories, products
 
                 </TextField>
               </ListItem>
-              
+
+            <ListItem>
+              <TextField
+                  select
+                  inputRef={register({required: true})}
+                  error={errors.containerId ? true : false}
+                  label="Container"
+                  name="containerId"
+                  placeholder="Select a Container"
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  SelectProps={{
+                    native: true,
+                  }}              
+                >
+                <option key='' value=''></option>
+                {
+                  containers.map(container => {
+                    return <option key={container.id} value={container.id}>{container.name}</option>
+                  })
+                }
+
+                </TextField>
+              </ListItem>              
+
               <ListItem>
                 <TextField
                     label="Case Quantity"

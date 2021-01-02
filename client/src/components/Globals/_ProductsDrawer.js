@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from '@apollo/client';
 import { CREATE_PREPPED_PRODUCT } from './globals.mutation'
 
-const ProductsDrawer = ({ categories, visible, currentProduct, onClose }) => {
+const ProductsDrawer = ({ categories, visible, currentProduct, onClose, containers }) => {
   const [createPreppedProduct] = useMutation(CREATE_PREPPED_PRODUCT);
   
   const { register, handleSubmit, errors, setValue, reset } = useForm({mode: "onBlur"});
@@ -28,7 +28,8 @@ const ProductsDrawer = ({ categories, visible, currentProduct, onClose }) => {
         daysTillExpire: parseInt(data.daysTillExpire),
         description: data.description,
         pId: parseInt(currentProduct.id),
-        price: parseFloat(currentProduct.price)
+        price: parseFloat(currentProduct.price),
+        containerId: parseInt(data.containerId)
       }
     });
 
@@ -100,6 +101,34 @@ const ProductsDrawer = ({ categories, visible, currentProduct, onClose }) => {
 
               </TextField>
             </ListItem>
+
+            <ListItem>
+              <TextField
+                  select
+                  inputRef={register({required: true})}
+                  error={errors.containerId ? true : false}
+                  label="Container"
+                  name="containerId"
+                  placeholder="Select a Container"
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  SelectProps={{
+                    native: true,
+                  }}              
+                >
+                <option key='' value=''></option>
+                {
+                  containers.map(container => {
+                    return <option key={container.id} value={container.id}>{container.name}</option>
+                  })
+                }
+
+                </TextField>
+              </ListItem> 
 
             <ListItem>
               <TextField
