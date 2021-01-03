@@ -17,11 +17,17 @@ const CombinedStoreOrders = ({...props}) => {
   const [activeTab, setActiveTab] = useState('nonPrepped');
   const selectTab = useCallback((prepped) => setActiveTab(prepped), []);
 
+  const getAmount = (rowData, storeName) => {
+    const amount = rowData.productInventories.find(inventory => inventory.store.name === storeName) 
+    return amount ? amount.quantityNeeded : 'X'
+
+  };
+
   if (combinedStoreOrdersQueryLoading) return 'Loading...'
-  
+
   const results = activeTab === 'nonPrepped'
-    ? combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === false)
-    : combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === true)
+    ? combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === false && product.productInventories.length > 0)
+    : combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === true && product.productInventories.length > 0)
 
   return (
     <div>
@@ -66,21 +72,15 @@ const CombinedStoreOrders = ({...props}) => {
             { title: 'Product', field: 'name' },
             {
               title: 'Easton Bypass',
-              render: rowData => (
-                rowData.productInventories.map(inventory => inventory.store.name === 'Easton Bypass' ? inventory.quantityNeeded : 'X')
-              )
+              render: rowData => getAmount(rowData, 'Easton Bypass')
             },
             {
               title: 'Cambridge',
-              render: rowData => (
-                rowData.productInventories.map(inventory => inventory.store.name === 'Cambridge' ? inventory.quantityNeeded : 'X')
-              )
+              render: rowData => getAmount(rowData, 'Cambridge')
             },    
             {
               title: 'Dover Road',
-              render: rowData => (
-                rowData.productInventories.map(inventory => inventory.store.name === 'Dover Road' ? inventory.quantityNeeded : 'X')
-              )
+              render: rowData => getAmount(rowData, 'Dover Road')
             },  
             {
               title: 'Total',
@@ -91,14 +91,14 @@ const CombinedStoreOrders = ({...props}) => {
             { 
               title: 'On Hand', field: 'onHand',
               render: rowData => (
-                rowData.storeGoods.map(storeGood => storeGood.prepcenterId ? storeGood.amountInStock : '' )
+                rowData.storeGoods.find(storeGood => storeGood.prepcenterId).amountInStock
               )            
 
             },
             { 
               title: 'Need', field: 'need',
               render: rowData => (
-                (parseInt(rowData.storeGoods.map(storeGood => storeGood.prepcenterId ? storeGood.amountInStock : '' )[1])) - (parseInt(rowData.productInventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)))
+                (parseInt(rowData.storeGoods.find(storeGood => storeGood.prepcenterId).amountInStock)) - (parseInt(rowData.productInventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)))
               )               
             },
           ]}

@@ -33,7 +33,7 @@ const Invoices = () => {
 // setTotal((values) => ({...values, total: result}))
 // setTotal(rows.reduce((a, b) => +a + +b.saleTotal, 0))
 // tableRef.current.dataManager.changeRowSelected(false, [idx])
-  console.log(total)
+  // console.log(total)
   return (
     <div>
         <link
@@ -49,7 +49,7 @@ const Invoices = () => {
               nRowsSelected: `{0} Selected Total: ${total}`
             },
           }}
-          onSelectionChange={(rows) =>  console.log(tableRef.current)}          
+          // onSelectionChange={(rows) =>  console.log(tableRef.current)}          
           options={{
             paging: false,
             selection: true,
