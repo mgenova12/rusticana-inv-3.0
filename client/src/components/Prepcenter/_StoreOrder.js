@@ -58,7 +58,7 @@ const StoreOrder = ({...props}) => {
         > Next Step </Button> 
       </div>
 
-      {mutationData && mutationData.scanInventory.errors.length > 0 && <p className="text-danger">Error :( Product Does Not Exist</p>}
+      {mutationData && mutationData.scanInventory.errors.length > 0 && <p className="text-danger">Product Does Not Exist</p>}
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField        

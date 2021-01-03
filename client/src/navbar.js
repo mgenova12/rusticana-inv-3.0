@@ -136,7 +136,7 @@ export const Navbar = ({...props}) => {
             </ListItem> 
 
             <ListItem key={'Submitted Inventory'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/orders`}>
-              <ListItemIcon><Description/></ListItemIcon>
+              <ListItemIcon><EventNote/></ListItemIcon>
               <ListItemText primary={'Submitted Inventory'} />
             </ListItem> 
 
@@ -146,7 +146,7 @@ export const Navbar = ({...props}) => {
             </ListItem> 
 
             <ListItem key={'Store Goods'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/store_goods`}>
-              <ListItemIcon><Description/></ListItemIcon>
+              <ListItemIcon><LocalDining/></ListItemIcon>
               <ListItemText primary={'Store Goods'} />
             </ListItem> 
 
@@ -156,7 +156,7 @@ export const Navbar = ({...props}) => {
             </ListItem>
 
             <ListItem key={'Locations'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/locations`}>
-              <ListItemIcon><Description/></ListItemIcon>
+              <ListItemIcon><LocationCity/></ListItemIcon>
               <ListItemText primary={'Locations'} />
             </ListItem> 
 

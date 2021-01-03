@@ -7,6 +7,8 @@ class Mutations::DeleteProduct < Mutations::BaseMutation
   def resolve(id:)
     product = Product.find(id)
     product.destroy
+
+    StoreGood.where(product_id: id).destroy_all
     
     {
       product: product,

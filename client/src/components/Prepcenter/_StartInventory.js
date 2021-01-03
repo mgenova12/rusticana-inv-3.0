@@ -88,11 +88,11 @@ const StartInventory = ({...props}) => {
         <div className="center"> 
           <h1> An Inventory Has Already Been Started! </h1>
            <div className="d-inline-block"> 
-              <Button className="button mr-2 ml-2" type='submit' variant="contained" color="primary" size="large" onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory`)} >
+              <Button className="button m-2" type='submit' variant="contained" color="primary" size="large" onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory`)} >
                 Go To Inventory
               </Button>
 
-              <Button className="button mr-2 ml-2" type='submit' variant="contained" color="secondary" size="large" onClick={handleDeleteInventory} >
+              <Button className="button m-2" type='submit' variant="contained" color="secondary" size="large" onClick={handleDeleteInventory} >
                 Cancel Inventory
               </Button> 
            </div>
