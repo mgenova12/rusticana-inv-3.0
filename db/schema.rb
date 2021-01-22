@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_07_012854) do
+ActiveRecord::Schema.define(version: 2021_01_22_030449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,8 @@ ActiveRecord::Schema.define(version: 2020_12_07_012854) do
     t.integer "days_till_expire"
     t.bigint "barcode"
     t.integer "container_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
   create_table "store_goods", force: :cascade do |t|
@@ -120,6 +122,8 @@ ActiveRecord::Schema.define(version: 2020_12_07_012854) do
     t.integer "distributor_id"
     t.boolean "is_prepcenter", default: false
     t.integer "prepcenter_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_store_goods_on_deleted_at"
   end
 
   create_table "store_orders", force: :cascade do |t|

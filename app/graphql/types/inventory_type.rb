@@ -7,6 +7,7 @@ module Types
     field :product, ProductType, null: true
     field :scanned, Boolean, null: true
     field :store_good, StoreGoodType, null: true
+    field :store_good_including_deleted, StoreGoodType, null: true
     field :store, StoreType, null: true
     field :reason_code, String, null: true
     field :status, String, null: true

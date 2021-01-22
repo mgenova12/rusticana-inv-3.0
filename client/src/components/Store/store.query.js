@@ -50,14 +50,14 @@ import { gql } from '@apollo/client';
 	      id
 	      quantity
 	      quantityNeeded
-				storeGood {
+				storeGoodIncludingDeleted {
 					distributor {
 						id
 					}
 					countBy {
 						name
 					}
-					product {
+					productIncludingDeleted {
 						name
 						category{
 							id

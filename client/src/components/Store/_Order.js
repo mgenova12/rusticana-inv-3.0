@@ -17,10 +17,8 @@ const Order = ({...props}) => {
   const {data: categoriesQuery, loading: categoriesQueryLoading} = useQuery(GET_CATEGORIES)
   const {data: distributorsQuery, loading: distributorsQueryLoading} = useQuery(GET_DISTRIBUTORS)
 
-
   const [activeTab, setActiveTab] = useState(null);
   const selectTab = useCallback((distributorId) => setActiveTab(distributorId), []);
-
 
   if (orderInventoriesQueryLoading) return 'Loading...'
   if (categoriesQueryLoading) return 'Loading...'
@@ -29,7 +27,7 @@ const Order = ({...props}) => {
   const results = !activeTab
     ? orderInventoriesQuery.orderInventories
     : orderInventoriesQuery.orderInventories.filter(inventory =>
-        inventory.storeGood.distributor.id === activeTab
+        inventory.storeGoodIncludingDeleted.distributor.id === activeTab
       );
 
   return (
@@ -83,12 +81,12 @@ const Order = ({...props}) => {
                 
               { results.map((inventory) => (
 
-                (inventory.storeGood.product.category.id === category.id &&
+                (inventory.storeGoodIncludingDeleted.productIncludingDeleted.category.id === category.id &&
 
                   <tr key={inventory.id}>
                     <td> <Checkbox value="checkedA" /> </td>
-                    <td>{inventory.storeGood.product.name} </td>
-                    <td>{inventory.quantity} {inventory.storeGood.countBy.name}</td>
+                    <td>{inventory.storeGoodIncludingDeleted.productIncludingDeleted.name} </td>
+                    <td>{inventory.quantity} {inventory.storeGoodIncludingDeleted.countBy.name}</td>
                     <td>{inventory.quantityNeeded} </td>
                   </tr>
 

@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  acts_as_paranoid
+  
   belongs_to :distributor, optional: true
   belongs_to :category
   belongs_to :container, optional: true

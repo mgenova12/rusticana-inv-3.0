@@ -4,6 +4,7 @@ module Types
     field :prepcenter_id, ID, null: true
     field :store, StoreType, null: true
     field :product, ProductType, null: true
+    field :product_including_deleted, ProductType, null: true
     field :location, LocationType, null: true
     field :distributor, DistributorType, null: true
     field :count_by, CountByType, null: true
