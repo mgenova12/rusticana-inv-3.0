@@ -37,11 +37,9 @@ class Mutations::CreateInventory < Mutations::BaseMutation
       )
     end
 
-
     {
       errors: []
     }
-
 
   end
 end

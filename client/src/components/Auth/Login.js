@@ -15,6 +15,7 @@ const Login = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
 
   const [executeLogin] = useMutation(LOGIN_MUTATION);
 
@@ -27,9 +28,11 @@ const Login = () => {
     }).then(({ data }) => {
         const token = data.loginUser && data.loginUser.token
         if (token) {
-          console.log(data)
+          console.log(data.loginUser.user)
           setToken(token)
           history.push('/')
+        } else {
+          setError('Incorrect Email or Password')
         }
       });
   }, [executeLogin, history, email, password]);
@@ -43,6 +46,7 @@ const Login = () => {
           Sign in
         </Typography>
         <div>
+        {error && <p className="text-danger">{error}</p>}
         </div> 
         <form onSubmit={(e) => {login(); e.preventDefault();}}>
           <TextField

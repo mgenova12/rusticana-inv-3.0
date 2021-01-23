@@ -23,5 +23,6 @@ module Types
     field :edit_prepcenter_inventory_quantity_needed, mutation: Mutations::EditPrepcenterInventoryQuantityNeeded
     field :edit_final_inventory_order, mutation: Mutations::EditFinalInventoryOrder
     field :edit_prepped_product, mutation: Mutations::EditPreppedProduct
+    field :mark_order_paid, mutation: Mutations::MarkOrderPaid
   end
 end

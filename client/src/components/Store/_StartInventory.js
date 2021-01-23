@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { CREATE_INVENTORY } from './store.mutation'
 import { DELETE_INVENTORY } from './store.mutation'
 import { GET_ORDER_STATUS } from './store.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const StartInventory = ({...props}) => {
   const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});
@@ -19,7 +20,7 @@ const StartInventory = ({...props}) => {
   })
 
   const [createInventory, { loading: createInventoryLoading }] = useMutation(CREATE_INVENTORY);
-  const [deleteInventory] = useMutation(DELETE_INVENTORY);
+  const [deleteInventory, { loading: deleteInventoryLoading }] = useMutation(DELETE_INVENTORY);
 
   const handleDeleteInventory = () => {
     if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
@@ -28,7 +29,6 @@ const StartInventory = ({...props}) => {
           orderId: parseInt(orderStatusQuery.orderStatus.id)
         }
       }).then(() => orderStatusRefetch());
-
     }
   }
 
@@ -44,9 +44,10 @@ const StartInventory = ({...props}) => {
     });
     reset()
   }
-
-  if (orderStatusQueryLoading) return 'Loading...'
-  if (createInventoryLoading) return 'Loading...'
+ 
+  if (orderStatusQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (createInventoryLoading) return  <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (deleteInventoryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <Container component="main" maxWidth="sm">

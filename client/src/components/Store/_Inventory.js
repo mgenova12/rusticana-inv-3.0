@@ -7,6 +7,7 @@ import { GET_INVENTORY} from './store.query'
 import { EDIT_INVENTORY_QUANTITY} from './store.mutation'
 import { EDIT_INVENTORY_QUANTITY_NEEDED} from './store.mutation'
 import { useForm } from "react-hook-form";
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Inventory = ({...props}) => {
   const { register, handleSubmit, errors, getValues } = useForm({mode: "onChange"});
@@ -56,9 +57,9 @@ const Inventory = ({...props}) => {
     }).then(() => props.history.push(`/store/${props.match.params.storeId}/inventory_success`)); 
   }
   
-  if (inventoryQueryLoading) return 'Loading...'
-  if (locationsQueryLoading) return 'Loading...'
-  if (inventoryQuantityNeededLoading) return 'Loading...'
+  if (inventoryQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (locationsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (inventoryQuantityNeededLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   
   return (
     <div>

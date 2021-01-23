@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import React, { useState, useCallback } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { GET_INVOICES } from './invoices.query'
+import { GET_STORES } from '../Home/home.query'
+import { MARK_ORDER_PAID} from './invoices.mutation'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 
 const Invoices = () => {
+  const {data: storesQuery, loading: storesQueryLoading } = useQuery(GET_STORES)
+  const {data: invoicesQuery, loading: invoicesQueryLoading, refetch: invoicesRefetch} = useQuery(GET_INVOICES)
+  const [markOrderPaid] = useMutation(MARK_ORDER_PAID);
   
-  const {data: invoicesQuery, loading: invoicesQueryLoading} = useQuery(GET_INVOICES)
-  
+  const handleMarkPaid = (selectedRows) => {
+    const orderIds = selectedRows.map(selectedRow => parseInt(selectedRow.id))
+    markOrderPaid({
+      variables: { 
+        orderIds: orderIds,
+      }
+    }).then(() => invoicesRefetch()); 
+  }
+
   const [components] = useState({
     Toolbar: props => (
       <div>
@@ -20,35 +32,43 @@ const Invoices = () => {
               backgroundColor: 'rgb(255, 226, 236)', 
               fontSize: '20px', 
               color: '#f50057',
-              height: '70px',          
+              position: 'relative',
+              height: '70px'
           }}>
-
-          <div class='text-center'>
-            <p>
-              {props.selectedRows.length} Item(s) Selected <br/>
-              Total: $ {props.selectedRows.reduce((a, b) => +a + +b.saleTotal, 0)}
+              <p style={{textAlign: 'center'}}>
+                {props.selectedRows.length} Item(s) Selected <br/>
+                Total: $ {props.selectedRows.reduce((a, b) => +a + +b.saleTotal, 0)}
+              
+              <Button 
+                style={{
+                  position:'absolute',
+                  right: '15px',
+                  top: '15px'                  
+                }}
+                onClick={() => handleMarkPaid(props.selectedRows)} 
+                variant="contained"
+                color="secondary" 
+                size="medium"
+              > Mark Paid </Button>       
             </p>
           </div>
-
-            <div style={{float: "right"}}>
-            <Button 
-              // onClick={} 
-              
-              variant="contained" Í
-              color="secondary" 
-              size="medium"
-            > Mark Paid </Button>       
-            </div>
-          </div>
         }
-
         <MTableToolbar {...props} />
       </div>
     ),
   });
 
+  const [activeTab, setActiveTab] = useState(null);
+  const selectTab = useCallback((store) => setActiveTab(store), []);
 
   if (invoicesQueryLoading) return 'Loading...'
+  if (storesQueryLoading) return 'Loading...'
+
+  const results = !activeTab
+    ? invoicesQuery.invoices
+    : invoicesQuery.invoices.filter(invoice =>
+        invoice.store.id === activeTab
+      );
 
   return (
     <div>
@@ -58,23 +78,24 @@ const Invoices = () => {
           textColor="primary"
           variant="scrollable"
           scrollButtons="auto"
-          // value={activeTab}
+          value={activeTab}
         >
-
           <Tab
-            label='Store1'
+            label='All'
             style={{outlineStyle:'none'}}
-            value={'nonPrepped'}
-            // onClick={()  => selectTab('nonPrepped')}
+            value={null}
+            onClick={() => selectTab(null)}
           />
 
-          <Tab
-            label='Store2'
-            style={{outlineStyle:'none'}}
-            // onClick={() => selectTab('prepped')}
-            value={'prepped'}
-          />
-
+          {storesQuery.stores.map(store =>
+            <Tab
+              key={store.id}
+              label={store.name}
+              style={{outlineStyle:'none'}}
+              onClick={() => selectTab(store.id)}
+              value={store.id}
+            />
+          )}
         </Tabs>
       </AppBar>    
 
@@ -100,7 +121,7 @@ const Invoices = () => {
             { title: 'Status', field: 'status' },
             { title: 'Total', field: 'saleTotal', type: "currency" },
           ]}
-          data={JSON.parse(JSON.stringify(invoicesQuery.invoices))}           
+          data={JSON.parse(JSON.stringify(results))}           
         />      	
         
     </div>
