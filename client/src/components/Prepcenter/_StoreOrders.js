@@ -6,7 +6,9 @@ import { GET_STORE_ORDERS } from './prepcenter.query'
 
 const StoreOrders = ({...props}) => {
 
-  const {data: storeOrdersQuery, loading: storeOrdersQueryLoading} = useQuery(GET_STORE_ORDERS)
+  const {data: storeOrdersQuery, loading: storeOrdersQueryLoading} = useQuery(GET_STORE_ORDERS, {
+    fetchPolicy: "network-only",
+  })
 
   const handleRowClick = (event, rowData) => {
     props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}`)
@@ -18,7 +20,6 @@ const StoreOrders = ({...props}) => {
     if(order.status === 'pending'){
       props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}/orders/${order.id}`)
     }
-    
   }
 
   if (storeOrdersQueryLoading) return 'Loading...'
@@ -48,7 +49,7 @@ const StoreOrders = ({...props}) => {
                   <span key={order.id} className="d-inline-block m-1">
 
                    <Avatar 
-                      className={(order.status === 'pending') ? ("border border-success") : ((order.status === 'complete') ? ("bg-success") : ("bg-warning"))}
+                      className={(order.status === 'pending') ? ("border border-success") : ((order.status === 'complete' || order.status === 'PAID') ? ("bg-success") : ("bg-warning"))}
                       onClick={(e) => handleOrderClick(e, order, rowData)}>{order.store.name[0]}
                    </Avatar>
 
@@ -73,9 +74,4 @@ const StoreOrders = ({...props}) => {
 }
 
 export default StoreOrders
-
-
-
-
-
 

@@ -153,20 +153,21 @@ export const GET_STORE_ORDER = gql`
       quantityNeeded
       scanned
       invoicedQuantity
-      storeGood {
+      storeGoodIncludingDeleted {
       	replenishBy
       	countBy{
       		name
       	}
-      }
-      product {
-      	id 
-      	name
-      	barcode
-        container {
-          id
+        productIncludingDeleted {
+          id 
+          name
+          barcode
+          container {
+            id
+          }        
         }        
       }
+
 
     }
   }

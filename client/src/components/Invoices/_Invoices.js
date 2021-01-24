@@ -9,7 +9,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 
-const Invoices = () => {
+const Invoices = ({...props}) => {
   const {data: storesQuery, loading: storesQueryLoading } = useQuery(GET_STORES)
   const {data: invoicesQuery, loading: invoicesQueryLoading, refetch: invoicesRefetch} = useQuery(GET_INVOICES)
   const [markOrderPaid] = useMutation(MARK_ORDER_PAID);
@@ -21,6 +21,10 @@ const Invoices = () => {
         orderIds: orderIds,
       }
     }).then(() => invoicesRefetch()); 
+  }
+
+  const handleRowClick = (event, rowData) => {
+    props.history.push(`/invoices/order/${rowData.id}`)
   }
 
   const [components] = useState({
@@ -105,6 +109,7 @@ const Invoices = () => {
         /> 
         <MaterialTable
           components={components}
+          onRowClick={handleRowClick}
           title="Invoices"    
           options={{
             paging: false,

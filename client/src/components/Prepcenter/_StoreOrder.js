@@ -124,13 +124,13 @@ const StoreOrder = ({...props}) => {
                 </tr>
 
                 {results.map((inventory) => (
-                  (inventory.product.container.id === container.id &&
+                  (inventory.storeGoodIncludingDeleted.productIncludingDeleted.container.id === container.id &&
                     <tr key={inventory.id}> 
                       <td> <Checkbox value="checkedA" /> </td>
-                      <td>{inventory.product.barcode}</td>         
-                      <td>{inventory.product.name}</td>
-                      <td>{inventory.quantity} {inventory.storeGood.countBy.name}</td> 
-                      <td>{activeTab === 'scanned'? inventory.invoicedQuantity : inventory.quantityNeeded}  {inventory.storeGood.replenishBy}</td> 
+                      <td>{inventory.storeGoodIncludingDeleted.productIncludingDeleted.barcode}</td>         
+                      <td>{inventory.storeGoodIncludingDeleted.productIncludingDeleted.name}</td>
+                      <td>{inventory.quantity} {inventory.storeGoodIncludingDeleted.countBy.name}</td> 
+                      <td>{activeTab === 'scanned'? inventory.invoicedQuantity : inventory.quantityNeeded}  {inventory.storeGoodIncludingDeleted.replenishBy}</td> 
                     </tr> 
                   )
                 ))}
@@ -143,9 +143,4 @@ const StoreOrder = ({...props}) => {
 }
 
 export default StoreOrder
-
-
-
-
-
 

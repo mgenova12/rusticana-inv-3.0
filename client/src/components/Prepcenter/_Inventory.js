@@ -139,7 +139,7 @@ const Inventory = ({...props}) => {
           ))}
         </table> 
 
-        <div align='center'>
+        <div align='center' className='m-3'>
           <Button type='submit' variant="contained" color="primary">
             Submit Inventory
           </Button> 

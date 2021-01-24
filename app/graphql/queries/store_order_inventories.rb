@@ -7,7 +7,7 @@ module Queries
     type [Types::InventoryType], null: false
 
     def resolve(order_id:)
-      Order.find(order_id).inventories.joins(:store_good).where(store_goods: { is_prepcenter: true })
+      Order.find(order_id).inventories.joins(:store_good_including_deleted).where(store_goods: { is_prepcenter: true })
     end
 
   end

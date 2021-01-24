@@ -16,8 +16,6 @@ class Mutations::EditFinalInventoryOrder < Mutations::BaseMutation
 
     sale_total = 0
     scanned_inventories.each do |inventory|
-      # multiplied by the invoiced quantiity?
-      # what if 1/3 are scanned?
       total = inventory.store_good.product.marked_up_price * inventory.invoiced_quantity
       sale_total += total
     end 

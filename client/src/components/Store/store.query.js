@@ -68,7 +68,7 @@ import { gql } from '@apollo/client';
 	    }
 	  }
 	`
-		export const GET_ORDER_STATUS = gql`
+	export const GET_ORDER_STATUS = gql`
 	  query orderStatus($storeId: Int!) { 
 	    orderStatus(storeId: $storeId) {
 	      id

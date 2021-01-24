@@ -26,6 +26,7 @@ import AddPrepcenterStoreGood from './components/Prepcenter/_AddStoreGood.js';
 import PrintLabels from './components/Prepcenter/_PrintLabels.js';
 
 import Invoices from './components/Invoices/_Invoices.js';
+import Invoice from './components/Invoices/_Invoice.js';
 
 import Login from './components/Auth/Login.js';
 import { getToken } from './token'
@@ -41,7 +42,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
        // console.log(props)
        //  console.log(props.match.params)
 
-      	
         const isLoggedIn = !!getToken();
         if (isLoggedIn) {
           return (
@@ -102,6 +102,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/print_labels" component={PrintLabels} />
 
           <PrivateRoute exact path="/invoices" component={Invoices} />
+          <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} />
       		
       		<Route exact path='/login' component={Login} />
       </Switch>
