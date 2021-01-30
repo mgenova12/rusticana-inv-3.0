@@ -7,6 +7,7 @@ import { EDIT_STORE_GOOD } from './store.mutation'
 import { GET_LOCATIONS } from './store.query'
 import { GET_DISTRIBUTORS } from '../Globals/globals.query'
 import { GET_COUNT_BIES } from './store.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const StoreGoods = ({...props}) => {
   const {data: storeGoodsQuery, loading: storeGoodsQueryLoading, refetch: storeGoodsRefetch} = useQuery(GET_STORE_GOODS, {
@@ -34,10 +35,10 @@ const StoreGoods = ({...props}) => {
   const [deleteStoreGood] = useMutation(DELETE_STORE_GOOD);
   const [editStoreGood] = useMutation(EDIT_STORE_GOOD);
   
-  if (storeGoodsQueryLoading) return 'Loading...'
-  if (locationsQueryLoading) return 'Loading...'
-  if (distributorsQueryLoading) return 'Loading...'
-  if (countBiesQueryLoading) return 'Loading...'
+  if (storeGoodsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (locationsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (distributorsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (countBiesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   let locationsLookup = locationsQuery.locations.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});

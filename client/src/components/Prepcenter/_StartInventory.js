@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { CREATE_PREPCENTER_INVENTORY } from './prepcenter.mutation'
 import { DELETE_INVENTORY } from '../Store/store.mutation'
 import { GET_PREPCENTER_ORDER_STATUS } from './prepcenter.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const StartInventory = ({...props}) => {
   const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});
@@ -19,7 +20,7 @@ const StartInventory = ({...props}) => {
   })
 
   const [createPrepcenterInventory, { loading: createInventoryLoading }] = useMutation(CREATE_PREPCENTER_INVENTORY);
-  const [deleteInventory] = useMutation(DELETE_INVENTORY);
+  const [deleteInventory, { loading: deleteInventoryLoading }] = useMutation(DELETE_INVENTORY);
 
   const handleDeleteInventory = () => {
     if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
@@ -45,8 +46,9 @@ const StartInventory = ({...props}) => {
     reset()
   }
 
-  if (prepcenterOrderStatusQueryLoading) return 'Loading...'
-  if (createInventoryLoading) return 'Loading...'
+  if (prepcenterOrderStatusQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (createInventoryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (deleteInventoryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <Container component="main" maxWidth="sm">

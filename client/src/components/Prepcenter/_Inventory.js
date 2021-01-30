@@ -7,6 +7,7 @@ import { GET_PREPCENTER_INVENTORY} from './prepcenter.query'
 import { EDIT_INVENTORY_QUANTITY} from '../Store/store.mutation'
 import { EDIT_PREPCENTER_INVENTORY_QUANTITY_NEEDED} from './prepcenter.mutation'
 import { useForm } from "react-hook-form";
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Inventory = ({...props}) => {
   const { register, handleSubmit, errors, getValues } = useForm({mode: "onChange"});
@@ -56,9 +57,9 @@ const Inventory = ({...props}) => {
     }).then(() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory_success`)); 
   }
   
-  if (prepcenterInventoryQueryLoading) return 'Loading...'
-  if (prepcenterLocationsQueryLoading) return 'Loading...'
-  if (prepcenterInventoryQuantityNeededLoading) return 'Loading...'
+  if (prepcenterInventoryQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (prepcenterLocationsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (prepcenterInventoryQuantityNeededLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   
   return (
     <div>

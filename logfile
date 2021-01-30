@@ -1,0 +1,14 @@
+2021-01-30 16:19:44.550 EST [13183] LOG:  starting PostgreSQL 13.1 on x86_64-apple-darwin18.7.0, compiled by Apple clang version 11.0.0 (clang-1100.0.33.17), 64-bit
+2021-01-30 16:19:44.553 EST [13183] LOG:  listening on IPv6 address "::1", port 5432
+2021-01-30 16:19:44.553 EST [13183] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2021-01-30 16:19:44.553 EST [13183] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2021-01-30 16:19:44.558 EST [13184] LOG:  database system was shut down at 2021-01-30 16:19:39 EST
+2021-01-30 16:19:44.567 EST [13183] LOG:  database system is ready to accept connections
+2021-01-30 16:20:16.942 EST [13247] FATAL:  database "rusticana_inv_3_0_development" does not exist
+2021-01-30 16:20:16.944 EST [13248] FATAL:  database "rusticana_inv_3_0_development" does not exist
+2021-01-30 16:20:24.096 EST [13250] FATAL:  database "rusticana_inv_3_0_development" does not exist
+2021-01-30 16:20:24.102 EST [13251] FATAL:  database "rusticana_inv_3_0_development" does not exist
+2021-01-30 16:23:05.023 EST [13506] FATAL:  database "rusticana_inv_3_0_development" does not exist
+2021-01-30 16:23:05.025 EST [13507] FATAL:  database "rusticana_inv_3_0_development" does not exist
+2021-01-30 16:23:25.162 EST [13528] FATAL:  database "rusticana_inv_3_0_development" does not exist
+2021-01-30 16:25:29.919 EST [13578] FATAL:  database "rusticana_inv_3_0_development" does not exist

@@ -9,6 +9,7 @@ import { GET_CONTAINERS } from './globals.query'
 import MaterialTable from 'material-table';
 import ProductsDrawer from './_ProductsDrawer.js'
 import NewProductDrawer from './_NewProductDrawer.js'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Products = () => {
   const {data: productsQuery, loading: productsQueryLoading, refetch: productsRetch } = useQuery(GET_PRODUCTS)
@@ -37,10 +38,10 @@ const Products = () => {
   const [editProduct] = useMutation(EDIT_PRODUCT);
   const [deleteProduct] = useMutation(DELETE_PRODUCT);
 
-  if (productsQueryLoading) return 'Loading...'
-  if (categoriesQueryLoading) return 'Loading...'
-  if (distributorsQueryLoading) return 'Loading...'
-  if (containersQueryLoading) return 'Loading...'
+  if (productsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (categoriesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (distributorsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (containersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
  
   let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});

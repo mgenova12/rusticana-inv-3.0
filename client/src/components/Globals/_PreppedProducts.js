@@ -6,6 +6,7 @@ import { GET_CATEGORIES } from './globals.query'
 import { DELETE_PRODUCT } from './globals.mutation'
 import { GET_CONTAINERS } from './globals.query'
 import { EDIT_PREPPED_PRODUCT } from './globals.mutation'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const PreppedProducts = () => {
   const {data: preppedProductsQuery, loading: preppedProductsQueryLoading, refetch: preppedProductsRefetch} = useQuery(GET_PREPPED_PRODUCTS)
@@ -23,9 +24,9 @@ const PreppedProducts = () => {
   const [deleteProduct] = useMutation(DELETE_PRODUCT);
   const [editPreppedProduct] = useMutation(EDIT_PREPPED_PRODUCT);
 
-  if (preppedProductsQueryLoading) return 'Loading...'
-  if (categoriesQueryLoading) return 'Loading...'
-  if (containersQueryLoading) return 'Loading...'
+  if (preppedProductsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (categoriesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (containersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   let categoriesLookup = categoriesQuery.categories.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let containerLookup = containersQuery.containers.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});

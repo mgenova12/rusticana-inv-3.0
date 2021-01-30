@@ -6,7 +6,7 @@ module Queries
     type [Types::OrderType], null: false
 
     def resolve
-      Order.where(status: ['complete', 'PAID']).reverse
+      Order.where(status: ['complete', 'PAID'], prepcenter_id: nil).reverse
     end
   end
 end

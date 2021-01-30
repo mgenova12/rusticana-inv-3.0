@@ -7,6 +7,7 @@ import { EDIT_STORE_GOOD } from '../Store/store.mutation'
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
 import { GET_DISTRIBUTORS } from '../Globals/globals.query'
 import { GET_COUNT_BIES } from '../Store/store.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const StoreGoods = ({...props}) => {
   const {data: prepcenterStoreGoodsQuery, loading: prepcenterStoreGoodsQueryLoading, refetch: prepcenterStoreGoodsRefetch} = useQuery(GET_PREPCENTER_STORE_GOODS, {
@@ -34,10 +35,10 @@ const StoreGoods = ({...props}) => {
   const [deleteStoreGood] = useMutation(DELETE_STORE_GOOD);
   const [editStoreGood] = useMutation(EDIT_STORE_GOOD);
   
-  if (prepcenterStoreGoodsQueryLoading) return 'Loading...'
-  if (prepcenterLocationsQueryLoading) return 'Loading...'
-  if (distributorsQueryLoading) return 'Loading...'
-  if (countBiesQueryLoading) return 'Loading...'
+  if (prepcenterStoreGoodsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (prepcenterLocationsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (distributorsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (countBiesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   let locationsLookup = prepcenterLocationsQuery.prepcenterLocations.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
