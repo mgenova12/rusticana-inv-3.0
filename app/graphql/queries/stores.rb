@@ -5,7 +5,7 @@ module Queries
 
     type [Types::StoreType], null: false
 
-    def resolve
+    def resolve  
       Store.all
     end
 

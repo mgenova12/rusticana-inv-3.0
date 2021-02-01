@@ -5,6 +5,7 @@ import { GET_COMBINED_STORE_ORDERS} from './prepcenter.query'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import BeatLoader from "react-spinners/BeatLoader"
 
 const CombinedStoreOrders = ({...props}) => {
 
@@ -14,16 +15,15 @@ const CombinedStoreOrders = ({...props}) => {
     }
   })
 
-  const [activeTab, setActiveTab] = useState('nonPrepped');
+  const [activeTab, setActiveTab] = useState('prepped');
   const selectTab = useCallback((prepped) => setActiveTab(prepped), []);
 
   const getAmount = (rowData, storeName) => {
     const amount = rowData.productInventories.find(inventory => inventory.store.name === storeName) 
     return amount ? amount.quantityNeeded : 'X'
-
   };
 
-  if (combinedStoreOrdersQueryLoading) return 'Loading...'
+  if (combinedStoreOrdersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   const results = activeTab === 'nonPrepped'
     ? combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === false && product.productInventories.length > 0)
@@ -41,17 +41,16 @@ const CombinedStoreOrders = ({...props}) => {
         >
 
           <Tab
-            label='Non-prepped'
-            style={{outlineStyle:'none'}}
-            value={'nonPrepped'}
-            onClick={() => selectTab('nonPrepped')}
-          />
-
-          <Tab
             label='Prepped'
             style={{outlineStyle:'none'}}
             onClick={() => selectTab('prepped')}
             value={'prepped'}
+          />
+          <Tab
+            label='Non-prepped'
+            style={{outlineStyle:'none'}}
+            value={'nonPrepped'}
+            onClick={() => selectTab('nonPrepped')}
           />
 
         </Tabs>

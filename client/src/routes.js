@@ -33,20 +33,32 @@ import { getToken } from './token'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Navbar } from './navbar'
 
+import { useQuery } from '@apollo/client';
+import { GET_CURRENT_USER } from './components/Auth/auth.query'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+
+  const {data: currentUserQuery, loading: currentUserQueryLoading} = useQuery(GET_CURRENT_USER)
+
+  if (currentUserQueryLoading) return 'Loading...'
+
   return (
     <Route
       {...rest}
       render={props => {
-       // console.log(props)
-       //  console.log(props.match.params)
+
+       //  console.log(props)
 
         const isLoggedIn = !!getToken();
-        if (isLoggedIn) {
+
+        if (isLoggedIn && currentUserQuery) {
           return (
             <React.Fragment>
-              <Navbar {...props}/>
+              <Navbar
+                {...props}
+                currentUser={currentUserQuery.currentUser}
+              />
+           
               <Component {...props} />
             </React.Fragment> 
           )
@@ -62,6 +74,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         }
       }}
     />
+
   );
 };
 
@@ -92,6 +105,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId/orders/:orderId" component={StoreOrder} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId/orders/:orderId/reason_codes" component={ReasonCodes} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId" component={CombinedStoreOrders} />
+
           <PrivateRoute exact path="/prepcenter/:prepcenterId/start_inventory" component={StartPrepcenterInventory} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_goods" component={PrepcenterStoreGoods} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/locations" component={PrepcenterLocations} />

@@ -13,10 +13,9 @@ class Mutations::LoginUser < Mutations::BaseMutation
     return unless user.authenticate(password)
 
     payload = {user_id: user.id}
-    token = JWT.encode(payload, ENV['SECRET_KEY_BASE'] )
+    token = JWT.encode(payload, ENV['SECRET_KEY_BASE'])
     
     {
-      user: user,
       token: token,
       errors: [],
     }

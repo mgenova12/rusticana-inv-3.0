@@ -5,14 +5,11 @@ import { deleteToken } from './token'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
-import Badge from '@material-ui/core/Badge';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Home from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -26,21 +23,13 @@ import EventNote from '@material-ui/icons/EventNote';
 import Description from '@material-ui/icons/Description';
 import LocalShipping from '@material-ui/icons/LocalShipping';
 import LocalPizza from '@material-ui/icons/LocalPizza';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import Restaurant from '@material-ui/icons/Restaurant';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
-// import { GET_STORE_NAME } from './components/Store/store.query'
-// import { useQuery } from '@apollo/client';
-
-export const Navbar = ({...props}) => {
+export const Navbar = ({...props}, currentUser) => {
   let path = props.match.path.split('/')[1]
-
-  // const {data: storeNameQuery, loading: storeNameQueryLoading} = useQuery(GET_STORE_NAME, {
-  //   fetchPolicy: "network-only",
-  //   variables: {
-  //     id: parseInt(1),
-  //     storeName: props.match.path.split('/')[1]
-  //   }
-  // })
 
   const getName = () => {
     let path = props.match.path.split('/')[1]
@@ -59,11 +48,8 @@ export const Navbar = ({...props}) => {
 
   };
 
-
   const history = useHistory();
-  const [state, setState] = useState({
-    open: false,
-  });
+  const [state, setState] = useState({open: false});
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -191,6 +177,17 @@ export const Navbar = ({...props}) => {
     </div>
 	)
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };  
+
   return (
     <div >
       <AppBar position="static">
@@ -211,21 +208,46 @@ export const Navbar = ({...props}) => {
             {getName()}
           </Typography>
            
-           <IconButton color="inherit">
-            <Badge badgeContent={0} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Typography variant="h6" color="inherit" edge="end" >
+            {props.currentUser.firstName}
+          </Typography>
+          
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem >Profile</MenuItem>
+                <MenuItem 
+                  onClick={() => {
+                    deleteToken()
+                    history.push('/login')
+                  }}>
+                  Log Out
+                </MenuItem>
 
-            <Button 
-              color="inherit"
-              onClick={() => {
-                deleteToken()
-                history.push('/login')
-              }}
-            >
-              Logout
-            </Button>
+              </Menu>
+            </div>
 
         </Toolbar>
       </AppBar>

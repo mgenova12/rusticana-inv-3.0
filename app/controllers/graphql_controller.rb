@@ -9,8 +9,7 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user,
     }
     result = RusticanaInv30Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -21,6 +20,18 @@ class GraphqlController < ApplicationController
 
   private
 
+  def current_user
+    token = request.headers["Authorization"].to_s
+
+    begin
+      payload = JWT.decode(token, ENV['SECRET_KEY_BASE'], false)
+      user_id = payload[0]['user_id']
+      User.find(user_id)
+    rescue JWT::DecodeError
+      nil
+    end
+  end
+    
   # Handle form data, JSON body, or a blank value
   def ensure_hash(ambiguous_param)
     case ambiguous_param

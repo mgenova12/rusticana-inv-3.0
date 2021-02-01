@@ -8,7 +8,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-
 const Home = () => {
   const {data: storesQuery, loading: storesQueryLoading } = useQuery(GET_STORES)
   const {data: prepcentersQuery, loading: prepcentersQueryLoading } = useQuery(GET_PREPCENTERS)
@@ -18,7 +17,6 @@ const Home = () => {
 
   return (
     <div className="container">
-    	
     	<h4>Management Center</h4> 
       <List component="nav">
         <ListItem button className="border" component={Link} to={'/globals/products'}>
@@ -55,9 +53,6 @@ const Home = () => {
 }
 
 export default Home
-
-
-
 
 
 

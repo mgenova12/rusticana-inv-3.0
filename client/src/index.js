@@ -5,13 +5,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 import * as serviceWorker from './serviceWorker';
-import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider, ApolloLink } from '@apollo/client'
 import { HashRouter } from 'react-router-dom'
 import { getToken } from './token'
 import { setContext } from '@apollo/client/link/context';
+import { onError } from "@apollo/client/link/error";
 
 const httpLink = createHttpLink({
-  uri: `${process.env.REACT_APP_API_URL}/graphql`
+  uri: `${process.env.REACT_APP_API_URL}/graphql`,
+});
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    );
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -21,14 +33,14 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `${token}` : "",
     }
   }
 });
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: authLink.concat(httpLink)
+  link: ApolloLink.from([authLink, errorLink, httpLink])  
 })
 
 ReactDOM.render(
