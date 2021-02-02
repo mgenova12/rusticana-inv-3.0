@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
 import { GET_ORDERS } from './store.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Orders = ({...props}) => {
   const {data: ordersQuery, loading: ordersQueryLoading} = useQuery(GET_ORDERS, {
@@ -17,7 +18,7 @@ const Orders = ({...props}) => {
     }
   }
 
-  if (ordersQueryLoading) return 'Loading...'
+  if (ordersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <div>

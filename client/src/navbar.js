@@ -45,7 +45,6 @@ export const Navbar = ({...props}, currentUser) => {
     } else {
       return 'Rusticana'
     }
-
   };
 
   const history = useHistory();
@@ -57,7 +56,6 @@ export const Navbar = ({...props}, currentUser) => {
     }
     setState({ ...state, 'open': open });
   };
-
 
   const drawerList =(
 		<div 

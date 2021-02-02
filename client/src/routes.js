@@ -14,6 +14,7 @@ import Orders from './components/Store/_Orders.js';
 import Order from './components/Store/_Order.js';
 
 import PrepcenterOrders from './components/Prepcenter/_Orders.js';
+import PrepcenterOrder from './components/Prepcenter/_Order.js';
 import PrepcenterInventory from './components/Prepcenter/_Inventory.js';
 import StartPrepcenterInventory from './components/Prepcenter/_StartInventory.js';
 import StoreOrders from './components/Prepcenter/_StoreOrders.js';
@@ -46,7 +47,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props => {
-
        //  console.log(props)
 
         const isLoggedIn = !!getToken();
@@ -113,6 +113,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory" component={PrepcenterInventory} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory_success" component={InventorySuccess} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/orders" component={PrepcenterOrders} />
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/orders/:orderId" component={PrepcenterOrder} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/print_labels" component={PrintLabels} />
 
           <PrivateRoute exact path="/invoices" component={Invoices} />

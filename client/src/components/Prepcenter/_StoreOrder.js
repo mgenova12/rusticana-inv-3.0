@@ -11,6 +11,7 @@ import { GET_CONTAINERS } from '../Globals/globals.query'
 import { GET_STORE_ORDER } from './prepcenter.query'
 import { SCAN_INVENTORY } from './prepcenter.mutation'
 import { useForm } from "react-hook-form";
+import BeatLoader from "react-spinners/BeatLoader"
 
 const StoreOrder = ({...props}) => {
   const [scanInventory, { data: mutationData}] = useMutation(SCAN_INVENTORY);
@@ -38,8 +39,8 @@ const StoreOrder = ({...props}) => {
     reset()
   }
 
-  if (storeOrderInventoriesLoading) return 'Loading...'
-  if (containersQueryLoading) return 'Loading...'
+  if (storeOrderInventoriesLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (containersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   const results = activeTab === 'unscanned'
     ? storeOrderInventoriesQuery.storeOrderInventories.filter(inventory => inventory.quantityNeeded > 0)

@@ -35,7 +35,6 @@ export const GET_PREPCENTER_ORDERS = gql`
 
   }
 `
-
 export const GET_PREPCENTER_INVENTORY = gql`
   query prepcenterInventories($prepcenterId: Int!) { 
     prepcenterInventories(prepcenterId: $prepcenterId) {
@@ -81,7 +80,6 @@ export const GET_PREPCENTER_LOCATIONS = gql`
 
   }
 `
-
 export const GET_PREPCENTER_STORE_GOODS = gql`
   query prepcenterStoreGoods($prepcenterId: Int!) {   
     prepcenterStoreGoods(prepcenterId: $prepcenterId) {
@@ -125,7 +123,6 @@ export const GET_PREPCENTER_ORDER_STATUS = gql`
     }
   }
 `
-
 export const GET_STORE_ORDERS = gql`
 	query {
 	  storeOrders  {
@@ -144,7 +141,6 @@ export const GET_STORE_ORDERS = gql`
 	  }
 	}
 	`
-
 export const GET_STORE_ORDER = gql`
   query storeOrderInventories($orderId: Int!) { 
     storeOrderInventories(orderId: $orderId) {

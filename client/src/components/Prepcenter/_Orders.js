@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
 import { GET_PREPCENTER_ORDERS } from './prepcenter.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Orders = ({...props}) => {
   const {data: prepcenterOrdersQuery, loading: prepcenterOrdersQueryLoading} = useQuery(GET_PREPCENTER_ORDERS, {
@@ -13,11 +14,11 @@ const Orders = ({...props}) => {
 
   const handleRowClick = (event, rowData) => {
     if (rowData.status !== 'incomplete') {
-      props.history.push(`/store/${props.match.params.prepcenterId}/orders/${rowData.id}`)
+      props.history.push(`/prepcenter/${props.match.params.prepcenterId}/orders/${rowData.id}`)
     }
   }
 
-  if (prepcenterOrdersQueryLoading) return 'Loading...'
+  if (prepcenterOrdersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <div>
