@@ -6,11 +6,8 @@ module Queries
     type [Types::ProductType], null: false
 
     def resolve
-      Prepcenter.first.products
-      # Product.distinct.joins(:store_goods).where(store_goods: { is_prepcenter: true }).order(:name)
-
-      # should this only be prepcenter store good products?
-      # Product.order(:name)
+      # Prepcenter.first.products
+      Product.distinct.joins(:store_goods).where(store_goods: { is_prepcenter: true }).order(:name)
     end
 
   end

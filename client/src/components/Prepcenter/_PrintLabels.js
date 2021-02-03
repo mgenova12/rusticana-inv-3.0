@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PrintLabelDrawer from './_PrintLabelDrawer.js'
 import { GET_PREPCENTER_LABELS } from './prepcenter.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const PrintLabels = ({...props}) => {
   const {data: prepcenterLabelsQuery, loading: prepcenterLabelsQueryLoading} = useQuery(GET_PREPCENTER_LABELS, {
@@ -22,8 +23,7 @@ const PrintLabels = ({...props}) => {
   const onOpen = useCallback(() => setVisible(true), []);
   const onClose = useCallback(() => setVisible(false), []);
 
-
-  if (prepcenterLabelsQueryLoading) return 'Loading...'
+  if (prepcenterLabelsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   
   const results = activeTab === 'nonPrepped'
     ? prepcenterLabelsQuery.prepcenterStoreGoods.filter(storeGood => storeGood.product.prepped === false)

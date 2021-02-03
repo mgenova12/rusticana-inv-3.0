@@ -7,13 +7,14 @@ import { Link } from "react-router-dom";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Home = () => {
   const {data: storesQuery, loading: storesQueryLoading } = useQuery(GET_STORES)
   const {data: prepcentersQuery, loading: prepcentersQueryLoading } = useQuery(GET_PREPCENTERS)
 
-  if (storesQueryLoading) return 'Loading...'
-  if (prepcentersQueryLoading) return 'Loading...'
+  if (storesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (prepcentersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <div className="container">
@@ -53,6 +54,4 @@ const Home = () => {
 }
 
 export default Home
-
-
 

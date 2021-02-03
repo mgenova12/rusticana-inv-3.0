@@ -2,7 +2,6 @@ import React from 'react';
 
 const InventorySuccess = ({...props}) => {
 
-  
   return (
     <div className="center">
       <div>
@@ -16,9 +15,5 @@ const InventorySuccess = ({...props}) => {
 }
 
 export default InventorySuccess
-
-
-
-
 
 

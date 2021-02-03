@@ -36,12 +36,13 @@ import { Navbar } from './navbar'
 
 import { useQuery } from '@apollo/client';
 import { GET_CURRENT_USER } from './components/Auth/auth.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
 
   const {data: currentUserQuery, loading: currentUserQueryLoading} = useQuery(GET_CURRENT_USER)
 
-  if (currentUserQueryLoading) return 'Loading...'
+  if (currentUserQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <Route

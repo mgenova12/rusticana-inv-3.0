@@ -17,6 +17,7 @@ const AddStoreGood = ({...props}) => {
   const onClose = useCallback(() => setVisible(false), []);
   
   if (prepcenterProductsQueryLoading) return 'Loading...'
+
   return (
     <div>
         <link
@@ -59,5 +60,4 @@ const AddStoreGood = ({...props}) => {
 }
 
 export default AddStoreGood
-
 

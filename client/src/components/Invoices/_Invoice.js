@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import MaterialTable  from 'material-table';
 import { GET_INVOICE } from './invoices.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Invoice = ({...props}) => {
   const {data: invoiceQuery, loading: invoiceQueryLoading} = useQuery(GET_INVOICE, {
@@ -10,7 +11,7 @@ const Invoice = ({...props}) => {
     }    
   })
 
-  if (invoiceQueryLoading) return 'Loading...'
+  if (invoiceQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <div>

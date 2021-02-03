@@ -90,14 +90,13 @@ const CombinedStoreOrders = ({...props}) => {
             { 
               title: 'On Hand', field: 'onHand',
               render: rowData => (
-                rowData.storeGoods.find(storeGood => storeGood.prepcenterId).amountInStock
+                rowData.storeGoods.find(storeGood => storeGood.prepcenterId) === undefined ? 'PRODUCT NOT IN TRAPPE' : rowData.storeGoods.find(storeGood => storeGood.prepcenterId).amountInStock 
               )            
-
             },
             { 
               title: 'Need', field: 'need',
               render: rowData => (
-                (parseInt(rowData.storeGoods.find(storeGood => storeGood.prepcenterId).amountInStock)) - (parseInt(rowData.productInventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)))
+                rowData.storeGoods.find(storeGood => storeGood.prepcenterId) === undefined ? 'PRODUCT NOT IN TRAPPE' : (parseInt(rowData.storeGoods.find(storeGood => storeGood.prepcenterId).amountInStock)) - (parseInt(rowData.productInventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0)))
               )               
             },
           ]}
@@ -109,9 +108,3 @@ const CombinedStoreOrders = ({...props}) => {
 }
 
 export default CombinedStoreOrders
-
-
-
-
-
-

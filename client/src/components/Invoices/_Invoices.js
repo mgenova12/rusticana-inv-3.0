@@ -8,6 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Invoices = ({...props}) => {
   const {data: storesQuery, loading: storesQueryLoading } = useQuery(GET_STORES)
@@ -65,8 +66,8 @@ const Invoices = ({...props}) => {
   const [activeTab, setActiveTab] = useState(null);
   const selectTab = useCallback((store) => setActiveTab(store), []);
 
-  if (invoicesQueryLoading) return 'Loading...'
-  if (storesQueryLoading) return 'Loading...'
+  if (invoicesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (storesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   const results = !activeTab
     ? invoicesQuery.invoices

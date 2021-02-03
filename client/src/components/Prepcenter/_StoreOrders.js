@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
 import Avatar from '@material-ui/core/Avatar';
 import { GET_STORE_ORDERS } from './prepcenter.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const StoreOrders = ({...props}) => {
 
@@ -22,7 +23,7 @@ const StoreOrders = ({...props}) => {
     }
   }
 
-  if (storeOrdersQueryLoading) return 'Loading...'
+  if (storeOrdersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <div>

@@ -5,7 +5,7 @@ import { EDIT_FINAL_INVENTORY_ORDER } from './prepcenter.mutation'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useForm } from "react-hook-form";
-
+import BeatLoader from "react-spinners/BeatLoader"
 
 const ReasonCodes = ({...props}) => {
   const { register, handleSubmit, errors} = useForm({mode: "onChange"});
@@ -28,22 +28,22 @@ const ReasonCodes = ({...props}) => {
 
   }
 
-  if (unscannedStoreOrderInventoriesLoading) return 'Loading...'
-  if (editFinalInventoryOrderLoading) return 'Loading...'
+  if (unscannedStoreOrderInventoriesLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (editFinalInventoryOrderLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   
   return (
     <div>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div align="center" className="m-2">
-        <Button 
-          variant="contained" 
-          color="primary" 
-          size="large"
-          type='submit'
-        > Finish Order </Button> 
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div align="center" className="m-2">
+          <Button 
+            variant="contained" 
+            color="primary" 
+            size="large"
+            type='submit'
+          > Finish Order </Button> 
+        </div>
 
-      <div className="table-responsive">
+        <div className="table-responsive">
           <table className="table table-striped">
             <thead>
               <tr>
@@ -87,8 +87,8 @@ const ReasonCodes = ({...props}) => {
               ))}
             </thead>
           </table> 
-      </div>
-    </form>
+        </div>
+      </form>
     </div>
   )
 }
