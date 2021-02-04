@@ -23,7 +23,7 @@ class Mutations::EditStoreGood < Mutations::BaseMutation
         count_by_id: count_by_id,
         delivery_day: delivery_day,
         amount_in_stock: amount_in_stock,
-        is_prepcenter: distributor_id == 11 ? true : false,
+        is_prepcenter: distributor_id == 5 ? true : false,
         active: active
       )
       # Successful creation, return the created object with no errors
