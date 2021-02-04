@@ -6,7 +6,7 @@ class Mutations::CreateInventory < Mutations::BaseMutation
 
   def resolve(store_id:, delivery_day:) 
     store = Store.find(store_id)
-    store_goods = store.store_goods.where(delivery_day: [delivery_day, 'Both'])
+    store_goods = store.store_goods.where(delivery_day: [delivery_day, 'Both'], active: true)
 
     date = Date.today
     if delivery_day == 'Tuesday'

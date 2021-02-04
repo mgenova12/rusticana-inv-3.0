@@ -26,8 +26,8 @@ const CombinedStoreOrders = ({...props}) => {
   if (combinedStoreOrdersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   const results = activeTab === 'nonPrepped'
-    ? combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === false && product.productInventories.length > 0)
-    : combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === true && product.productInventories.length > 0)
+    ? combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === false && product.productInventories.length > 0 && product.productInventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0) > 0)
+    : combinedStoreOrdersQuery.combinedStoreOrders.filter(product => product.prepped === true && product.productInventories.length > 0 && product.productInventories.map(item => item.quantityNeeded).reduce((prev, curr) => prev + curr, 0) > 0)
 
   return (
     <div>

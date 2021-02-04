@@ -11,7 +11,6 @@ export const CREATE_LOCATION = gql`
   }
 `;
 
-
 export const DELETE_LOCATION = gql`
   mutation deleteLocation($id: Int!) {
     deleteLocation(input: { id: $id }) {
@@ -48,7 +47,6 @@ export const EDIT_INVENTORY_QUANTITY = gql`
     }
   }
 `;
-
 
 export const EDIT_INVENTORY_QUANTITY_NEEDED = gql`
   mutation editInventoryQuantityNeeded($storeId: Int!) {
@@ -107,7 +105,8 @@ export const EDIT_STORE_GOOD = gql`
     $deliveryDay: String!,
     $countById: Int!,
     $replenishBy: String!,
-    $amountInStock: Int
+    $amountInStock: Int,
+    $active: Boolean
   ) {
     editStoreGood(input: { 
       id: $id,
@@ -117,7 +116,8 @@ export const EDIT_STORE_GOOD = gql`
       deliveryDay: $deliveryDay,
       countById: $countById,
       replenishBy: $replenishBy,
-      amountInStock: $amountInStock   
+      amountInStock: $amountInStock,
+      active: $active
     }) {
       storeGood {
         id

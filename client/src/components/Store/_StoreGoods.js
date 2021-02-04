@@ -74,6 +74,7 @@ const StoreGoods = ({...props}) => {
                         countById: parseInt(newData.countBy.id),
                         replenishBy: newData.replenishBy,
                         amountInStock: parseFloat(newData.amountInStock),
+                        active: newData.active,
                       }
                     }).then(() => storeGoodsRefetch());
 
@@ -116,6 +117,7 @@ const StoreGoods = ({...props}) => {
               { title: 'Delivery Day', field: 'deliveryDay',
                 lookup: {'Tuesday': 'Tuesday', 'Friday': 'Friday', 'Both': 'Both'}
               },
+              { title: 'Active', field: 'active', type: 'boolean' },
           ]}
           data={JSON.parse(JSON.stringify(storeGoodsQuery.storeGoods))}     
         />      	

@@ -26,6 +26,8 @@ import PrepcenterLocations from './components/Prepcenter/_Locations.js';
 import AddPrepcenterStoreGood from './components/Prepcenter/_AddStoreGood.js';
 import PrintLabels from './components/Prepcenter/_PrintLabels.js';
 
+import Users from './components/Users/_Users.js';
+
 import Invoices from './components/Invoices/_Invoices.js';
 import Invoice from './components/Invoices/_Invoice.js';
 
@@ -120,6 +122,8 @@ export const Routes = () => {
           <PrivateRoute exact path="/invoices" component={Invoices} />
           <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} />
       		
+          <PrivateRoute exact path="/users" component={Users} />
+
       		<Route exact path='/login' component={Login} />
       </Switch>
       

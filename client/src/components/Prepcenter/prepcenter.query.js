@@ -102,16 +102,16 @@ export const GET_PREPCENTER_STORE_GOODS = gql`
         id
         name
       }
-      amountInStock
       countBy {
         id
         name
       }        
+      amountInStock
       maxAmount
       replenishBy
-      deliveryDay          
+      deliveryDay 
+      active         
     }
-
   }
 `;
 

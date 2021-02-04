@@ -73,6 +73,7 @@ const StoreGoods = ({...props}) => {
                         countById: parseInt(newData.countBy.id),
                         replenishBy: newData.replenishBy,
                         amountInStock: parseFloat(newData.amountInStock),
+                        active: newData.active
                       }
                     }).then(() => prepcenterStoreGoodsRefetch());
 
@@ -115,6 +116,7 @@ const StoreGoods = ({...props}) => {
               { title: 'Delivery Day', field: 'deliveryDay',
                 lookup: {'Distributor': 'Distributor', 'Prepped': 'Prepped', 'Both': 'Both'}
               },
+              { title: 'Active', field: 'active', type: 'boolean' },
           ]}
           data={JSON.parse(JSON.stringify(prepcenterStoreGoodsQuery.prepcenterStoreGoods))}     
         />      	

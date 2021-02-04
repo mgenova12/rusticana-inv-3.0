@@ -29,5 +29,6 @@ module Types
     field :invoices, resolver: Queries::Invoices
     field :invoice, resolver: Queries::Invoice
     field :current_user, resolver: Queries::CurrentUser
+    field :users, resolver: Queries::Users
   end
 end

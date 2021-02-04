@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_174439) do
+ActiveRecord::Schema.define(version: 2021_02_04_010044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_174439) do
     t.boolean "is_prepcenter", default: false
     t.integer "prepcenter_id"
     t.datetime "deleted_at"
+    t.boolean "active", default: true
     t.index ["deleted_at"], name: "index_store_goods_on_deleted_at"
   end
 

@@ -7,7 +7,7 @@ class Mutations::CreatePrepcenterInventory < Mutations::BaseMutation
   def resolve(prepcenter_id:, delivery_day:)
     prepcenter = Prepcenter.find(prepcenter_id)
     order = Order.create!(prepcenter_id: prepcenter_id, delivery_day: delivery_day, status: 'incomplete')
-    store_goods = prepcenter.store_goods.where(delivery_day: [delivery_day, 'Both'])
+    store_goods = prepcenter.store_goods.where(delivery_day: [delivery_day, 'Both'], active: true)
     
     store_goods.each do |store_good|
       Inventory.create!(

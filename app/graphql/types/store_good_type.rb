@@ -14,5 +14,6 @@ module Types
     field :amount_in_stock, Integer, null: true
     field :prepcenter, PrepcenterType, null: true
     field :is_prepcenter, Boolean, null: true
+    field :active, Boolean, null: true
   end
 end

@@ -25,7 +25,10 @@ const Home = () => {
         </ListItem>
         <ListItem button className="border" component={Link} to={'/invoices'}>
           <ListItemText primary="Invoices" />
-        </ListItem>		        
+        </ListItem>	
+        <ListItem button className="border" component={Link} to={'/users'}>
+          <ListItemText primary="Accounts" />
+        </ListItem>           	        
       </List>
 
     	<h4>Stores</h4>
