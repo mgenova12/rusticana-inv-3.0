@@ -3,6 +3,7 @@ class Mutations::CreatePrepcenterInventory < Mutations::BaseMutation
   argument :delivery_day, String, required: true
 
   field :errors, [String], null: false
+  field :order, Types::OrderType, null: false
 
   def resolve(prepcenter_id:, delivery_day:)
     prepcenter = Prepcenter.find(prepcenter_id)
@@ -19,11 +20,10 @@ class Mutations::CreatePrepcenterInventory < Mutations::BaseMutation
       )
     end
 
-
     {
+      order: order,
       errors: []
     }
-
 
   end
 end

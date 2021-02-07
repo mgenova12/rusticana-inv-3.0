@@ -12,12 +12,16 @@ import BeatLoader from "react-spinners/BeatLoader"
 const Inventory = ({...props}) => {
   const { register, handleSubmit, errors, getValues } = useForm({mode: "onChange"});
   const [editInventoryQuantity] = useMutation(EDIT_INVENTORY_QUANTITY);
-  const [editPrepcenterInventoryQuantityNeeded, { loading: prepcenterInventoryQuantityNeededLoading }] = useMutation(EDIT_PREPCENTER_INVENTORY_QUANTITY_NEEDED);
+  const [editPrepcenterInventoryQuantityNeeded, { loading: prepcenterInventoryQuantityNeededLoading }] = useMutation(EDIT_PREPCENTER_INVENTORY_QUANTITY_NEEDED,{
+    onCompleted(data) {
+      props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory_success`)
+    } 
+  });
 
   const {data: prepcenterInventoryQuery, loading: prepcenterInventoryQueryLoading} = useQuery(GET_PREPCENTER_INVENTORY, {
     fetchPolicy: "network-only",
     variables: {
-      prepcenterId: parseInt(props.match.params.prepcenterId)
+      orderId: parseInt(props.match.params.orderId)
     }
   })
 
@@ -54,7 +58,7 @@ const Inventory = ({...props}) => {
       variables: { 
         prepcenterId: parseInt(props.match.params.prepcenterId),
       }
-    }).then(() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory_success`)); 
+    })
   }
   
   if (prepcenterInventoryQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
@@ -77,7 +81,7 @@ const Inventory = ({...props}) => {
               <tr align='center'> 
                 <th colSpan="3">{location.name}</th>
               </tr>
-              {prepcenterInventoryQuery.prepcenterInventories.map((inventory) => (
+              {prepcenterInventoryQuery.getOrder.pendingInventories.map((inventory) => (
                 (inventory.storeGood.location.id === location.id &&
                   <tr key={inventory.id}> 
                     <td>{inventory.storeGood.product.name}</td>

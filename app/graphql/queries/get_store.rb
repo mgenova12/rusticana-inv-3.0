@@ -6,8 +6,8 @@ module Queries
 
     type Types::StoreType, null: false
 
-    def resolve(order_id:)
-      Store.find(order_id)
+    def resolve(store_id:)
+      Store.find(store_id)
     end
 
   end

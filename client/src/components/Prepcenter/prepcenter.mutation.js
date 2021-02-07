@@ -55,6 +55,9 @@ export const SCAN_INVENTORY = gql`
 export const CREATE_PREPCENTER_INVENTORY = gql`
   mutation createPrepcenterInventory($prepcenterId: Int!, $deliveryDay: String!) {
     createPrepcenterInventory(input: {prepcenterId: $prepcenterId, deliveryDay: $deliveryDay }) {
+      order {
+        id
+      }
     	errors
     }
   }

@@ -123,7 +123,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/store_goods" component={PrepcenterStoreGoods} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/locations" component={PrepcenterLocations} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/add_store_goods" component={AddPrepcenterStoreGood} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory" component={PrepcenterInventory} />
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/inventory" component={PrepcenterInventory} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory_success" component={InventorySuccess} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/orders" component={PrepcenterOrders} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/orders/:orderId" component={PrepcenterOrder} />

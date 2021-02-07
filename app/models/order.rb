@@ -19,5 +19,5 @@ class Order < ApplicationRecord
   def pending_inventories
     self.inventories.where(status: 'pending').order(:created_at)
   end
-  
+
 end

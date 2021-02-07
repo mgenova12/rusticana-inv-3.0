@@ -18,16 +18,17 @@ import { gql } from '@apollo/client';
 	  }
 	`
 	export const GET_ORDERS = gql`
-	  query orders($storeId: Int!) {   
-	    orders(storeId: $storeId) {
-	      id
-	      createdAt
-	      deliveryDay
-	      status
-	      store {
-	      	id
-	      	name
-	      }                     
+	  query getStore($storeId: Int!) {   
+	    getStore(storeId: $storeId) {
+	    	id
+	    	name
+	    	orders{
+		      id
+		      createdAt
+		      deliveryDay
+		      status  
+		   	} 
+
 	    }
 
 	  }
@@ -59,10 +60,14 @@ import { gql } from '@apollo/client';
 	  }
 	`
 	export const GET_ORDER_STATUS = gql`
-	  query orderStatus($storeId: Int!) { 
-	    orderStatus(storeId: $storeId) {
-	      id
-	      status
+	  query getStore($storeId: Int!) { 
+	    getStore(storeId: $storeId) {
+	    	
+	    	storeOrderStatus {
+		      id
+		      status
+	    	}
+
 	    }
 	  }
 	`
@@ -94,36 +99,37 @@ import { gql } from '@apollo/client';
 	`;
 
 		export const GET_STORE_GOODS = gql`
-	  query storeGoods($storeId: Int!) {   
-	    storeGoods(storeId: $storeId) {
-	    	id
-	      product{
-					id
-	        name
-	        barcode
-	        prepped
-	      }
-	      location {
-	        id
-	        name
-	      }
-	      distributor {
-	        id
-	        name
-	      }
-	      countBy {
-	        id
-	        name
-	      }        
-	      amountInStock
-	      maxAmount
-	      replenishBy
-	      deliveryDay 
-	      active      
+	  query getStore($storeId: Int!) {   
+	    getStore(storeId: $storeId) {
+	    	storeGoods {
+		    	id
+		      product{
+						id
+		        name
+		        barcode
+		        prepped
+		      }
+		      location {
+		        id
+		        name
+		      }
+		      distributor {
+		        id
+		        name
+		      }
+		      countBy {
+		        id
+		        name
+		      }        
+		      amountInStock
+		      maxAmount
+		      replenishBy
+		      deliveryDay 
+		      active
+		   	}      
 	    }
 	  }
 	`;
-
 
 	export const GET_STORE_PRODUCTS = gql`
 	  query storeProducts($storeId: Int!) {   

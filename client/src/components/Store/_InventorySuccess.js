@@ -15,5 +15,3 @@ const InventorySuccess = ({...props}) => {
 }
 
 export default InventorySuccess
-
-

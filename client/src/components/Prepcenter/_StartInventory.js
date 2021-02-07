@@ -19,8 +19,18 @@ const StartInventory = ({...props}) => {
     }
   })
 
-  const [createPrepcenterInventory, { loading: createInventoryLoading }] = useMutation(CREATE_PREPCENTER_INVENTORY);
-  const [deleteInventory, { loading: deleteInventoryLoading }] = useMutation(DELETE_INVENTORY);
+  const [createPrepcenterInventory, { loading: createInventoryLoading }] = useMutation(CREATE_PREPCENTER_INVENTORY, {
+    onCompleted(data) {
+      props.history.push(`/prepcenter/${props.match.params.prepcenterId}/order/${data.createPrepcenterInventory.order.id}/inventory`)
+      prepcenterOrderStatusRefetch()
+    }    
+  });
+  
+  const [deleteInventory, {loading: deleteInventoryLoading}] = useMutation(DELETE_INVENTORY, {
+    onCompleted(data) {
+      prepcenterOrderStatusRefetch()
+    }    
+  });
 
   const handleDeleteInventory = () => {
     if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
@@ -28,8 +38,7 @@ const StartInventory = ({...props}) => {
         variables: {
           orderId: parseInt(prepcenterOrderStatusQuery.prepcenterOrderStatus.id)
         }
-      }).then(() => prepcenterOrderStatusRefetch());
-
+      })
     }
   }
 
@@ -39,10 +48,7 @@ const StartInventory = ({...props}) => {
         prepcenterId: parseInt(props.match.params.prepcenterId),
         deliveryDay: data.deliveryDay,
       }
-    }).then(() => {
-      prepcenterOrderStatusRefetch()
-      props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory`)
-    });
+    })
     reset()
   }
 
@@ -90,11 +96,23 @@ const StartInventory = ({...props}) => {
         <div className="center"> 
           <h1> An Inventory Has Already Been Started! </h1>
            <div className="d-inline-block"> 
-              <Button className="button m-2" type='submit' variant="contained" color="primary" size="large" onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory`)} >
+              <Button 
+                className="button m-2" 
+                type='submit' 
+                variant="contained" 
+                color="primary" 
+                size="large" 
+                onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/order/${prepcenterOrderStatusQuery.prepcenterOrderStatus.id}/inventory`)} >
                 Go To Inventory
               </Button>
 
-              <Button className="button m-2" type='submit' variant="contained" color="secondary" size="large" onClick={handleDeleteInventory} >
+              <Button 
+                className="button m-2" 
+                type='submit' 
+                variant="contained" 
+                color="secondary" 
+                size="large" 
+                onClick={handleDeleteInventory} >
                 Cancel Inventory
               </Button> 
            </div>

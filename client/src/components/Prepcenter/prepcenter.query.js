@@ -36,23 +36,25 @@ export const GET_PREPCENTER_ORDERS = gql`
   }
 `
 export const GET_PREPCENTER_INVENTORY = gql`
-  query prepcenterInventories($prepcenterId: Int!) { 
-    prepcenterInventories(prepcenterId: $prepcenterId) {
-      id
-			quantity
-			storeGood{
+  query getOrder($orderId: Int!) { 
+    getOrder(orderId: $orderId) {
+      pendingInventories{
         id
-        location {
-        	id
-        }
-        product{
+  			quantity
+  			storeGood{
           id
-          name
-          caseQuantity
-        }
-        countBy{
-          id
-          name
+          location {
+          	id
+          }
+          product{
+            id
+            name
+            caseQuantity
+          }
+          countBy{
+            id
+            name
+          }
         }
       }
     }

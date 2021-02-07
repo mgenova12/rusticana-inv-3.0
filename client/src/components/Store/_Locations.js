@@ -76,4 +76,3 @@ const Locations = ({...props}) => {
 }
 
 export default Locations
-

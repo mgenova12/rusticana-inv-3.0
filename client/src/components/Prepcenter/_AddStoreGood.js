@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import MaterialTable from 'material-table';
 import NewStoreGoodDrawer from './_NewStoreGoodDrawer.js'
 import { GET_PREPCENTER_PRODUCTS } from './prepcenter.query'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const AddStoreGood = ({...props}) => {
   const {data: prepcenterProductsQuery, loading: prepcenterProductsQueryLoading, refetch: prepcenterProductsRefetch} = useQuery(GET_PREPCENTER_PRODUCTS, {
@@ -16,7 +17,7 @@ const AddStoreGood = ({...props}) => {
   const onOpen = useCallback(() => setVisible(true), []);
   const onClose = useCallback(() => setVisible(false), []);
   
-  if (prepcenterProductsQueryLoading) return 'Loading...'
+  if (prepcenterProductsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <div>
@@ -60,4 +61,3 @@ const AddStoreGood = ({...props}) => {
 }
 
 export default AddStoreGood
-

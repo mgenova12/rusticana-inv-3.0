@@ -36,7 +36,7 @@ const StartInventory = ({...props}) => {
     if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
       deleteInventory({ 
         variables: { 
-          orderId: parseInt(orderStatusQuery.orderStatus.id)
+          orderId: parseInt(orderStatusQuery.getStore.storeOrderStatus.id)
         }
       })
     }
@@ -58,7 +58,7 @@ const StartInventory = ({...props}) => {
 
   return (
     <Container component="main" maxWidth="sm">
-    {!orderStatusQuery.orderStatus ? (
+    {!orderStatusQuery.getStore.storeOrderStatus ? (
 
       <div className="center">
         <h1> Select Delivery Day </h1>
@@ -102,7 +102,7 @@ const StartInventory = ({...props}) => {
                 variant="contained" 
                 color="primary" 
                 size="large" 
-                onClick={() => props.history.push(`/store/${props.match.params.storeId}/order/${orderStatusQuery.orderStatus.id}/inventory`)} >
+                onClick={() => props.history.push(`/store/${props.match.params.storeId}/order/${orderStatusQuery.getStore.storeOrderStatus.id}/inventory`)} >
                 Go To Inventory
               </Button>
 

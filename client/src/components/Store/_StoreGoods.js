@@ -119,7 +119,7 @@ const StoreGoods = ({...props}) => {
               },
               { title: 'Active', field: 'active', type: 'boolean' },
           ]}
-          data={JSON.parse(JSON.stringify(storeGoodsQuery.storeGoods))}     
+          data={JSON.parse(JSON.stringify(storeGoodsQuery.getStore.storeGoods))}     
         />      	
           
     </div>
