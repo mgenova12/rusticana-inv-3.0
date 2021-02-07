@@ -19,7 +19,9 @@ const StoreOrders = ({...props}) => {
     event.stopPropagation()
 
     if(order.status === 'pending'){
-      props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}/orders/${order.id}`)
+      props.history.push({
+        pathname: `/prepcenter/${props.match.params.prepcenterId}/store_orders/${rowData.id}/orders/${order.id}`,
+      })
     }
   }
 
@@ -27,7 +29,6 @@ const StoreOrders = ({...props}) => {
 
   return (
     <div>
- 
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"

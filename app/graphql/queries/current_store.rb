@@ -1,5 +1,5 @@
 module Queries
-  class StoreName < Queries::BaseQuery
+  class CurrentStore < Queries::BaseQuery
     argument :id, Integer, required: false
     argument :store_name, String, required: false
 

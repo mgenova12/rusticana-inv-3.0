@@ -141,43 +141,48 @@ export const GET_STORE_ORDERS = gql`
 	  }
 	}
 	`
-export const GET_STORE_ORDER = gql`
-  query storeOrderInventories($orderId: Int!) { 
-    storeOrderInventories(orderId: $orderId) {
-      id
-      quantity
-      quantityNeeded
-      scanned
-      invoicedQuantity
-      storeGoodIncludingDeleted {
-      	replenishBy
-      	countBy{
-      		name
-      	}
-        productIncludingDeleted {
-          id 
-          name
-          barcode
-          container {
-            id
-          }        
-        }        
-      }
 
+export const GET_ORDER = gql`
+  query getOrder($orderId: Int!) { 
+    getOrder(orderId: $orderId) {
+      store{
+        name
+      }
+      isPrepcenterInventories{
+        id
+        quantity
+        quantityNeeded
+        scanned
+        invoicedQuantity
+        storeGoodIncludingDeleted {
+        	replenishBy
+        	countBy{
+        		name
+        	}
+          productIncludingDeleted {
+            name
+            barcode
+            container {
+              id
+            }        
+          }        
+        }
+      }
 
     }
   }
 `;
 
 export const GET_UNSCANNED_STORE_ORDER = gql`
-  query unscannedStoreOrderInventories($orderId: Int!) { 
-    unscannedStoreOrderInventories(orderId: $orderId) {
-      id
-      product {
-      	id 
-      	name
+  query getOrder($orderId: Int!) { 
+    getOrder(orderId: $orderId) {
+      unscannedInventories {
+        id
+        product {
+        	id 
+        	name
+        }
       }
-
     }
   }
 `;

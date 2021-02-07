@@ -24,6 +24,8 @@ class Mutations::EditInventoryQuantityNeeded < Mutations::BaseMutation
         result > 0 ? inventory.update(quantity_needed: result, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
       end
     end
+
+    order.update(status: 'pending')
     
     {
       errors: [],

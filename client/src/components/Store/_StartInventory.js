@@ -19,8 +19,18 @@ const StartInventory = ({...props}) => {
     }
   })
 
-  const [createInventory, { loading: createInventoryLoading }] = useMutation(CREATE_INVENTORY);
-  const [deleteInventory, { loading: deleteInventoryLoading }] = useMutation(DELETE_INVENTORY);
+  const [createInventory, {loading: createInventoryLoading}] = useMutation(CREATE_INVENTORY,{
+    onCompleted(data) {
+      props.history.push(`/store/${props.match.params.storeId}/order/${data.createInventory.order.id}/inventory`)
+      orderStatusRefetch()
+    }
+  });
+
+  const [deleteInventory, {loading: deleteInventoryLoading}] = useMutation(DELETE_INVENTORY, {
+    onCompleted(data) {
+      orderStatusRefetch()
+    }
+  });
 
   const handleDeleteInventory = () => {
     if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
@@ -28,7 +38,7 @@ const StartInventory = ({...props}) => {
         variables: { 
           orderId: parseInt(orderStatusQuery.orderStatus.id)
         }
-      }).then(() => orderStatusRefetch());
+      })
     }
   }
 
@@ -38,10 +48,7 @@ const StartInventory = ({...props}) => {
         storeId: parseInt(props.match.params.storeId),
         deliveryDay: data.deliveryDay,
       }
-    }).then(() => {
-      orderStatusRefetch()
-      props.history.push(`/store/${props.match.params.storeId}/inventory`)
-    });
+    })
     reset()
   }
  
@@ -89,11 +96,23 @@ const StartInventory = ({...props}) => {
         <div className="center"> 
           <h1> An Inventory Has Already Been Started! </h1>
            <div className="d-inline-block"> 
-              <Button className="button m-2" type='submit' variant="contained" color="primary" size="large" onClick={() => props.history.push(`/store/${props.match.params.storeId}/inventory`)} >
+              <Button 
+                className="button m-2" 
+                type='submit' 
+                variant="contained" 
+                color="primary" 
+                size="large" 
+                onClick={() => props.history.push(`/store/${props.match.params.storeId}/order/${orderStatusQuery.orderStatus.id}/inventory`)} >
                 Go To Inventory
               </Button>
 
-              <Button className="button m-2" type='submit' variant="contained" color="secondary" size="large" onClick={handleDeleteInventory} >
+              <Button 
+                className="button m-2" 
+                type='submit' 
+                variant="contained" 
+                color="secondary" 
+                size="large" 
+                onClick={handleDeleteInventory} >
                 Cancel Inventory
               </Button> 
            </div>
@@ -106,7 +125,3 @@ const StartInventory = ({...props}) => {
 }
 
 export default StartInventory
-
-
-
-

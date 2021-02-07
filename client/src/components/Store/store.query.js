@@ -17,7 +17,6 @@ import { gql } from '@apollo/client';
 
 	  }
 	`
-
 	export const GET_ORDERS = gql`
 	  query orders($storeId: Int!) {   
 	    orders(storeId: $storeId) {
@@ -33,28 +32,29 @@ import { gql } from '@apollo/client';
 
 	  }
 	`
-
 	export const GET_ORDER = gql`
-	  query orderInventories($orderId: Int!) {   
-	    orderInventories(orderId: $orderId) {
-	      id
-	      quantity
-	      quantityNeeded
-				storeGoodIncludingDeleted {
-					distributor {
-						id
-					}
-					countBy {
-						name
-					}
-					productIncludingDeleted {
-						name
-						category{
+	  query getOrder($orderId: Int!) {   
+	    getOrder(orderId: $orderId) {
+	    	inventories { 
+		      id
+		      quantity
+		      quantityNeeded
+					storeGoodIncludingDeleted {
+						distributor {
 							id
+						}
+						countBy {
 							name
 						}
-					}
-				}                    
+						productIncludingDeleted {
+							name
+							category{
+								id
+								name
+							}
+						}
+					} 
+				}
 	    }
 	  }
 	`
@@ -68,25 +68,27 @@ import { gql } from '@apollo/client';
 	`
 
 	export const GET_INVENTORY = gql`
-	  query inventories($storeId: Int!) { 
-	    inventories(storeId: $storeId) {
-	      id
-				quantity
-				storeGood{
-	        id
-	        location {
-	        	id
-	        }
-	        product{
-	          id
-	          name
-	          caseQuantity
-	        }
-	        countBy{
-	          id
-	          name
-	        }
-	      }
+	  query getOrder($orderId: Int!) { 
+	    getOrder(orderId: $orderId) {
+	    	pendingInventories{
+		      id
+					quantity
+					storeGood{
+		        id
+		        location {
+		        	id
+		        }
+		        product{
+		          id
+		          name
+		          caseQuantity
+		        }
+		        countBy{
+		          id
+		          name
+		        }
+		      }
+		    }
 	    }
 	  }
 	`;

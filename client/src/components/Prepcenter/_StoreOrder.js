@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { GET_CONTAINERS } from '../Globals/globals.query'
-import { GET_STORE_ORDER } from './prepcenter.query'
+import { GET_ORDER } from './prepcenter.query'
 import { SCAN_INVENTORY } from './prepcenter.mutation'
 import { useForm } from "react-hook-form";
 import BeatLoader from "react-spinners/BeatLoader"
@@ -16,7 +16,7 @@ import BeatLoader from "react-spinners/BeatLoader"
 const StoreOrder = ({...props}) => {
   const [scanInventory, { data: mutationData}] = useMutation(SCAN_INVENTORY);
 
-  const {data: storeOrderInventoriesQuery, loading: storeOrderInventoriesLoading, refetch: storeOrderInventoriesRefetch} = useQuery(GET_STORE_ORDER, {
+  const {data: orderQuery, loading: orderLoading, refetch: orderRefetch} = useQuery(GET_ORDER, {
     variables: {
       orderId: parseInt(props.match.params.orderId)
     }
@@ -35,50 +35,49 @@ const StoreOrder = ({...props}) => {
         barcode: parseInt(data.barcode),
         orderId: parseInt(props.match.params.orderId)
       }
-    }).then(() => storeOrderInventoriesRefetch())
+    }).then(() => orderRefetch())
     reset()
   }
 
-  if (storeOrderInventoriesLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (orderLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (containersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   const results = activeTab === 'unscanned'
-    ? storeOrderInventoriesQuery.storeOrderInventories.filter(inventory => inventory.quantityNeeded > 0)
-    : storeOrderInventoriesQuery.storeOrderInventories.filter(inventory => inventory.scanned)
+    ? orderQuery.getOrder.isPrepcenterInventories.filter(inventory => inventory.quantityNeeded > 0)
+    : orderQuery.getOrder.isPrepcenterInventories.filter(inventory => inventory.scanned)
 
   return (
     <div>
+      <h3 className='m-3'>{orderQuery.getOrder.store.name}</h3>
+      <Container component="main" maxWidth="md">
+        <div align="center" className="mt-2">
+          <Button 
+            onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${props.match.params.storeOrderId}/orders/${props.match.params.orderId}/reason_codes`)} 
+            variant="contained" 
+            color="primary" 
+            size="large"
+          > Next Step </Button> 
+        </div>
 
-    <Container component="main" maxWidth="md">
-      <div align="center" className="mt-2">
-        <Button 
-          onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/store_orders/${props.match.params.storeOrderId}/orders/${props.match.params.orderId}/reason_codes`)} 
-          variant="contained" 
-          color="primary" 
-          size="large"
-        > Next Step </Button> 
-      </div>
+        {mutationData && mutationData.scanInventory.errors.length > 0 && <p className="text-danger">Product Does Not Exist</p>}
 
-      {mutationData && mutationData.scanInventory.errors.length > 0 && <p className="text-danger">Product Does Not Exist</p>}
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <TextField        
-            label="Search Product by barcode"
-            inputRef={register({required: true})}
-            name="barcode"
-            error={errors.barcode ? true : false}
-            placeholder="Search Product by barcode"
-            fullWidth
-            margin="normal"
-            type="number"
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </form>
-
-      </Container>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField        
+              label="Search Product by barcode"
+              inputRef={register({required: true})}
+              name="barcode"
+              error={errors.barcode ? true : false}
+              placeholder="Search Product by barcode"
+              fullWidth
+              margin="normal"
+              type="number"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+        </Container>
 
        <AppBar position="static" color="default">
         <Tabs
@@ -88,7 +87,6 @@ const StoreOrder = ({...props}) => {
           scrollButtons="auto"
           value={activeTab}
         >
-
           <Tab
             label='unscanned'
             style={{outlineStyle:'none'}}
@@ -102,7 +100,6 @@ const StoreOrder = ({...props}) => {
             onClick={() => selectTab('scanned')}
             value={'scanned'}
           />
-
         </Tabs>
       </AppBar>
 
@@ -144,4 +141,3 @@ const StoreOrder = ({...props}) => {
 }
 
 export default StoreOrder
-

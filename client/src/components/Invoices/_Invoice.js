@@ -36,9 +36,8 @@ const Invoice = ({...props}) => {
                 `$${(parseFloat(rowData.storeGood.product.markedUpPrice)) * (parseFloat(rowData.invoicedQuantity))}`
               )   
             },
-
           ]}
-          data={JSON.parse(JSON.stringify(invoiceQuery.invoice))}
+          data={JSON.parse(JSON.stringify(invoiceQuery.getOrder.scannedInventories))}
         />      	
         
     </div>
@@ -46,4 +45,3 @@ const Invoice = ({...props}) => {
 }
 
 export default Invoice
-

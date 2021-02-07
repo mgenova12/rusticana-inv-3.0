@@ -5,7 +5,6 @@ class Mutations::EditPrepcenterInventoryQuantityNeeded < Mutations::BaseMutation
 
   def resolve(prepcenter_id:)
     order = Prepcenter.find(prepcenter_id).orders.find_by(status: 'incomplete')
-    order.update(status: 'pending')
     
     inventories = Order.find(order.id).inventories
     
@@ -24,6 +23,8 @@ class Mutations::EditPrepcenterInventoryQuantityNeeded < Mutations::BaseMutation
         result > 0 ? inventory.update(quantity_needed: result, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
       end
     end
+    
+    order.update(status: 'pending')
     
     {
       errors: [],

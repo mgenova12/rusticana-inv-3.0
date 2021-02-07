@@ -10,5 +10,9 @@ module Types
     field :sale_total, Float, null: true
     field :inventories, [InventoryType], null: true
     field :paid, Boolean, null: true
+    field :is_prepcenter_inventories, [InventoryType], null: true
+    field :scanned_inventories, [InventoryType], null: true
+    field :unscanned_inventories, [InventoryType], null: true
+    field :pending_inventories, [InventoryType], null: true
   end
 end

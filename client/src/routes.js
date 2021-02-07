@@ -38,13 +38,22 @@ import { Navbar } from './navbar'
 
 import { useQuery } from '@apollo/client';
 import { GET_CURRENT_USER } from './components/Auth/auth.query'
+// import { GET_CURRENT_STORE} from './components/Auth/auth.query'
 import BeatLoader from "react-spinners/BeatLoader"
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
 
   const {data: currentUserQuery, loading: currentUserQueryLoading} = useQuery(GET_CURRENT_USER)
+  // const {data: currentStoreQuery, loading: currentStoreQueryLoading} = useQuery(GET_CURRENT_STORE, {
+  //   fetchPolicy: "network-only",
+  //   variables: {
+  //     id: rest.computedMatch.params.storeId ? parseInt(rest.computedMatch.params.storeId) : parseInt(rest.computedMatch.params.prepcenterId),
+  //     storeName: rest.computedMatch.path.split('/')[1]
+  //   } 
+  // })
 
   if (currentUserQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  // if (currentStoreQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <Route
@@ -60,6 +69,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               <Navbar
                 {...props}
                 currentUser={currentUserQuery.currentUser}
+                // currentStore={currentStoreQuery}
               />
            
               <Component {...props} />
@@ -98,7 +108,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/store/:storeId/add_store_goods" component={AddStoreGood} />
           <PrivateRoute exact path="/store/:storeId/start_inventory" component={StartInventory} />
 
-          <PrivateRoute exact path="/store/:storeId/inventory" component={Inventory} />
+          <PrivateRoute exact path="/store/:storeId/order/:orderId/inventory" component={Inventory} />
           <PrivateRoute exact path="/store/:storeId/inventory_success" component={InventorySuccess} />
 
           <PrivateRoute exact path="/store/:storeId/orders" component={Orders} />

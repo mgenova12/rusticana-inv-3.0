@@ -11,7 +11,7 @@ import BeatLoader from "react-spinners/BeatLoader"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const Order = ({...props}) => {
-  const {data: orderInventoriesQuery, loading: orderInventoriesQueryLoading} = useQuery(GET_ORDER, {
+  const {data: getOrderQuery, loading: getOrderQueryLoading} = useQuery(GET_ORDER, {
     variables: {
       orderId: parseInt(props.match.params.orderId)
     }
@@ -25,15 +25,15 @@ const Order = ({...props}) => {
   const [showZeros, setToggled] = useState(false);
   const toggleTrueFalse = () => setToggled(!showZeros);
 
-  if (orderInventoriesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (getOrderQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (categoriesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (distributorsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   var results = (
-    !activeTab && !showZeros ? orderInventoriesQuery.orderInventories.filter(inventory => inventory.quantityNeeded > 0) : 
-    activeTab && !showZeros ? orderInventoriesQuery.orderInventories.filter(inventory => inventory.storeGoodIncludingDeleted.distributor.id === activeTab && inventory.quantityNeeded > 0) : 
-    activeTab && showZeros ? orderInventoriesQuery.orderInventories.filter(inventory => inventory.storeGoodIncludingDeleted.distributor.id === activeTab) : 
-    !activeTab && showZeros ? orderInventoriesQuery.orderInventories : 
+    !activeTab && !showZeros ? getOrderQuery.getOrder.inventories.filter(inventory => inventory.quantityNeeded > 0) : 
+    activeTab && !showZeros ? getOrderQuery.getOrder.inventories.filter(inventory => inventory.storeGoodIncludingDeleted.distributor.id === activeTab && inventory.quantityNeeded > 0) : 
+    activeTab && showZeros ? getOrderQuery.getOrder.inventories.filter(inventory => inventory.storeGoodIncludingDeleted.distributor.id === activeTab) : 
+    !activeTab && showZeros ? getOrderQuery.getOrder.inventories : 
     null // else 
   );
 
@@ -122,9 +122,4 @@ const Order = ({...props}) => {
 }
 
 export default Order
-
-
-
-
-
 

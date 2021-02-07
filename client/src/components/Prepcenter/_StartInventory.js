@@ -107,7 +107,3 @@ const StartInventory = ({...props}) => {
 }
 
 export default StartInventory
-
-
-
-

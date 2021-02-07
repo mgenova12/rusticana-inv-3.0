@@ -12,23 +12,22 @@ module Types
     field :count_bies, resolver: Queries::CountBies
     field :containers, resolver: Queries::Containers
     field :order_status, resolver: Queries::OrderStatus
-    field :inventories, resolver: Queries::Inventories
     field :orders, resolver: Queries::Orders
-    field :order_inventories, resolver: Queries::OrderInventories
     field :store_orders, resolver: Queries::StoreOrders
     field :combined_store_orders, resolver: Queries::CombinedStoreOrders
-    field :store_order_inventories, resolver: Queries::StoreOrderInventories
-    field :unscanned_store_order_inventories, resolver: Queries::UnscannedStoreOrderInventories
     field :prepcenter_order_status, resolver: Queries::PrepcenterOrderStatus
     field :prepcenter_store_goods, resolver: Queries::PrepcenterStoreGoods
     field :prepcenter_locations, resolver: Queries::PrepcenterLocations
     field :prepcenter_products, resolver: Queries::PrepcenterProducts
     field :prepcenter_inventories, resolver: Queries::PrepcenterInventories
     field :prepcenter_orders, resolver: Queries::PrepcenterOrders
-    field :store_name, resolver: Queries::StoreName
+    field :current_store, resolver: Queries::CurrentStore
     field :invoices, resolver: Queries::Invoices
-    field :invoice, resolver: Queries::Invoice
     field :current_user, resolver: Queries::CurrentUser
     field :users, resolver: Queries::Users
+    
+    field :get_order, resolver: Queries::GetOrder
+    field :get_store, resolver: Queries::GetStore
+
   end
 end

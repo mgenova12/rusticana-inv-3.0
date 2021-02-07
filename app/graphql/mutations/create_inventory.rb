@@ -3,6 +3,7 @@ class Mutations::CreateInventory < Mutations::BaseMutation
   argument :delivery_day, String, required: true
 
   field :errors, [String], null: false
+  field :order, Types::OrderType, null: false
 
   def resolve(store_id:, delivery_day:) 
     store = Store.find(store_id)
@@ -38,6 +39,7 @@ class Mutations::CreateInventory < Mutations::BaseMutation
     end
 
     {
+      order: order,
       errors: []
     }
 

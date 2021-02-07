@@ -53,7 +53,7 @@ const ReasonCodes = ({...props}) => {
               </tr>
             </thead>
             <thead>
-              {unscannedStoreOrderInventoriesQuery.unscannedStoreOrderInventories.map((inventory) => (
+              {unscannedStoreOrderInventoriesQuery.getOrder.unscannedInventories.map((inventory) => (
                 <tr key={inventory.id}> 
                   <td>{inventory.product.id}</td>                
                   <td>{inventory.product.name}</td>

@@ -16,18 +16,21 @@ import { gql } from '@apollo/client';
 	  }
 	`
 	export const GET_INVOICE = gql`
-	  query invoice($orderId: Int!) { 
-	    invoice(orderId: $orderId) {
-	      id
-	      invoicedQuantity
-	      storeGood {
-	      	id
-	      	product {
-	      		id
-	      		name
-	      		markedUpPrice
-	      	}
-	      }
+	  query getOrder($orderId: Int!) { 
+	    getOrder(orderId: $orderId) {
+	      
+	      scannedInventories {
+		      id
+		      invoicedQuantity
+		      storeGood {
+		      	id
+		      	product {
+		      		id
+		      		name
+		      		markedUpPrice
+		      	}
+		      }
+	    	}
 	    }
 	  }
 	`
