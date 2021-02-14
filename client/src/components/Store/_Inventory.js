@@ -12,9 +12,11 @@ import BeatLoader from "react-spinners/BeatLoader"
 const Inventory = ({...props}) => {
   const { register, handleSubmit, errors, getValues } = useForm({mode: "onChange"});
   const [editInventoryQuantity] = useMutation(EDIT_INVENTORY_QUANTITY);
-  const [editInventoryQuantityNeeded, { loading: inventoryQuantityNeededLoading }] = useMutation(EDIT_INVENTORY_QUANTITY_NEEDED,{
+  const [editInventoryQuantityNeeded, { loading: inventoryQuantityNeededLoading, data: mutationData }] = useMutation(EDIT_INVENTORY_QUANTITY_NEEDED,{
     onCompleted(data) {
-      props.history.push(`/store/${props.match.params.storeId}/inventory_success`)
+      if (data.editInventoryQuantityNeeded.errors.length < 1){
+        props.history.push(`/store/${props.match.params.storeId}/inventory_success`)
+      }
     }
   });
 
@@ -57,7 +59,7 @@ const Inventory = ({...props}) => {
   const onSubmit = data => {
     editInventoryQuantityNeeded({
       variables: { 
-        storeId: parseInt(props.match.params.storeId),
+        orderId: parseInt(props.match.params.orderId),
       }
     })
   }
@@ -68,6 +70,12 @@ const Inventory = ({...props}) => {
   
   return (
     <div>
+      {mutationData && mutationData.editInventoryQuantityNeeded.errors.length > 0 &&
+        <div className="alert alert-danger" role="alert">
+          You must fill out all fields!
+        </div>
+      }
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <table className="table table-striped">
           <thead>

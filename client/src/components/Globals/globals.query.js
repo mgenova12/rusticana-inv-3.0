@@ -12,7 +12,7 @@ export const GET_DISTRIBUTORS = gql`
 	query {
 	  distributors  {
 	  	id
-	    name	    
+	    name	
 	  }
 	}
 	`
@@ -70,4 +70,3 @@ export const GET_PREPPED_PRODUCTS = gql`
 	}
 	`
 
-	

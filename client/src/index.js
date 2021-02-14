@@ -6,7 +6,7 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider, ApolloLink } from '@apollo/client'
-import { HashRouter } from 'react-router-dom'
+import { HashRouter, Redirect } from 'react-router-dom'
 import { getToken } from './token'
 import { setContext } from '@apollo/client/link/context';
 import { onError } from "@apollo/client/link/error";
@@ -23,7 +23,11 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
       ),
     );
 
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (networkError) {
+    console.log(`[Network error]: ${networkError}`);
+    // return <Redirect to={{ pathname: "/" }} />
+  }
+
 });
 
 const authLink = setContext((_, { headers }) => {

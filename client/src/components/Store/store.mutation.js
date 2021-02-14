@@ -52,8 +52,8 @@ export const EDIT_INVENTORY_QUANTITY = gql`
 `;
 
 export const EDIT_INVENTORY_QUANTITY_NEEDED = gql`
-  mutation editInventoryQuantityNeeded($storeId: Int!) {
-    editInventoryQuantityNeeded(input: {storeId: $storeId }) {
+  mutation editInventoryQuantityNeeded($orderId: Int!) {
+    editInventoryQuantityNeeded(input: {orderId: $orderId }) {
       errors   
     }
   }
