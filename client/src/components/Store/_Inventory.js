@@ -85,7 +85,7 @@ const Inventory = ({...props}) => {
               <th>Quantity</th>
             </tr>
           </thead>
-          { locationsQuery.locations.map((location) => (
+          { locationsQuery.getStore.locations.map((location) => (
             <thead className="thead-dark" key={location.id}>
               <tr align='center'> 
                 <th colSpan="3">{location.name}</th>

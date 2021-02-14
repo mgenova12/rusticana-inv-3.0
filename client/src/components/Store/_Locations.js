@@ -4,6 +4,7 @@ import MaterialTable from 'material-table';
 import NewLocationDrawer from './_NewLocationDrawer.js'
 import { GET_LOCATIONS } from './store.query'
 import { DELETE_LOCATION } from './store.mutation'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Locations = ({...props}) => {
   const {data: locationsQuery, loading: locationsQueryLoading, refetch: locationsRefetch} = useQuery(GET_LOCATIONS, {
@@ -26,7 +27,7 @@ const Locations = ({...props}) => {
   const onOpen = useCallback(() => setVisible(true), []);
   const onClose = useCallback(() => setVisible(false), []);
   
-  if (locationsQueryLoading) return 'Loading...'
+  if (locationsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   
   return (
     <div>
@@ -62,7 +63,7 @@ const Locations = ({...props}) => {
             { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Name', field: 'name' },
           ]}
-          data={JSON.parse(JSON.stringify(locationsQuery.locations))}           
+          data={JSON.parse(JSON.stringify(locationsQuery.getStore.locations))}           
         />      	
         <NewLocationDrawer
           visible={visible} 

@@ -4,6 +4,7 @@ import MaterialTable from 'material-table';
 import NewLocationDrawer from './_NewLocationDrawer.js'
 import { GET_PREPCENTER_LOCATIONS } from './prepcenter.query'
 import { DELETE_LOCATION } from '../Store/store.mutation'
+import BeatLoader from "react-spinners/BeatLoader"
 
 const Locations = ({...props}) => {
   const {data: prepcenterLocationsQuery, loading: prepcenterLocationsQueryLoading, refetch: prepcenterLocationsRefetch} = useQuery(GET_PREPCENTER_LOCATIONS, {
@@ -26,7 +27,7 @@ const Locations = ({...props}) => {
   const onOpen = useCallback(() => setVisible(true), []);
   const onClose = useCallback(() => setVisible(false), []);
   
-  if (prepcenterLocationsQueryLoading) return 'Loading...'
+  if (prepcenterLocationsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   
   return (
     <div>
@@ -62,7 +63,7 @@ const Locations = ({...props}) => {
             { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Name', field: 'name' },
           ]}
-          data={JSON.parse(JSON.stringify(prepcenterLocationsQuery.prepcenterLocations))}           
+          data={JSON.parse(JSON.stringify(prepcenterLocationsQuery.getPrepcenter.locations))}           
         />      	
         <NewLocationDrawer
           visible={visible} 

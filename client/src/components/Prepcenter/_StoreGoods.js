@@ -40,7 +40,7 @@ const StoreGoods = ({...props}) => {
   if (distributorsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (countBiesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
-  let locationsLookup = prepcenterLocationsQuery.prepcenterLocations.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let locationsLookup = prepcenterLocationsQuery.getPrepcenter.locations.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let countBiesLookup = countBiesQuery.countBies.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let replenishByLookup = countBiesQuery.countBies.reduce((obj, item) => ((obj[item.name] = item.name, obj)) ,{}); 
@@ -118,7 +118,7 @@ const StoreGoods = ({...props}) => {
               },
               { title: 'Active', field: 'active', type: 'boolean' },
           ]}
-          data={JSON.parse(JSON.stringify(prepcenterStoreGoodsQuery.prepcenterStoreGoods))}     
+          data={JSON.parse(JSON.stringify(prepcenterStoreGoodsQuery.getPrepcenter.storeGoods))}     
         />      	
           
     </div>

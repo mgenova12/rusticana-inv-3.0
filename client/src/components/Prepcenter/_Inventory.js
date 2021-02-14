@@ -76,7 +76,7 @@ const Inventory = ({...props}) => {
               <th>Quantity</th>
             </tr>
           </thead>
-          { prepcenterLocationsQuery.prepcenterLocations.map((location) => (
+          { prepcenterLocationsQuery.getPrepcenter.locations.map((location) => (
             <thead className="thead-dark" key={location.id}>
               <tr align='center'> 
                 <th colSpan="3">{location.name}</th>

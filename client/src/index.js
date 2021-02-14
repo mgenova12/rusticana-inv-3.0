@@ -6,7 +6,7 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider, ApolloLink } from '@apollo/client'
-import { HashRouter, Redirect } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { getToken } from './token'
 import { setContext } from '@apollo/client/link/context';
 import { onError } from "@apollo/client/link/error";
@@ -60,5 +60,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
 

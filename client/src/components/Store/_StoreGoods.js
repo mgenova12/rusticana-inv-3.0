@@ -40,7 +40,7 @@ const StoreGoods = ({...props}) => {
   if (distributorsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (countBiesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
-  let locationsLookup = locationsQuery.locations.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
+  let locationsLookup = locationsQuery.getStore.locations.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let distributorsLookup = distributorsQuery.distributors.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let countBiesLookup = countBiesQuery.countBies.reduce((obj, item) => ((obj[item.id] = item.name, obj)) ,{});
   let replenishByLookup = countBiesQuery.countBies.reduce((obj, item) => ((obj[item.name] = item.name, obj)) ,{}); 

@@ -21,15 +21,14 @@ export const GET_PREPCENTER_LABELS = gql`
 `;
 
 export const GET_PREPCENTER_ORDERS = gql`
-  query prepcenterOrders($prepcenterId: Int!) {   
-    prepcenterOrders(prepcenterId: $prepcenterId) {
-      id
-      createdAt
-      deliveryDay
-      status   
-      prepcenter {
+  query getPrepcenter($prepcenterId: Int!) {
+    getPrepcenter(prepcenterId: $prepcenterId) {
+      name
+      orders {
         id
-        name
+        createdAt
+        deliveryDay
+        status   
       }
     }
 
@@ -74,54 +73,60 @@ export const GET_PREPCENTER_PRODUCTS = gql`
 `;
 
 export const GET_PREPCENTER_LOCATIONS = gql`
-  query prepcenterLocations($prepcenterId: Int!) {   
-    prepcenterLocations(prepcenterId: $prepcenterId) {
-      id
-      name                     
+  query getPrepcenter($prepcenterId: Int!) {   
+    getPrepcenter(prepcenterId: $prepcenterId) {
+      locations {
+        id
+        name      
+      }
     }
 
   }
 `
 export const GET_PREPCENTER_STORE_GOODS = gql`
-  query prepcenterStoreGoods($prepcenterId: Int!) {   
-    prepcenterStoreGoods(prepcenterId: $prepcenterId) {
-    	id
-      product{
-				id
-        name
-        barcode
-        prepped
-        container {
+  query getPrepcenter($prepcenterId: Int!) {   
+    getPrepcenter(prepcenterId: $prepcenterId) {
+      storeGoods {
+      	id
+        product{
+  				id
+          name
+          barcode
+          prepped
+          container {
+            id
+            name
+          }        
+        }
+        location {
+          id
+          name
+        }
+        distributor {
+          id
+          name
+        }
+        countBy {
           id
           name
         }        
-      }
-      location {
-        id
-        name
-      }
-      distributor {
-        id
-        name
-      }
-      countBy {
-        id
-        name
-      }        
-      amountInStock
-      maxAmount
-      replenishBy
-      deliveryDay 
-      active         
+        amountInStock
+        maxAmount
+        replenishBy
+        deliveryDay 
+        active    
+      }     
     }
   }
 `;
 
 export const GET_PREPCENTER_ORDER_STATUS = gql`
-  query prepcenterOrderStatus($prepcenterId: Int!) { 
-    prepcenterOrderStatus(prepcenterId: $prepcenterId) {
-      id
-      status
+  query getPrepcenter($prepcenterId: Int!) { 
+    getPrepcenter(prepcenterId: $prepcenterId) {
+      orderStatus {
+        id
+        status
+      }
     }
   }
 `

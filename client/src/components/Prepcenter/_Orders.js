@@ -27,7 +27,7 @@ const Orders = ({...props}) => {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
         <MaterialTable
-          title="Orders"
+          title={prepcenterOrdersQuery.getPrepcenter.name + ' Orders'}
           onRowClick={handleRowClick} 
           options={{
             paging: false,
@@ -38,11 +38,10 @@ const Orders = ({...props}) => {
             { title: 'Time Placed', field: 'createdAt', 
               render: row => <span>{ new Date(row["createdAt"].replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
             },
-            { title: 'Store', field: 'prepcenter.name' },
             { title: 'Delivery Type', field: 'deliveryDay' },
             { title: 'Status', field: 'status' },
           ]}
-          data={JSON.parse(JSON.stringify(prepcenterOrdersQuery.prepcenterOrders))}           
+          data={JSON.parse(JSON.stringify(prepcenterOrdersQuery.getPrepcenter.orders))}           
         />      	
           
     </div>

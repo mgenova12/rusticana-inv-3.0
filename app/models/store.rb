@@ -7,7 +7,7 @@ class Store < ApplicationRecord
   has_many :orders, -> { order(created_at: :desc) }
   has_many :store_orders, through: :orders
 
-  def store_order_status
+  def order_status
     self.orders.find_by(status: 'incomplete')
   end
 

@@ -36,7 +36,7 @@ const StartInventory = ({...props}) => {
     if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
       deleteInventory({ 
         variables: {
-          orderId: parseInt(prepcenterOrderStatusQuery.prepcenterOrderStatus.id)
+          orderId: parseInt(prepcenterOrderStatusQuery.getPrepcenter.orderStatus.id)
         }
       })
     }
@@ -58,7 +58,7 @@ const StartInventory = ({...props}) => {
 
   return (
     <Container component="main" maxWidth="sm">
-    {!prepcenterOrderStatusQuery.prepcenterOrderStatus ? (
+    {!prepcenterOrderStatusQuery.getPrepcenter.orderStatus ? (
 
       <div className="center">
         <h1> Select Delivery Day </h1>
@@ -102,7 +102,7 @@ const StartInventory = ({...props}) => {
                 variant="contained" 
                 color="primary" 
                 size="large" 
-                onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/order/${prepcenterOrderStatusQuery.prepcenterOrderStatus.id}/inventory`)} >
+                onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/order/${prepcenterOrderStatusQuery.getPrepcenter.orderStatus.id}/inventory`)} >
                 Go To Inventory
               </Button>
 
