@@ -96,7 +96,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, storeId, c
               >
               <option key='' value=''></option>
               {
-                locationsQuery.locations.map(location => {
+                locationsQuery.getStore.locations.map(location => {
                   return <option key={location.id} value={location.id}>{location.name}</option>
                 })
               }              

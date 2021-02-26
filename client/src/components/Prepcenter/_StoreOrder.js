@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useRef} from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -7,11 +7,14 @@ import Tab from '@material-ui/core/Tab';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import Print from '@material-ui/icons/Print';
 import { GET_CONTAINERS } from '../Globals/globals.query'
 import { GET_ORDER } from './prepcenter.query'
 import { SCAN_INVENTORY } from './prepcenter.mutation'
 import { useForm } from "react-hook-form";
 import BeatLoader from "react-spinners/BeatLoader"
+import { useReactToPrint } from 'react-to-print';
+import NonPreppedLabels from './_NonPreppedLabels.js'
 
 const StoreOrder = ({...props}) => {
   const [scanInventory, { data: mutationData}] = useMutation(SCAN_INVENTORY);
@@ -39,6 +42,11 @@ const StoreOrder = ({...props}) => {
     reset()
   }
 
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   if (orderLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (containersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
@@ -48,7 +56,8 @@ const StoreOrder = ({...props}) => {
 
   return (
     <div>
-      <h3 className='m-3'>{orderQuery.getOrder.store.name}</h3>
+      <h3 className='m-3'>{orderQuery.getOrder.store.name} <Print style={{cursor: 'pointer'}} onClick={handlePrint}/></h3>
+
       <Container component="main" maxWidth="md">
         <div align="center" className="mt-2">
           <Button 
@@ -136,6 +145,14 @@ const StoreOrder = ({...props}) => {
             ))}
           </table> 
       </div>
+      
+      <div style={{ display: "none" }}>
+        <NonPreppedLabels 
+          inventories={orderQuery.getOrder.isPrepcenterInventories}
+          ref={componentRef} 
+        />
+      </div> 
+
     </div>
   )
 }

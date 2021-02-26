@@ -12,3 +12,9 @@
 2021-01-30 16:23:05.025 EST [13507] FATAL:  database "rusticana_inv_3_0_development" does not exist
 2021-01-30 16:23:25.162 EST [13528] FATAL:  database "rusticana_inv_3_0_development" does not exist
 2021-01-30 16:25:29.919 EST [13578] FATAL:  database "rusticana_inv_3_0_development" does not exist
+2021-02-15 14:55:17.707 EST [41967] ERROR:  column store_goods.container_id does not exist at character 88
+2021-02-15 14:55:17.707 EST [41967] STATEMENT:  SELECT "store_goods".* FROM "store_goods" WHERE "store_goods"."deleted_at" IS NULL AND "store_goods"."container_id" = $1
+2021-02-15 14:55:17.709 EST [41967] ERROR:  column store_goods.container_id does not exist at character 88
+2021-02-15 14:55:17.709 EST [41967] STATEMENT:  SELECT "store_goods".* FROM "store_goods" WHERE "store_goods"."deleted_at" IS NULL AND "store_goods"."container_id" = $1 LIMIT $2
+2021-02-15 14:55:19.683 EST [41967] ERROR:  column store_goods.container_id does not exist at character 81
+2021-02-15 14:55:19.683 EST [41967] STATEMENT:  SELECT COUNT(*) FROM "store_goods" WHERE "store_goods"."deleted_at" IS NULL AND "store_goods"."container_id" = $1

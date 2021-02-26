@@ -101,7 +101,7 @@ const NewStoreGoodDrawer = ({ visible, onClose, storeProductsRefetch, prepcenter
               >
               <option key='' value=''></option>
               {
-                prepcenterLocationsQuery.prepcenterLocations.map(location => {
+                prepcenterLocationsQuery.getPrepcenter.locations.map(location => {
                   return <option key={location.id} value={location.id}>{location.name}</option>
                 })
               }              

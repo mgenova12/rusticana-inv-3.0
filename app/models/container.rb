@@ -1,3 +1,3 @@
 class Container < ApplicationRecord
-  has_many :store_goods
+  has_many :products
 end

@@ -168,10 +168,14 @@ export const GET_ORDER = gql`
         	}
           productIncludingDeleted {
             name
+            daysTillExpire
             barcode
+            category {
+              name
+            }
             container {
               id
-            }        
+            }   
           }        
         }
       }
