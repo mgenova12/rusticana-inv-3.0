@@ -145,14 +145,14 @@ const StoreOrder = ({...props}) => {
             ))}
           </table> 
       </div>
-      
+      { false &&
       <div style={{ display: "none" }}>
         <NonPreppedLabels 
           inventories={orderQuery.getOrder.isPrepcenterInventories}
           ref={componentRef} 
         />
       </div> 
-
+      }
     </div>
   )
 }
