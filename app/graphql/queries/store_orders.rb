@@ -6,7 +6,7 @@ module Queries
     type [Types::StoreOrderType], null: false
 
     def resolve
-      StoreOrder.all.reverse
+      StoreOrder.order(:delivery_date).reverse
     end
     
   end
