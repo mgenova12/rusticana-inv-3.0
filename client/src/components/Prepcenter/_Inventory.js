@@ -57,6 +57,7 @@ const Inventory = ({...props}) => {
     editPrepcenterInventoryQuantityNeeded({
       variables: { 
         prepcenterId: parseInt(props.match.params.prepcenterId),
+        inventoryInput: [JSON.stringify(data)]
       }
     })
   }

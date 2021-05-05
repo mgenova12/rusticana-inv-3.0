@@ -53,10 +53,11 @@ const StoreOrder = ({...props}) => {
   const results = activeTab === 'unscanned'
     ? orderQuery.getOrder.isPrepcenterInventories.filter(inventory => inventory.quantityNeeded > 0)
     : orderQuery.getOrder.isPrepcenterInventories.filter(inventory => inventory.scanned)
-
   return (
     <div>
       <h3 className='m-3'>{orderQuery.getOrder.store.name} <Print style={{cursor: 'pointer'}} onClick={handlePrint}/></h3>
+      
+      <h5 className='m-3'>Delivery Day: { new Date(orderQuery.getOrder.storeOrder.deliveryDate.replace(/-/g, '/')).toLocaleDateString([], "en-US", { weekday: 'long'})}</h5>
 
       <Container component="main" maxWidth="md">
         <div align="center" className="mt-2">

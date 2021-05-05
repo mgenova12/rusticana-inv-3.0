@@ -152,6 +152,9 @@ export const GET_STORE_ORDERS = gql`
 export const GET_ORDER = gql`
   query getOrder($orderId: Int!) { 
     getOrder(orderId: $orderId) {
+      storeOrder{
+        deliveryDate
+      }
       store{
         name
       }
