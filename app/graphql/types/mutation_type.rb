@@ -24,5 +24,6 @@ module Types
     field :edit_final_inventory_order, mutation: Mutations::EditFinalInventoryOrder
     field :edit_prepped_product, mutation: Mutations::EditPreppedProduct
     field :mark_order_paid, mutation: Mutations::MarkOrderPaid
+    field :unscan_inventory, mutation: Mutations::UnscanInventory
   end
 end

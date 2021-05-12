@@ -13,6 +13,7 @@ export class NonPreppedLabels extends React.PureComponent {
 
     return (	
     	<div> 
+    	
 				<style dangerouslySetInnerHTML={{__html: `
 					@media print {
 					  .print-button, .no-print *
@@ -41,7 +42,8 @@ export class NonPreppedLabels extends React.PureComponent {
 					  	padding: 0;
 						}
 					}
-				`}}/>	  
+				`}}/>	
+
 				{ inventories.map((inventory) => (
 		    	<div key={inventory.id}>
 			    	<h3><span> {inventory.storeGoodIncludingDeleted.productIncludingDeleted.name}</span> </h3>

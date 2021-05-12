@@ -52,6 +52,15 @@ export const SCAN_INVENTORY = gql`
   }
 `;
 
+export const UNSCAN_INVENTORY = gql`
+  mutation unscanInventory($inventoryId: Int!) {
+    unscanInventory(input: { inventoryId: $inventoryId }) {
+      errors
+    }
+  }
+`;
+
+
 export const CREATE_PREPCENTER_INVENTORY = gql`
   mutation createPrepcenterInventory($prepcenterId: Int!, $deliveryDay: String!) {
     createPrepcenterInventory(input: {prepcenterId: $prepcenterId, deliveryDay: $deliveryDay }) {
