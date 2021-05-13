@@ -678,3 +678,26 @@
 #   )
 
 # end
+
+
+
+# Inventories.all.each do |inv|
+#   if (inv.quantity_needed > 0 && inv.order_id != 18)
+#     inv.update(scanned:true, quantity_needed:0, invoiced_quantity: inv.quantity_needed)
+#   end
+# end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

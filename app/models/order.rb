@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   end
 
   def unscanned_inventories
-    self.inventories.where(scanned: [nil,false]).joins(:store_good_including_deleted).where(store_goods: { is_prepcenter: true })
+    self.inventories.where(scanned: [nil,false]).where.not(quantity_needed: 0).joins(:store_good_including_deleted).where(store_goods: { is_prepcenter: true })
   end
 
   def pending_inventories
