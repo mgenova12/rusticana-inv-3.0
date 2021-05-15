@@ -18,3 +18,5 @@
 2021-02-15 14:55:17.709 EST [41967] STATEMENT:  SELECT "store_goods".* FROM "store_goods" WHERE "store_goods"."deleted_at" IS NULL AND "store_goods"."container_id" = $1 LIMIT $2
 2021-02-15 14:55:19.683 EST [41967] ERROR:  column store_goods.container_id does not exist at character 81
 2021-02-15 14:55:19.683 EST [41967] STATEMENT:  SELECT COUNT(*) FROM "store_goods" WHERE "store_goods"."deleted_at" IS NULL AND "store_goods"."container_id" = $1
+2021-05-15 10:41:58.537 EDT [95495] ERROR:  cached plan must not change result type
+2021-05-15 10:41:58.537 EDT [95495] STATEMENT:  SELECT "inventories".* FROM "inventories" INNER JOIN "store_goods" ON "store_goods"."id" = "inventories"."store_good_id" WHERE "inventories"."order_id" = $1 AND "inventories"."scanned" = $2 AND "store_goods"."is_prepcenter" = $3 ORDER BY "inventories"."created_at" DESC

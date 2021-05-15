@@ -12,5 +12,7 @@ module Types
     field :reason_code, String, null: true
     field :status, String, null: true
     field :invoiced_quantity, Integer, null: true
+    field :invoiced_price, Float, null: true
+    field :invoiced_product_price, Float, null: true
   end
 end

@@ -21,13 +21,15 @@ import { gql } from '@apollo/client';
 	      
 	      scannedInventories {
 		      id
+		      invoicedPrice
 		      invoicedQuantity
+		      invoicedProductPrice
 		      storeGood {
 		      	id
 		      	product {
 		      		id
+		      		caseQuantity
 		      		name
-		      		markedUpPrice
 		      	}
 		      }
 	    	}

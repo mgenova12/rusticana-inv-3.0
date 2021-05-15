@@ -15,7 +15,6 @@ const Invoice = ({...props}) => {
 
   return (
     <div>
-
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -28,14 +27,15 @@ const Invoice = ({...props}) => {
       
           columns={[
             { title: 'Product', field: 'storeGood.product.name' },
-            { title: 'Price', field: 'storeGood.product.markedUpPrice' },
-            { title: 'Quantity invoiced', field: 'invoicedQuantity' },
             
-            { title: 'Total', 
+            { title: 'Invoiced Price', 
               render: rowData => (
-                `$${(parseFloat(rowData.storeGood.product.markedUpPrice)) * (parseFloat(rowData.invoicedQuantity))}`
+                (parseFloat(rowData.invoicedProductPrice)).toLocaleString('en-US', {style: 'currency',currency: 'USD'}) + `${rowData.storeGood.product.caseQuantity ? "*" : ""}`
               )   
-            },
+            },            
+
+            { title: 'Quantity Invoiced', field: 'invoicedQuantity' },
+            { title: 'Invoiced Total', field: 'invoicedPrice', type: "currency", currencySetting:{ currencyCode:'USD', minimumFractionDigits:2, maximumFractionDigits:2} },
           ]}
           data={JSON.parse(JSON.stringify(invoiceQuery.getOrder.scannedInventories))}
         />      	

@@ -681,8 +681,8 @@
 
 
 
-# Inventories.all.each do |inv|
-#   if (inv.quantity_needed > 0 && inv.order_id != 18)
+# Order.find(45).inventories.each do |inv|
+#   if (inv.quantity_needed > 0)
 #     inv.update(scanned:true, quantity_needed:0, invoiced_quantity: inv.quantity_needed)
 #   end
 # end
