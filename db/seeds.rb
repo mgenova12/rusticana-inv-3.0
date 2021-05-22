@@ -690,8 +690,8 @@
 
 
 
-
-
+# Order.find(55).scanned_inventories
+# Order.find(55).update(status:"pending")
 
 
 

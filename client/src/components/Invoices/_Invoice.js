@@ -20,7 +20,9 @@ const Invoice = ({...props}) => {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         /> 
         <MaterialTable
-          title={`Invoice #${props.match.params.orderId}`}
+          title={
+            `Invoice #${props.match.params.orderId}`
+          }
           options={{
             paging: false,
           }}

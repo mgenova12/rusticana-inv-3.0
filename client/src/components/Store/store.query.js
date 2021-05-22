@@ -42,6 +42,7 @@ import { gql } from '@apollo/client';
 		      id
 		      quantity
 		      quantityNeeded
+		      invoicedQuantity
 					storeGoodIncludingDeleted {
 						distributor {
 							id

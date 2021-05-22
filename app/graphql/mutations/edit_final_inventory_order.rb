@@ -18,7 +18,7 @@ class Mutations::EditFinalInventoryOrder < Mutations::BaseMutation
     scanned_inventories.each do |inventory|
       product = inventory.store_good.product
 
-      if (product.case_quantity && inventory.store_good.count_by == "EA")
+      if (product.case_quantity && inventory.store_good.count_by.name == "EA")
         total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity
         inventory.update(invoiced_price: total, invoiced_product_price: product.marked_up_price)
       else

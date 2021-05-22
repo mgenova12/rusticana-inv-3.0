@@ -30,8 +30,8 @@ const Order = ({...props}) => {
   if (distributorsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   var results = (
-    !activeTab && !showZeros ? getOrderQuery.getOrder.inventories.filter(inventory => inventory.quantityNeeded > 0) : 
-    activeTab && !showZeros ? getOrderQuery.getOrder.inventories.filter(inventory => inventory.storeGoodIncludingDeleted.distributor.id === activeTab && inventory.quantityNeeded > 0) : 
+    !activeTab && !showZeros ? getOrderQuery.getOrder.inventories.filter(inventory => inventory.quantityNeeded + inventory.invoicedQuantity > 0) : 
+    activeTab && !showZeros ? getOrderQuery.getOrder.inventories.filter(inventory => (inventory.storeGoodIncludingDeleted.distributor.id === activeTab) && (inventory.quantityNeeded + inventory.invoicedQuantity > 0)) : 
     activeTab && showZeros ? getOrderQuery.getOrder.inventories.filter(inventory => inventory.storeGoodIncludingDeleted.distributor.id === activeTab) : 
     !activeTab && showZeros ? getOrderQuery.getOrder.inventories : 
     null // else 
@@ -103,7 +103,7 @@ const Order = ({...props}) => {
                     <td> <Checkbox value="checkedA" /> </td>
                     <td>{inventory.storeGoodIncludingDeleted.productIncludingDeleted.name} </td>
                     <td>{inventory.quantity} {inventory.storeGoodIncludingDeleted.countBy.name}</td>
-                    <td>{inventory.quantityNeeded} </td>
+                    <td>{inventory.quantityNeeded + inventory.invoicedQuantity} </td>
                   </tr>
 
                 )
