@@ -18,7 +18,10 @@ import { gql } from '@apollo/client';
 	export const GET_INVOICE = gql`
 	  query getOrder($orderId: Int!) { 
 	    getOrder(orderId: $orderId) {
-	      
+	      saleTotal
+	      store {
+	      	name
+	      }   	      
 	      scannedInventories {
 		      id
 		      invoicedPrice

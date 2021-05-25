@@ -6,7 +6,7 @@ module Queries
     type [Types::OrderType], null: false
 
     def resolve
-      Order.where(status: ['complete', 'PAID'], prepcenter_id: nil).reverse
+      Order.where(status: ['complete', 'PAID'], prepcenter_id: nil).order(:created_at).reverse
     end
   end
 end
