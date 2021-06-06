@@ -125,7 +125,7 @@ const Invoices = ({...props}) => {
             },
             { title: 'Store', field: 'store.name' },
             { title: 'Status', field: 'status', 
-              render: row => row['status'] === 'PAID' ? <span className="text-success"> {row["status"]}</span> : <span>row['status']</span>
+              render: row => row['status'] === 'PAID' ? <span className="text-success"> {row["status"]}</span> : <span>{row['status']}</span>
             },            
             { title: 'Total', field: 'saleTotal', type: "currency" },
           ]}
