@@ -16,7 +16,7 @@ class Mutations::EditFinalInventoryOrder < Mutations::BaseMutation
 
     sale_total = 0
     scanned_inventories.each do |inventory|
-      product = inventory.store_good.product
+      product = inventory.store_good_including_deleted.product
 
       if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good.count_by.name == "EA")
         total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity

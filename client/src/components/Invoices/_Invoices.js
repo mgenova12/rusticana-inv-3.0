@@ -124,7 +124,9 @@ const Invoices = ({...props}) => {
               render: row => <span>{ new Date(row["createdAt"].replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
             },
             { title: 'Store', field: 'store.name' },
-            { title: 'Status', field: 'status' },
+            { title: 'Status', field: 'status', 
+              render: row => row['status'] === 'PAID' ? <span className="text-success"> {row["status"]}</span> : <span>row['status']</span>
+            },            
             { title: 'Total', field: 'saleTotal', type: "currency" },
           ]}
           data={JSON.parse(JSON.stringify(results))}           
