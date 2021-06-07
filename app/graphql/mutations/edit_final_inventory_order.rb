@@ -14,21 +14,21 @@ class Mutations::EditFinalInventoryOrder < Mutations::BaseMutation
 
     scanned_inventories = order.scanned_inventories
 
-    sale_total = 0
     scanned_inventories.each do |inventory|
       product = inventory.store_good_including_deleted.product
 
-      if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good_including_deleted.count_by.name == "EA")
+      if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good_including_deleted.replenish_by != "CASE")
         total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity
         inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
       else
         total = product.marked_up_price * inventory.invoiced_quantity
         inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
       end
-      sale_total += total.round(2)
+      
     end 
 
-    order.update(sale_total: sale_total.round(2), status: 'complete')
+    sum = scanned_inventories.sum(:invoiced_price)
+    order.update(sale_total: sum.round(2), status: 'complete')
 
     {
       errors: []

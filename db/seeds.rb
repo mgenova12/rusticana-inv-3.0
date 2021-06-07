@@ -694,27 +694,51 @@
 # Order.find(55).update(status:"pending")
 
 
-# def update_orders(order_id)
-#   order = Order.find(order_id)
-#   scanned_inventories = order.scanned_inventories
+def update_orders(order_id)
+  order = Order.find(order_id)
+  scanned_inventories = order.scanned_inventories
 
-#   sale_total = 0
-#   scanned_inventories.each do |inventory|
-#     product = inventory.store_good.product
+  scanned_inventories.each do |inventory|
+    product = inventory.store_good_including_deleted.product
+
+    if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good_including_deleted.replenish_by != "CASE")
+      total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity
+      inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
+    else
+      total = product.marked_up_price * inventory.invoiced_quantity
+      inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
+    end
     
-#     if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good.count_by.name == "EA")
-#       total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity
-#       inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
-#     else
-#       total = product.marked_up_price * inventory.invoiced_quantity
-#       inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
-#     end
-#     sale_total += total.round(2)
-#   end 
+  end 
 
-#   order.update(sale_total: sale_total.round(2), status: 'complete')
+  sum = scanned_inventories.sum(:invoiced_price)
+  order.update(sale_total: sum.round(2), status: 'complete')
 
-# end
+end
+
+
+def update_inventory(order_id)
+  order = Order.find(order_id)
+
+  order.inventories.each do |inventory|
+    store_good = inventory.store_good_including_deleted
+    store_good.update(amount_in_stock: inventory.quantity)
+
+    if store_good.count_by.name == '%'
+      inventory.quantity <= 25 ? inventory.update(quantity_needed: 1, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
+    elsif store_good.product.case_quantity && store_good.product.case_quantity > 0 && store_good.count_by.name == 'EA' && store_good.replenish_by == 'CASE'
+      case_amount = store_good.max_amount - inventory.quantity
+      case_result = (case_amount.to_f / store_good.product.case_quantity.to_f).ceil
+      case_result > 0 ? inventory.update(quantity_needed: case_result, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
+    else
+      result = store_good.max_amount - inventory.quantity
+      result > 0 ? inventory.update(quantity_needed: result, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
+    end
+  end
+end
+
+
+
 
 
 # order_ids.each{|x| update_orders(x)}

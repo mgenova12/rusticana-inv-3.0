@@ -27,8 +27,9 @@ import { gql } from '@apollo/client';
 		      invoicedPrice
 		      invoicedQuantity
 		      invoicedProductPrice
-		      storeGood {
+		      storeGoodIncludingDeleted {
 		      	id
+		      	replenishBy
 		      	product {
 		      		id
 		      		caseQuantity

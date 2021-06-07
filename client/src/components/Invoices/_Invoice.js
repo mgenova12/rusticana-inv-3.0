@@ -60,15 +60,17 @@ const Invoice = ({...props}) => {
           }}
       
           columns={[
-            { title: 'Product', field: 'storeGood.product.name' },
+            { title: 'ID', field: 'id' },
+            { title: 'Product', field: 'storeGoodIncludingDeleted.product.name' },
             
             { title: 'Invoiced Price',  
               render: rowData => (
                 (parseFloat(rowData.invoicedProductPrice)).toLocaleString('en-US', {style: 'currency',currency: 'USD'})
               )   
             },            
-            { title: 'Case Quantity', field: 'storeGood.product.caseQuantity' },
+            { title: 'Case Quantity', field: 'storeGoodIncludingDeleted.product.caseQuantity' },
             { title: 'Quantity Invoiced', field: 'invoicedQuantity' },
+            { title: 'Replenish By', field: 'storeGoodIncludingDeleted.replenishBy' },
             { title: 'Invoiced Total', field: 'invoicedPrice', type: "currency", currencySetting:{ currencyCode:'USD', minimumFractionDigits:2, maximumFractionDigits:2} },
           ]}
           data={JSON.parse(JSON.stringify(invoiceQuery.getOrder.scannedInventories))}
