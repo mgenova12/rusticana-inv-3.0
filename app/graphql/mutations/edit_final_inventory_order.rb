@@ -19,10 +19,10 @@ class Mutations::EditFinalInventoryOrder < Mutations::BaseMutation
 
       if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good_including_deleted.replenish_by != "CASE")
         total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity
-        inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
+        inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
       else
         total = product.marked_up_price * inventory.invoiced_quantity
-        inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
+        inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
       end
       
     end 

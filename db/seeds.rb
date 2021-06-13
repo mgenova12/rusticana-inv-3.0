@@ -703,10 +703,10 @@ def update_orders(order_id)
 
     if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good_including_deleted.replenish_by != "CASE")
       total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity
-      inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
+      inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
     else
       total = product.marked_up_price * inventory.invoiced_quantity
-      inventory.update(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
+      inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
     end
     
   end 
@@ -717,25 +717,27 @@ def update_orders(order_id)
 end
 
 
-def update_inventory(order_id)
-  order = Order.find(order_id)
+# def update_inventory(order_id)
+#   order = Order.find(order_id)
 
-  order.inventories.each do |inventory|
-    store_good = inventory.store_good_including_deleted
-    store_good.update(amount_in_stock: inventory.quantity)
+#   order.inventories.each do |inventory|
+#     store_good = inventory.store_good_including_deleted
+#     quantity = inventory.quantity_needed + inventory.invoiced_quantity
 
-    if store_good.count_by.name == '%'
-      inventory.quantity <= 25 ? inventory.update(quantity_needed: 1, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
-    elsif store_good.product.case_quantity && store_good.product.case_quantity > 0 && store_good.count_by.name == 'EA' && store_good.replenish_by == 'CASE'
-      case_amount = store_good.max_amount - inventory.quantity
-      case_result = (case_amount.to_f / store_good.product.case_quantity.to_f).ceil
-      case_result > 0 ? inventory.update(quantity_needed: case_result, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
-    else
-      result = store_good.max_amount - inventory.quantity
-      result > 0 ? inventory.update(quantity_needed: result, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
-    end
-  end
-end
+#     store_good.update(amount_in_stock: quantity)
+
+#     if store_good.count_by.name == '%'
+#       inventory.quantity <= 25 ? inventory.update(quantity_needed: 1, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
+#     elsif store_good.product.case_quantity && store_good.product.case_quantity > 0 && store_good.count_by.name == 'EA' && store_good.replenish_by == 'CASE'
+#       case_amount = store_good.max_amount - inventory.quantity
+#       case_result = (case_amount.to_f / store_good.product.case_quantity.to_f).ceil
+#       case_result > 0 ? inventory.update(quantity_needed: case_result, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
+#     else
+#       result = store_good.max_amount - inventory.quantity
+#       result > 0 ? inventory.update(quantity_needed: result, status: 'complete') : inventory.update(quantity_needed: 0, status: 'complete')
+#     end
+#   end
+# end
 
 
 

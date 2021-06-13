@@ -172,6 +172,7 @@ export const GET_ORDER = gql`
         	}
           productIncludingDeleted {
             name
+            prepped
             daysTillExpire
             barcode
             category {
