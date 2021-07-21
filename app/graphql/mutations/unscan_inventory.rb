@@ -10,7 +10,7 @@ class Mutations::UnscanInventory < Mutations::BaseMutation
         quantity_needed = inventory.quantity_needed + 1
         invoiced_quantity = inventory.invoiced_quantity - 1
         scanned = invoiced_quantity == 0 ? false : true
-        inventory.update(scanned: scanned, quantity_needed: quantity_needed, invoiced_quantity: invoiced_quantity)
+        inventory.update_columns(scanned: scanned, quantity_needed: quantity_needed, invoiced_quantity: invoiced_quantity)
         
         {
           errors: [],
