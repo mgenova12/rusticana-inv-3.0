@@ -194,9 +194,12 @@ export const GET_UNSCANNED_STORE_ORDER = gql`
     getOrder(orderId: $orderId) {
       unscannedInventories {
         id
-        product {
-        	id 
-        	name
+        storeGoodIncludingDeleted {
+          id
+          productIncludingDeleted {
+          	id 
+          	name
+          }
         }
       }
     }

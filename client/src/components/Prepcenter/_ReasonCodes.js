@@ -55,8 +55,8 @@ const ReasonCodes = ({...props}) => {
             <thead>
               {unscannedStoreOrderInventoriesQuery.getOrder.unscannedInventories.map((inventory) => (
                 <tr key={inventory.id}> 
-                  <td>{inventory.product.id}</td>                
-                  <td>{inventory.product.name}</td>
+                  <td>{inventory.storeGoodIncludingDeleted.productIncludingDeleted.id}</td>                
+                  <td>{inventory.storeGoodIncludingDeleted.productIncludingDeleted.name}</td>
                   <td>
                     <TextField
                       select
