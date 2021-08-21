@@ -8,7 +8,14 @@ class Store < ApplicationRecord
   has_many :store_orders, through: :orders
 
   def order_status
-    self.orders.find_by(status: 'incomplete')
+    current_store_order = StoreOrder.order(:delivery_date).last
+
+    if current_store_order.orders.pluck(:store_id).include?(self.id) && current_store_order.orders_complete != 3
+      orders.last
+    else
+      self.orders.find_by(status: 'incomplete')
+    end
+
   end
 
 end

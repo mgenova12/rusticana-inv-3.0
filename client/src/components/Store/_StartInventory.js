@@ -58,41 +58,41 @@ const StartInventory = ({...props}) => {
 
   return (
     <Container component="main" maxWidth="sm">
-    {!orderStatusQuery.getStore.orderStatus ? (
+    {!orderStatusQuery.getStore.orderStatus ? 
+        
+        <div className="center">
+          <h1> Select Delivery Day </h1>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            
+            <TextField
+              select
+              inputRef={register({required: true})}
+              error={errors.deliveryDay ? true : false}
+              label="Delivery Day"
+              name="deliveryDay"
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              SelectProps={{
+                native: true,
+              }}              
+            >
+              <option key='' value=''></option>
+              <option key='Tuesday' value='Tuesday'>Tuesday</option>
+              <option key='Friday' value='Friday'>Friday</option>
+            </TextField> 
 
-      <div className="center">
-        <h1> Select Delivery Day </h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          
-          <TextField
-            select
-            inputRef={register({required: true})}
-            error={errors.deliveryDay ? true : false}
-            label="Delivery Day"
-            name="deliveryDay"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            SelectProps={{
-              native: true,
-            }}              
-          >
-            <option key='' value=''></option>
-            <option key='Tuesday' value='Tuesday'>Tuesday</option>
-            <option key='Friday' value='Friday'>Friday</option>
-          </TextField> 
+             <Button type='submit' variant="contained" color="primary" size="large" >
+                Start Inventory
+             </Button>
+          </form>  
+        </div>        
 
-           <Button type='submit' variant="contained" color="primary" size="large" >
-              Start Inventory
-           </Button>
-        </form>  
-      </div>
-
-      ) : (
-
+      : ( orderStatusQuery.getStore.orderStatus.status === "incomplete" ?
+        
         <div className="center"> 
           <h1> An Inventory Has Already Been Started! </h1>
            <div className="d-inline-block"> 
@@ -117,7 +117,10 @@ const StartInventory = ({...props}) => {
               </Button> 
            </div>
         </div>
-
+      :
+        <div className="center"> 
+          <h1> An Inventory Has Already Been Created For This Delivery Day! </h1>
+        </div>
       )}
 
     </Container>

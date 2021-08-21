@@ -6,7 +6,7 @@ class Mutations::UnscanInventory < Mutations::BaseMutation
   def resolve(inventory_id:)    
     inventory = Inventory.find(inventory_id)
 
-    if inventory
+    if inventory && inventory.invoiced_quantity > 0
         quantity_needed = inventory.quantity_needed + 1
         invoiced_quantity = inventory.invoiced_quantity - 1
         scanned = invoiced_quantity == 0 ? false : true
