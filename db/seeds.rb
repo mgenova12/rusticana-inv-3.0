@@ -680,13 +680,13 @@
 # end
 
 
-
-# Order.find(45).inventories.each do |inv|
-#   if (inv.quantity_needed > 0)
-#     inv.update(scanned:true, quantity_needed:0, invoiced_quantity: inv.quantity_needed)
-#   end
-# end
-
+def scan_order(order_id)
+  Order.find(order_id).inventories.each do |inv|
+    if (inv.quantity_needed > 0)
+      inv.update_columns(scanned:true, quantity_needed:0, invoiced_quantity: inv.quantity_needed)
+    end
+  end
+end
 
 
 
