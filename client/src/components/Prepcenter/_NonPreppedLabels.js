@@ -13,8 +13,6 @@ export class NonPreppedLabels extends React.PureComponent {
 
 	  const nonPreppedInventories = inventories.filter((inventory) => !inventory.storeGoodIncludingDeleted.productIncludingDeleted.prepped)
 
-	  console.log(nonPreppedInventories)
-
     return (	
     	<div> 
     	
