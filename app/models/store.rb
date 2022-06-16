@@ -10,7 +10,7 @@ class Store < ApplicationRecord
   def order_status
     current_store_order = StoreOrder.order(:delivery_date).last
 
-    if current_store_order.orders.pluck(:store_id).include?(self.id) && current_store_order.orders_complete != 3
+    if current_store_order.orders.pluck(:store_id).include?(self.id) && current_store_order.orders_complete != 2
       orders.order(created_at: :desc).first
     else
       self.orders.find_by(status: 'incomplete')

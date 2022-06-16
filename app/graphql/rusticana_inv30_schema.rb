@@ -7,5 +7,5 @@ class RusticanaInv30Schema < GraphQL::Schema
   use GraphQL::Analysis::AST
 
   # Add built-in connections for pagination
-  use GraphQL::Pagination::Connections
+  # use GraphQL::Pagination::Connections
 end

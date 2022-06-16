@@ -20,7 +20,7 @@ class Mutations::CreateInventory < Mutations::BaseMutation
 
     store_order = StoreOrder.last
 
-    if store_order.nil? || store_order.orders_complete == Store.all.size
+    if store_order.nil? || store_order.orders_complete == 2
       store_order = StoreOrder.create!(delivery_date: delivery_date, status:'Prepping', orders_complete: 1)
       order.update(store_order_id: store_order.id)
     else
