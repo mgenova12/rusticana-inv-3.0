@@ -1,12 +1,12 @@
 class Mutations::MarkOrderPaid < Mutations::BaseMutation
-  argument :orderIds, [Integer], required: true
+  argument :order_ids, [Integer], required: true
 
   field :errors, [String], null: false
 
-  def resolve(orderIds:)
+  def resolve(order_ids:)
 
-    orderIds.each do |orderId|
-      Order.find(orderId).update(status: 'PAID')
+    order_ids.each do |order_id|
+      Order.find(order_id).update(status: 'PAID')
     end
 
     {
