@@ -53,7 +53,7 @@ export const SCAN_INVENTORY = gql`
 `;
 
 export const UNSCAN_INVENTORY = gql`
-  mutation unscanInventory($inventoryId: Int!) {
+  mutation unscanInventory($inventoryId: ID!) {
     unscanInventory(input: { inventoryId: $inventoryId }) {
       errors
     }
