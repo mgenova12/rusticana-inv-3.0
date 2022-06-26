@@ -9,7 +9,7 @@ export const EDIT_FINAL_INVENTORY_ORDER = gql`
 `;
 
 export const EDIT_PREPCENTER_INVENTORY_QUANTITY_NEEDED = gql`
-  mutation editPrepcenterInventoryQuantityNeeded($prepcenterId: Int!, $inventoryInput: [String]) {
+  mutation editPrepcenterInventoryQuantityNeeded($prepcenterId: Int!, $inventoryInput: [String!]!) {
     editPrepcenterInventoryQuantityNeeded(input: {prepcenterId: $prepcenterId, inventoryInput: $inventoryInput }) {
       errors   
     }

@@ -1,5 +1,5 @@
 class Mutations::ScanInventory < Mutations::BaseMutation
-  argument :barcode, ID, required: true
+  argument :barcode, Float, required: true
   argument :order_id, Integer, required: true
 
   field :errors, [String], null: false
