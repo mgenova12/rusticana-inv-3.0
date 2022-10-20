@@ -27,6 +27,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Restaurant from '@material-ui/icons/Restaurant';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 
 export const Navbar = ({...props}, currentUser) => {
   let path = props.match.path.split('/')[1]
@@ -142,7 +143,12 @@ export const Navbar = ({...props}, currentUser) => {
             <ListItem key={'Locations'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/locations`}>
               <ListItemIcon><LocationCity/></ListItemIcon>
               <ListItemText primary={'Locations'} />
-            </ListItem> 
+            </ListItem>
+
+{/*            <ListItem key={'Quick Order'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/quick_order_select`}>
+              <ListItemIcon><AccessAlarmIcon/></ListItemIcon>
+              <ListItemText primary={'Quick Order'} />
+            </ListItem>*/}
 
           </React.Fragment>
           } 

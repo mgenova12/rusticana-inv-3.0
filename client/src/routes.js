@@ -25,6 +25,7 @@ import CombinedStoreOrders from './components/Prepcenter/_CombinedStoreOrders.js
 import PrepcenterLocations from './components/Prepcenter/_Locations.js';
 import AddPrepcenterStoreGood from './components/Prepcenter/_AddStoreGood.js';
 import PrintLabels from './components/Prepcenter/_PrintLabels.js';
+import SelectStoreQuickOrder from './components/Prepcenter/_SelectStoreQuickOrder.js';
 
 import Users from './components/Users/_Users.js';
 
@@ -128,6 +129,8 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/orders" component={PrepcenterOrders} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/orders/:orderId" component={PrepcenterOrder} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/print_labels" component={PrintLabels} />
+          
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/quick_order_select" component={SelectStoreQuickOrder} />
 
           <PrivateRoute exact path="/invoices" component={Invoices} />
           <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} />

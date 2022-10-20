@@ -26,8 +26,8 @@ const PrintLabels = ({...props}) => {
   if (prepcenterLabelsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   
   const results = activeTab === 'nonPrepped'
-    ? prepcenterLabelsQuery.prepcenterStoreGoods.filter(storeGood => storeGood.product.prepped === false)
-    : prepcenterLabelsQuery.prepcenterStoreGoods.filter(storeGood => storeGood.product.prepped === true)
+    ? prepcenterLabelsQuery.getPrepcenter.storeGoods.filter(storeGood => storeGood.product.prepped === false)
+    : prepcenterLabelsQuery.getPrepcenter.storeGoods.filter(storeGood => storeGood.product.prepped === true)
 
   return (
     <div>
