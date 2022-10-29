@@ -11,9 +11,9 @@ class Store < ApplicationRecord
     current_store_order = StoreOrder.order(:delivery_date).last
 
     if current_store_order.orders.pluck(:store_id).include?(self.id) && current_store_order.orders_complete != 2
-      orders.order(created_at: :desc).first
+      orders.where(is_quick_order: false).order(created_at: :desc).first
     else
-      self.orders.find_by(status: 'incomplete')
+      self.orders.find_by(status: 'incomplete', is_quick_order: false)
     end
 
   end

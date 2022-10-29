@@ -97,11 +97,11 @@ const StartInventory = ({...props}) => {
           <h1> An Inventory Has Already Been Started! </h1>
            <div className="d-inline-block"> 
               <Button 
-                className="button m-2" 
-                type='submit' 
+                className="button m-2"
+                type='submit'
                 variant="contained" 
-                color="primary" 
-                size="large" 
+                color="primary"
+                size="large"
                 onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/order/${prepcenterOrderStatusQuery.getPrepcenter.orderStatus.id}/inventory`)} >
                 Go To Inventory
               </Button>

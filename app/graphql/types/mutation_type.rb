@@ -25,5 +25,6 @@ module Types
     field :edit_prepped_product, mutation: Mutations::EditPreppedProduct
     field :mark_order_paid, mutation: Mutations::MarkOrderPaid
     field :unscan_inventory, mutation: Mutations::UnscanInventory
+    field :create_quick_order, mutation: Mutations::CreateQuickOrder
   end
 end

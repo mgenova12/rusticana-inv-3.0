@@ -131,6 +131,18 @@ export const GET_PREPCENTER_ORDER_STATUS = gql`
     }
   }
 `
+
+export const GET_QUICK_ORDER_STATUS = gql`
+  query getPrepcenter($prepcenterId: Int!) { 
+    getPrepcenter(prepcenterId: $prepcenterId) {
+      quickOrderStatus {
+        id
+        status
+      }
+    }
+  }
+`
+
 export const GET_STORE_ORDERS = gql`
 	query {
 	  storeOrders  {

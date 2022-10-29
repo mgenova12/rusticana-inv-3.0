@@ -145,10 +145,10 @@ export const Navbar = ({...props}, currentUser) => {
               <ListItemText primary={'Locations'} />
             </ListItem>
 
-{/*            <ListItem key={'Quick Order'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/quick_order_select`}>
+            <ListItem key={'Quick Order'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/start_quick_order`}>
               <ListItemIcon><AccessAlarmIcon/></ListItemIcon>
               <ListItemText primary={'Quick Order'} />
-            </ListItem>*/}
+            </ListItem>
 
           </React.Fragment>
           } 

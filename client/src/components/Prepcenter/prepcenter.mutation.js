@@ -72,6 +72,17 @@ export const CREATE_PREPCENTER_INVENTORY = gql`
   }
 `;
 
+export const CREATE_QUICK_ORDER = gql`
+  mutation createQuickOrder($storeId: Int!) {
+    createQuickOrder(input: { storeId: $storeId }) {
+      order {
+        id
+      }
+      errors
+    }
+  }
+`;
+
 export const CREATE_PREPCENTER_LOCATION = gql`
   mutation createPrepcenterLocation($name: String!, $prepcenterId: Int!) {
     createPrepcenterLocation(input: { name: $name, prepcenterId: $prepcenterId }) {
