@@ -26,5 +26,6 @@ module Types
     field :mark_order_paid, mutation: Mutations::MarkOrderPaid
     field :unscan_inventory, mutation: Mutations::UnscanInventory
     field :create_quick_order, mutation: Mutations::CreateQuickOrder
+    field :create_pending_inventory, mutation: Mutations::CreatePendingInventory
   end
 end

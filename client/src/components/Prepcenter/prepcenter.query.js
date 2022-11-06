@@ -32,7 +32,6 @@ export const GET_PREPCENTER_ORDERS = gql`
         status   
       }
     }
-
   }
 `
 export const GET_PREPCENTER_INVENTORY = gql`
@@ -239,7 +238,29 @@ export const GET_COMBINED_STORE_ORDERS = gql`
       		name
       	}
       }
+    }
+  }
+`;
 
+export const GET_STORE_STORE_GOODS = gql`
+  query getOrder($orderId: Int!) { 
+    getOrder(orderId: $orderId) {
+      store {
+        id
+        name
+        storeGoods {
+          id
+          countBy {
+            id
+            name
+          }
+          product {
+            id
+            name
+            barcode
+          }
+        }
+      }
     }
   }
 `;

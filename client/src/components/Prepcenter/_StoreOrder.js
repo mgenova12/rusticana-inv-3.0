@@ -64,7 +64,7 @@ const StoreOrder = ({...props}) => {
 
   if (orderLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (containersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
-  
+
   const results = activeTab === 'unscanned'
     ? orderQuery.getOrder.isPrepcenterInventories.filter(inventory => inventory.quantityNeeded > 0)
     : orderQuery.getOrder.isPrepcenterInventories.filter(inventory => inventory.scanned)

@@ -83,6 +83,14 @@ export const CREATE_QUICK_ORDER = gql`
   }
 `;
 
+export const CREATE_PENDING_INVENTORY = gql`
+  mutation createPendingInventory($storeGoodId: Int!, $orderId: Int!, $quantity: Int!) {
+    createPendingInventory(input: { storeGoodId: $storeGoodId, orderId: $orderId, quantity: $quantity }) {
+      errors
+    }
+  }
+`;
+
 export const CREATE_PREPCENTER_LOCATION = gql`
   mutation createPrepcenterLocation($name: String!, $prepcenterId: Int!) {
     createPrepcenterLocation(input: { name: $name, prepcenterId: $prepcenterId }) {
