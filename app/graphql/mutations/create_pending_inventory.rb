@@ -4,6 +4,7 @@ class Mutations::CreatePendingInventory < Mutations::BaseMutation
   argument :quantity, Integer, required: true
 
   field :errors, [String], null: false
+  field :pending_inventory_count, Integer, null: false
 
   def resolve(store_good_id:, order_id:, quantity:)
 
@@ -19,8 +20,11 @@ class Mutations::CreatePendingInventory < Mutations::BaseMutation
       location_id: location_id
     )
 
+    pending_inventory_count = Order.find(order_id).pending_inventories.size
+
     {
-      errors: []
+      errors: [],
+      pending_inventory_count: pending_inventory_count
     }
 
   end

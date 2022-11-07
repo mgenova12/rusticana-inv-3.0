@@ -245,15 +245,13 @@ export const GET_COMBINED_STORE_ORDERS = gql`
 export const GET_STORE_STORE_GOODS = gql`
   query getOrder($orderId: Int!) { 
     getOrder(orderId: $orderId) {
+      pendingInventoriesCount
       store {
         id
         name
         storeGoods {
           id
-          countBy {
-            id
-            name
-          }
+          replenishBy
           product {
             id
             name
@@ -261,6 +259,26 @@ export const GET_STORE_STORE_GOODS = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const GET_PENDING_INVENTORY = gql`
+  query getOrder($orderId: Int!) { 
+    getOrder(orderId: $orderId) {
+      pendingInventories {
+        id
+        quantity
+        storeGood {
+          id
+          replenishBy
+          product {
+            id
+            name
+          }
+        }
+      }
+
     }
   }
 `;

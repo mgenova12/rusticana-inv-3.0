@@ -27,5 +27,6 @@ module Types
     field :unscan_inventory, mutation: Mutations::UnscanInventory
     field :create_quick_order, mutation: Mutations::CreateQuickOrder
     field :create_pending_inventory, mutation: Mutations::CreatePendingInventory
+    field :delete_pending_inventory, mutation: Mutations::DeletePendingInventory
   end
 end

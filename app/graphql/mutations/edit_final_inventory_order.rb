@@ -24,8 +24,7 @@ class Mutations::EditFinalInventoryOrder < Mutations::BaseMutation
         total = product.marked_up_price * inventory.invoiced_quantity
         inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
       end
-      
-    end 
+    end
 
     sum = scanned_inventories.sum(:invoiced_price)
     order.update(sale_total: sum.round(2), status: 'complete')

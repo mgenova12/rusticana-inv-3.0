@@ -15,5 +15,6 @@ module Types
     field :scanned_inventories, [InventoryType], null: true
     field :unscanned_inventories, [InventoryType], null: true
     field :pending_inventories, [InventoryType], null: true
+    field :pending_inventories_count, Integer, null: true
   end
 end

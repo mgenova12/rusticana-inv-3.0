@@ -20,4 +20,8 @@ class Order < ApplicationRecord
     self.inventories.where(status: 'pending').order(:created_at)
   end
 
+  def pending_inventories_count
+    self.inventories.where(status: 'pending').size
+  end  
+
 end

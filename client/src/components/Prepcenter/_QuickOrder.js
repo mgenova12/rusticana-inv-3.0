@@ -9,10 +9,18 @@ import Button from '@material-ui/core/Button';
 
 const QuickOrder = ({...props}) => {
   const [searchTerm, setSearchTerm] = useState('')
+  const [counter, setCounter] = useState(0);
 
-  const {data: storeGoodsQuery, loading: storeGoodsLoading, refetch: storeGoodsRefetch} = useQuery(GET_STORE_STORE_GOODS, {
+  const handleCounter = (counter) => {
+    setCounter(counter);
+  };
+
+  const {data: storeGoodsQuery, loading: storeGoodsLoading} = useQuery(GET_STORE_STORE_GOODS, {
     variables: {
       orderId: parseInt(props.match.params.orderId)
+    },
+    onCompleted(data) {
+      handleCounter(data.getOrder.pendingInventoriesCount)
     }
   })
 
@@ -41,13 +49,14 @@ const QuickOrder = ({...props}) => {
           }}
         />
           <Button
+            onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/order/${props.match.params.orderId}/submit_quick_order`)} 
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
           >
-            Review Order
-          </Button>    
+            Review Order ({counter})
+          </Button>
       </Container>
 
       <div className="table-responsive">
@@ -57,20 +66,23 @@ const QuickOrder = ({...props}) => {
                 <th>ID</th>
                 <th>Barcode</th>
                 <th>Product</th>
+                <th>Replenish By</th>
                 <th>Add Product</th>
               </tr>
             </thead>
             <tbody>
-            
+
             {result.map((storeGood) => (
                 <tr key={storeGood.id}>
                   <td>{storeGood.id}</td>  
                   <td>{storeGood.product.barcode}</td> 
                   <td>{storeGood.product.name}</td>
-                  <td> 
+                  <td>{storeGood.replenishBy}</td>
+                  <td>
                     <AddToCart
                       storeGoodId={storeGood.id}
                       orderId={props.match.params.orderId}
+                      handleCounter={handleCounter}
                     />
                   </td>
                 </tr> 

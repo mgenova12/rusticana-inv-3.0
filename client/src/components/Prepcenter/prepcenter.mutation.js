@@ -87,6 +87,15 @@ export const CREATE_PENDING_INVENTORY = gql`
   mutation createPendingInventory($storeGoodId: Int!, $orderId: Int!, $quantity: Int!) {
     createPendingInventory(input: { storeGoodId: $storeGoodId, orderId: $orderId, quantity: $quantity }) {
       errors
+      pendingInventoryCount
+    }
+  }
+`;
+
+export const DELETE_PENDING_INVENTORY = gql`
+  mutation deletePendingInventory($inventoryId: Int!) {
+    deletePendingInventory(input: { inventoryId: $inventoryId }) {
+      errors
     }
   }
 `;

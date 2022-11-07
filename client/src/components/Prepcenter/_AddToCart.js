@@ -5,9 +5,13 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { CREATE_PENDING_INVENTORY} from './prepcenter.mutation'
 
-const AddToCart = ({ storeGoodId, orderId }) => {
+const AddToCart = ({ storeGoodId, orderId, handleCounter }) => {
   const { register, handleSubmit, reset } = useForm({mode: "onChange"});
-  const [createPendingInventory] = useMutation(CREATE_PENDING_INVENTORY);
+  const [createPendingInventory] = useMutation(CREATE_PENDING_INVENTORY, {
+    onCompleted(data) {
+      handleCounter(data.createPendingInventory.pendingInventoryCount)
+    } 
+  });
 
   const onSubmit = data => {
     createPendingInventory({
