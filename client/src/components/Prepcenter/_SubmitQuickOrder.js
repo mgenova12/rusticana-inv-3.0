@@ -2,12 +2,19 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_PENDING_INVENTORY } from './prepcenter.query'
 import { DELETE_PENDING_INVENTORY } from './prepcenter.mutation'
+import { EDIT_FINAL_QUICK_ORDER } from './prepcenter.mutation'
 import BeatLoader from "react-spinners/BeatLoader"
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
 const SubmitQuickOrder = ({...props}) => {
   const [deletePendingInventory] = useMutation(DELETE_PENDING_INVENTORY);
+  
+  const [editFinalQuickOrder , { loading: editFinalQuickOrderLoading }] = useMutation(EDIT_FINAL_QUICK_ORDER, {
+    onCompleted(data) {
+      props.history.push(`/prepcenter/${props.match.params.prepcenterId}/order/${props.match.params.orderId}/quick_order_success`)
+    }
+  });
 
   const {data: pendingInventoryQuery, loading: pendingInventoryLoading, refetch: pendingInventoryRefetch} = useQuery(GET_PENDING_INVENTORY, {
     variables: {
@@ -23,14 +30,23 @@ const SubmitQuickOrder = ({...props}) => {
     }).then(() => pendingInventoryRefetch())
   }
 
+  const handleSubmitQuickOrder = () => {
+    editFinalQuickOrder({
+      variables: {
+        orderId: parseInt(props.match.params.orderId)
+      }
+    })
+  }  
+
   if (pendingInventoryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (editFinalQuickOrderLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <div>
       <Container component="main" maxWidth="md">
         <h3 className='m-2 text-center'>Review Quick Order</h3>
             <Button
-              // onClick={() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/order/${props.match.params.orderId}/submit_quick_order`)} 
+              onClick={() => handleSubmitQuickOrder()}
               type="submit"
               fullWidth
               variant="contained"

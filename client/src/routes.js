@@ -28,6 +28,7 @@ import PrintLabels from './components/Prepcenter/_PrintLabels.js';
 import StartQuickOrder from './components/Prepcenter/_StartQuickOrder.js';
 import QuickOrder from './components/Prepcenter/_QuickOrder.js';
 import SubmitQuickOrder from './components/Prepcenter/_SubmitQuickOrder.js';
+import QuickOrderSuccess from './components/Prepcenter/_QuickOrderSuccess.js';
 
 import Users from './components/Users/_Users.js';
 
@@ -135,6 +136,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/prepcenter/:prepcenterId/start_quick_order" component={StartQuickOrder} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/quick_order" component={QuickOrder} />
           <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/submit_quick_order" component={SubmitQuickOrder} />
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/quick_order_success" component={QuickOrderSuccess} />
 
           <PrivateRoute exact path="/invoices" component={Invoices} />
           <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} />

@@ -13,9 +13,9 @@ class Mutations::CreatePendingInventory < Mutations::BaseMutation
 
     Inventory.create!(
       store_good_id: store_good_id, 
-      status: 'pending', 
-      store_id: store_id, 
-      quantity: quantity,
+      status: 'pending',
+      store_id: store_id,
+      invoiced_quantity: quantity,
       order_id: order_id,
       location_id: location_id
     )

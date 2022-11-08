@@ -111,3 +111,11 @@ export const CREATE_PREPCENTER_LOCATION = gql`
   }
 `;
 
+export const EDIT_FINAL_QUICK_ORDER = gql`
+  mutation editFinalQuickOrder($orderId: Int!) {
+    editFinalQuickOrder(input: {orderId: $orderId}) {
+      errors   
+    }
+  }
+`;
+

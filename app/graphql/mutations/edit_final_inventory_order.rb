@@ -34,6 +34,4 @@ class Mutations::EditFinalInventoryOrder < Mutations::BaseMutation
     }
 
   end
-
-
 end

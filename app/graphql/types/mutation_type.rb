@@ -28,5 +28,6 @@ module Types
     field :create_quick_order, mutation: Mutations::CreateQuickOrder
     field :create_pending_inventory, mutation: Mutations::CreatePendingInventory
     field :delete_pending_inventory, mutation: Mutations::DeletePendingInventory
+    field :edit_final_quick_order, mutation: Mutations::EditFinalQuickOrder
   end
 end
