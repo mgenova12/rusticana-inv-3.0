@@ -36,6 +36,7 @@ const AddToCart = ({ storeGoodId, orderId, handleCounter }) => {
             fullWidth
             margin="normal"
             variant="outlined"
+            required
             InputLabelProps={{
               shrink: true,
             }}

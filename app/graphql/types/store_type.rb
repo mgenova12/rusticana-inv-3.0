@@ -6,5 +6,7 @@ module Types
     field :orders, [OrderType], null: true
     field :store_goods, [StoreGoodType], null: true
     field :locations, [LocationType], null: true
+    field :locations, [LocationType], null: true
+    field :is_prepcenter_store_goods, [StoreGoodType], null: true
   end
 end

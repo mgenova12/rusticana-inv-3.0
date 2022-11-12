@@ -10,5 +10,6 @@ class StoreGood < ApplicationRecord
   belongs_to :count_by
 
   belongs_to :product_including_deleted, class_name: "Product",
-    foreign_key: 'product_id', with_deleted: true  
+    foreign_key: 'product_id', with_deleted: true
+
 end

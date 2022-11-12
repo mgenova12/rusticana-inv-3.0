@@ -38,7 +38,9 @@ const Orders = ({...props}) => {
             { title: 'Time Placed', field: 'createdAt', 
               render: row => <span>{ new Date(row["createdAt"].replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
             },
-            { title: 'Delivery Day', field: 'deliveryDay' },
+            { title: 'Delivery Day', field: 'deliveryDay',
+              render: row => row['deliveryDay'] ? row['deliveryDay'] : "Quick Order"
+            },
             { title: 'Status', field: 'status' },
           ]}
           data={JSON.parse(JSON.stringify(ordersQuery.getStore.orders))}           

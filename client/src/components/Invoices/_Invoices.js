@@ -12,7 +12,10 @@ import BeatLoader from "react-spinners/BeatLoader"
 
 const Invoices = ({...props}) => {
   const {data: storesQuery, loading: storesQueryLoading } = useQuery(GET_STORES)
-  const {data: invoicesQuery, loading: invoicesQueryLoading, refetch: invoicesRefetch} = useQuery(GET_INVOICES)
+  const {data: invoicesQuery, loading: invoicesQueryLoading, refetch: invoicesRefetch} = useQuery(GET_INVOICES, {
+    fetchPolicy: "network-only",
+  })
+
   const [markOrderPaid] = useMutation(MARK_ORDER_PAID);
   
   const handleMarkPaid = (selectedRows) => {
@@ -123,7 +126,9 @@ const Invoices = ({...props}) => {
             { title: 'Time Placed', field: 'createdAt', 
               render: row => <span>{ new Date(row["createdAt"].replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
             },
-            { title: 'Store', field: 'store.name' },
+            { title: 'Store', field: 'store',
+              render: row => row['isQuickOrder'] ? <span>{row["store"].name}(quick order)</span> : row["store"].name
+            },
             { title: 'Status', field: 'status', 
               render: row => row['status'] === 'PAID' ? <span className="text-success"> {row["status"]}</span> : <span>{row['status']}</span>
             },            

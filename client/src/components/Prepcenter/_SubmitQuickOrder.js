@@ -62,15 +62,17 @@ const SubmitQuickOrder = ({...props}) => {
                 <th>ID</th>
                 <th>Product</th>
                 <th>Quantity</th>
+                <th>Replenish By</th>
                 <th>Remove</th>
               </tr>
             </thead>
             <tbody>
-            
+
             {pendingInventoryQuery.getOrder.pendingInventories.map((inventory) => (
                 <tr key={inventory.id}>
                   <td>{inventory.id}</td>  
                   <td>{inventory.storeGood.product.name}</td> 
+                  <td>{inventory.invoicedQuantity}</td> 
                   <td>{inventory.quantity} {inventory.storeGood.replenishBy}</td>
                   <td>
                     <Button

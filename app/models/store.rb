@@ -15,7 +15,9 @@ class Store < ApplicationRecord
     else
       self.orders.find_by(status: 'incomplete', is_quick_order: false)
     end
-
   end
 
+  def is_prepcenter_store_goods
+    self.store_goods.with_deleted.where(is_prepcenter: true)
+  end
 end

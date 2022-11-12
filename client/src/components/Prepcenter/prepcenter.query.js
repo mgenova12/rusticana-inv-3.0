@@ -268,7 +268,7 @@ export const GET_PENDING_INVENTORY = gql`
     getOrder(orderId: $orderId) {
       pendingInventories {
         id
-        quantity
+        invoicedQuantity
         storeGood {
           id
           replenishBy

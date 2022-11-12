@@ -8,6 +8,7 @@ import { gql } from '@apollo/client';
 	      deliveryDay
 	      status
 	      saleTotal
+	      isQuickOrder
 	      store {
 	      	id
 	      	name

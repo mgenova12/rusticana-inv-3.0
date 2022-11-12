@@ -23,5 +23,4 @@ class Order < ApplicationRecord
   def pending_inventories_count
     self.inventories.where(status: 'pending').size
   end  
-
 end

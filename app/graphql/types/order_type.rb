@@ -16,5 +16,6 @@ module Types
     field :unscanned_inventories, [InventoryType], null: true
     field :pending_inventories, [InventoryType], null: true
     field :pending_inventories_count, Integer, null: true
+    field :is_quick_order, Boolean, null: true
   end
 end
