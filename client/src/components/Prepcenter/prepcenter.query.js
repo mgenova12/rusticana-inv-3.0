@@ -249,7 +249,7 @@ export const GET_STORE_STORE_GOODS = gql`
       store {
         id
         name
-        storeGoods {
+        isPrepcenterStoreGoods {
           id
           replenishBy
           product {
