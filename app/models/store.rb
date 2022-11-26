@@ -6,6 +6,7 @@ class Store < ApplicationRecord
   has_many :products, through: :store_goods
   has_many :orders, -> { order(created_at: :desc) }
   has_many :store_orders, through: :orders
+  default_scope { where active: true }
 
   def order_status
     current_store_order = StoreOrder.order(:delivery_date).last
