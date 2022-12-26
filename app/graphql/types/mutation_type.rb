@@ -29,5 +29,6 @@ module Types
     field :create_pending_inventory, mutation: Mutations::CreatePendingInventory
     field :delete_pending_inventory, mutation: Mutations::DeletePendingInventory
     field :edit_final_quick_order, mutation: Mutations::EditFinalQuickOrder
+    field :create_gift_card, mutation: Mutations::CreateGiftCard
   end
 end

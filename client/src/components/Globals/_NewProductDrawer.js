@@ -251,7 +251,7 @@ const NewProductDrawer = ({ visible, onClose, distributors, categories, products
                   margin="normal"
                   InputLabelProps={{
                     shrink: true,
-                  }}            
+                  }}
                   InputProps={{
                     inputComponent: NumberFormatCustom,
                   }}
@@ -269,7 +269,7 @@ const NewProductDrawer = ({ visible, onClose, distributors, categories, products
                   fullWidth
                   InputLabelProps={{
                     shrink: true,
-                  }}            
+                  }}
                 />
               </ListItem>
 

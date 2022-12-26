@@ -30,6 +30,9 @@ import QuickOrder from './components/Prepcenter/_QuickOrder.js';
 import SubmitQuickOrder from './components/Prepcenter/_SubmitQuickOrder.js';
 import QuickOrderSuccess from './components/Prepcenter/_QuickOrderSuccess.js';
 
+import GiftCards from './components/GiftCards/_GiftCards.js';
+import SwipeGiftCard from './components/GiftCards/_SwipeGiftCard.js';
+
 import Users from './components/Users/_Users.js';
 
 import Invoices from './components/Invoices/_Invoices.js';
@@ -142,6 +145,9 @@ export const Routes = () => {
           <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} />
       		
           <PrivateRoute exact path="/users" component={Users} />
+
+          <PrivateRoute exact path="/gift_cards/activate" component={GiftCards} />
+          <PrivateRoute exact path="/gift_cards/swipe" component={SwipeGiftCard} />
 
       		<Route exact path='/login' component={Login} />
       </Switch>

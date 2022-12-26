@@ -19,6 +19,8 @@ module Types
     field :get_order, resolver: Queries::GetOrder
     field :get_store, resolver: Queries::GetStore
     field :get_prepcenter, resolver: Queries::GetPrepcenter
+    
+    field :get_gift_card, resolver: Queries::GetGiftCard
 
   end
 end
