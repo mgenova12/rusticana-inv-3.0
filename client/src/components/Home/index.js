@@ -40,7 +40,7 @@ const Home = () => {
 	        <ListItem key={store.id} button className="border" component={Link} to={`store/${store.id}/orders`}>
 	          <ListItemText primary={store.name} />
 	        </ListItem>
-	      )}	
+	      )}
       </List>
 
     	<h4>Prepcenters</h4>

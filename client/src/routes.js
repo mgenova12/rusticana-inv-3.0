@@ -143,11 +143,11 @@ export const Routes = () => {
 
           <PrivateRoute exact path="/invoices" component={Invoices} />
           <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} />
-      		
+
           <PrivateRoute exact path="/users" component={Users} />
 
-          <PrivateRoute exact path="/gift_cards/activate" component={GiftCards} />
-          <PrivateRoute exact path="/gift_cards/swipe" component={SwipeGiftCard} />
+          <PrivateRoute exact path="/gift_cards/:storeId/activate" component={GiftCards} />
+          <PrivateRoute exact path="/gift_cards/:storeId/swipe" component={SwipeGiftCard} />
 
       		<Route exact path='/login' component={Login} />
       </Switch>

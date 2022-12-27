@@ -9,3 +9,14 @@ export const CREATE_GIFTCARD = gql`
     }
   }
 `;
+
+export const EDIT_GIFT_CARD_VALUE = gql`
+  mutation editGiftCardValue( $cardNumber: String!, $value: Float!, $action: String!) {
+    editGiftCardValue(input: { cardNumber: $cardNumber,  value: $value, action: $action}) {
+      giftCard{
+        id
+        amount
+      }
+    }
+  }
+`;
