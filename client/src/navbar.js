@@ -182,17 +182,17 @@ export const Navbar = ({...props}, currentUser) => {
             path === 'gift_cards' &&
             <React.Fragment>
 
-            <ListItem key={'Activate Gift Card'} component={Link} to={`/gift_cards/${props.match.params.storeId}/activate`}>
+            <ListItem key={'Activate Gift Card'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/activate`}>
               <ListItemIcon><NoteAdd/></ListItemIcon>
               <ListItemText primary={'Activate Gift Card'} />              
             </ListItem>  
 
-            <ListItem key={'Swipe Gift Card'} component={Link} to={`/gift_cards/${props.match.params.storeId}/swipe`}>
+            <ListItem key={'Swipe Gift Card'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/swipe`}>
               <ListItemIcon><NoteAdd/></ListItemIcon>
               <ListItemText primary={'Swipe Gift Card'} />              
             </ListItem>  
 
-            <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/logs`}>
+            <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/logs`}>
               <ListItemIcon><NoteAdd/></ListItemIcon>
               <ListItemText primary={'Gift Card Logs'} />              
             </ListItem>  
