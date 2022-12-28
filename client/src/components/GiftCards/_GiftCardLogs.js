@@ -4,24 +4,22 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
-import { GET_GIFT_CARD } from './giftcard.query'
-import BeatLoader from "react-spinners/BeatLoader"
+import { GET_GIFT_CARD_LOGS } from './giftcard.query'
 
-import AddValue from './_AddValue.js'
+// import AddValue from './_AddValue.js'
 
-const SwipeGiftCard = ({...props}) => {
+const GiftCardLogs = ({...props}) => {
   const { register, handleSubmit, reset } = useForm({mode: "onBlur"});
   const [searchTerm, setSearchTerm] = useState('')
 
   const [cardData, setCardData] = useState(null)
   
-  const [getGiftCard, {loading: getGiftCardLoading}] = useLazyQuery(GET_GIFT_CARD, {
+  const [getGiftCard, {data: getGiftCardQuery, loading: getGiftCardLoading}] = useLazyQuery(GET_GIFT_CARD_LOGS, {
     variables: {
       cardNumber: searchTerm.slice(0, 16)
     },
     onCompleted(data) {
       setCardData(data.getGiftCard)
-      console.log(data)
     }
   })
 
@@ -29,13 +27,10 @@ const SwipeGiftCard = ({...props}) => {
     getGiftCard()
   }
 
-  if (getGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
-  
   return (
-    <div> 
     <Container component="main" maxWidth="sm">
       <div>
-        <h1> Swipe Gift Card </h1>
+        <h1> Check Gift Card Logs</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             label="Swipe the card or enter the card number"
@@ -52,21 +47,20 @@ const SwipeGiftCard = ({...props}) => {
             }}
           />
            <Button type='submit' variant="contained" color="primary" size="large" >
-              Search Gift Card
+              Get Gift Card Logs
            </Button>        
         </form>
 
         {cardData &&
-          <AddValue
+        
+{/*          <AddValue
             cardData={cardData}
-            storeId={parseInt(props.match.params.storeId)}
-          />
+          />*/}
         }
 
       </div>
     </Container>
-    </div>
   )
 }
 
-export default SwipeGiftCard
+export default GiftCardLogs

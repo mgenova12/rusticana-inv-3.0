@@ -4,7 +4,7 @@ module Queries
 
     description 'Find a gift card by card number'
 
-    type Types::GiftCardType, null: false
+    type Types::GiftCardType, null: true
 
     def resolve(card_number:)
       GiftCard.find_by(card_number: card_number)

@@ -2,7 +2,7 @@ class Mutations::CreateGiftCard< Mutations::BaseMutation
   argument :card_number, String, required: true
   argument :amount, Float, required: true
 
-  field :gift_card, Types::GiftCardType, null: false
+  field :gift_card, Types::GiftCardType, null: true
   field :errors, [String], null: false
 
   def resolve(card_number:, amount:)
@@ -21,7 +21,6 @@ class Mutations::CreateGiftCard< Mutations::BaseMutation
     else
       # Failed save, return the errors to the client
       {
-        gift_card: nil,
         errors: gift_card.errors.full_messages
       }
     end

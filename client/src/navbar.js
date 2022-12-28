@@ -192,7 +192,7 @@ export const Navbar = ({...props}, currentUser) => {
               <ListItemText primary={'Swipe Gift Card'} />              
             </ListItem>  
 
-            <ListItem key={'Gift Card Logs'}>
+            <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/logs`}>
               <ListItemIcon><NoteAdd/></ListItemIcon>
               <ListItemText primary={'Gift Card Logs'} />              
             </ListItem>  

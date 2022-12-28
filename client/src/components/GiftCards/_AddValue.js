@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { EDIT_GIFT_CARD_VALUE } from './giftcard.mutation'
 
-const AddValue = ({ cardData }) => {
+const AddValue = ({ cardData, storeId }) => {
   const [value, setValue] = useState(0)
   const [cardAmount, setcardAmount] = useState(cardData.amount)
   
@@ -19,7 +19,8 @@ const AddValue = ({ cardData }) => {
       variables: {
         cardNumber: cardData.cardNumber.slice(0, 16),
         value: parseFloat(value),
-        action: action
+        action: action,
+        storeId: storeId
       }
     })
   } 
