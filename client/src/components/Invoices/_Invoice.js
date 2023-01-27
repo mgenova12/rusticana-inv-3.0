@@ -40,6 +40,13 @@ const Invoice = ({...props}) => {
 
   if (invoiceQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
+  let result
+  if (!invoiceQuery.getOrder.isQuickOrder) {
+    result = invoiceQuery.getOrder.inventories.filter(inventory => inventory.storeGoodIncludingDeleted.isPrepcenter)
+  } else {
+    result = invoiceQuery.getOrder.inventories
+  }
+
   return (
     <div>
         <link
@@ -73,7 +80,7 @@ const Invoice = ({...props}) => {
             { title: 'Replenish By', field: 'storeGoodIncludingDeleted.replenishBy' },
             { title: 'Invoiced Total', field: 'invoicedPrice', type: "currency", currencySetting:{ currencyCode:'USD', minimumFractionDigits:2, maximumFractionDigits:2} },
           ]}
-          data={JSON.parse(JSON.stringify(invoiceQuery.getOrder.scannedInventories))}
+          data={JSON.parse(JSON.stringify(result))}
         />      	
         
     </div>

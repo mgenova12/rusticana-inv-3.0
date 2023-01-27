@@ -10,7 +10,7 @@ import BeatLoader from "react-spinners/BeatLoader"
 import AddValue from './_AddValue.js'
 
 const SwipeGiftCard = ({...props}) => {
-  const { register, handleSubmit, reset } = useForm({mode: "onBlur"});
+  const { register, handleSubmit } = useForm({mode: "onBlur"});
   const [searchTerm, setSearchTerm] = useState('')
 
   const [cardData, setCardData] = useState(null)
@@ -21,7 +21,6 @@ const SwipeGiftCard = ({...props}) => {
     },
     onCompleted(data) {
       setCardData(data.getGiftCard)
-      console.log(data)
     }
   })
 
@@ -33,38 +32,38 @@ const SwipeGiftCard = ({...props}) => {
   
   return (
     <div> 
-    <Container component="main" maxWidth="sm">
-      <div>
-        <h1> Swipe Gift Card </h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <TextField
-            label="Swipe the card or enter the card number"
-            name="cardNumber"
-            inputRef={register({required: true})}
-            onChange={e => setSearchTerm(e.target.value)}
-            placeholder="Swipe the card or enter the card number"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            inputProps={{ maxLength: 16 }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-           <Button type='submit' variant="contained" color="primary" size="large" >
-              Search Gift Card
-           </Button>        
-        </form>
+      <Container component="main" maxWidth="sm">
+        <div>
+          <h1> Swipe Gift Card </h1>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              label="Swipe the card or enter the card number"
+              name="cardNumber"
+              inputRef={register({required: true})}
+              onChange={e => setSearchTerm(e.target.value)}
+              placeholder="Swipe the card or enter the card number"
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+             <Button type='submit' variant="contained" color="primary" size="large" >
+                Search Gift Card
+             </Button>        
+          </form>
 
-        {cardData &&
-          <AddValue
-            cardData={cardData}
-            storeId={parseInt(props.match.params.storeId)}
-          />
-        }
+          {cardData &&
+            <AddValue
+              cardData={cardData}
+              storeId={parseInt(props.match.params.storeId)}
+            />
+          }
 
-      </div>
-    </Container>
+        </div>
+      </Container>
     </div>
   )
 }

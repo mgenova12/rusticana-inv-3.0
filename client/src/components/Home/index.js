@@ -29,9 +29,10 @@ const Home = () => {
         <ListItem button className="border" component={Link} to={'/users'}>
           <ListItemText primary="Accounts" />
         </ListItem>
+        {false &&
         <ListItem button className="border" component={Link} to={'/gift_cards/activate'}>
           <ListItemText primary="Gift Cards" />
-        </ListItem>                 	        
+        </ListItem>   }              	        
       </List>
 
     	<h4>Stores</h4>

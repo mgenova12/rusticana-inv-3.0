@@ -36,56 +36,57 @@ const GiftCards = ({...props}) => {
 
   return (
     <div>
-    {errors.length > 0 &&
-      <div className="alert alert-danger" role="alert">
-        {errors[0]}
-      </div>   
-    }
-    { success &&
-      <div className="alert alert-success" role="alert">
-        Gift Card Activated!
-      </div>         
-    }
-    <Container component="main" maxWidth="sm">
-    <div>
-      <h1> Activate Gift Card </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          label="Swipe the card or enter the card number"
-          name="cardNumber"
-          inputRef={register({required: true})}
-          placeholder="Swipe the card or enter the card number"
-          inputProps={{ maxLength: 16 }}
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+      {errors.length > 0 &&
+        <div className="alert alert-danger" role="alert">
+          {errors[0]}
+        </div>   
+      }
+      { success &&
+        <div className="alert alert-success" role="alert">
+          Gift Card Activated!
+        </div>         
+      }
+      <Container component="main" maxWidth="sm">
+        <div>
+          <h1> Activate Gift Card </h1>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              label="Swipe the card or enter the card number"
+              name="cardNumber"
+              inputRef={register({required: true})}
+              placeholder="Swipe the card or enter the card number"
+              inputProps={{ maxLength: 16 }}
+              fullWidth
+              type='number'
+              margin="normal"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
 
-        <TextField
-          label="Enter Gift Card Amount"
-          name="amount"
-          inputRef={register({required: true})}
-          placeholder="Enter Gift Card Amount"
-          fullWidth
-          margin="normal"
-          type="number"
-          variant="outlined"
-          inputProps={{
-            step: 0.5,
-          }}          
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-         <Button type='submit' variant="contained" color="primary" size="large" >
-            Activate Gift Card
-         </Button>        
-      </form>
-    </div>
-    </Container>
+            <TextField
+              label="Enter Gift Card Amount"
+              name="amount"
+              inputRef={register({required: true})}
+              placeholder="Enter Gift Card Amount"
+              fullWidth
+              margin="normal"
+              type="number"
+              variant="outlined"
+              inputProps={{
+                step: 0.5,
+              }}          
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+             <Button type='submit' variant="contained" color="primary" size="large" >
+                Activate Gift Card
+             </Button>        
+          </form>
+        </div>
+      </Container>
     </div>
   )
 }

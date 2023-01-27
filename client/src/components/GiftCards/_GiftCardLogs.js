@@ -4,37 +4,35 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
-// import { GET_GIFT_CARD_LOGS } from './giftcard.query'
+import { GET_GIFT_CARD } from './giftcard.query'
 import { GET_GIFT_CARDS} from './giftcard.query'
 import BeatLoader from "react-spinners/BeatLoader"
 
-// import AddValue from './_AddValue.js'
-
 const GiftCardLogs = ({...props}) => {
-  const { register, handleSubmit, reset } = useForm({mode: "onBlur"});
+  const { register, handleSubmit } = useForm({mode: "onBlur"});
   const [searchTerm, setSearchTerm] = useState('')
 
-  const {data: giftCardsQuery, loading: giftCardsQueryLoading, refetch: giftCardsRefetch} = useQuery(GET_GIFT_CARDS)
+  const {data: giftCardsQuery, loading: giftCardsQueryLoading} = useQuery(GET_GIFT_CARDS)
 
-  // const [cardData, setCardData] = useState(null)
-  
-  // const [getGiftCard, {data: getGiftCardLogsQuery, loading: getGiftCardLogsLoading}] = useLazyQuery(GET_GIFT_CARD_LOGS, {
-  //   variables: {
-  //     cardNumber: searchTerm.slice(0, 16)
-  //   },
-  //   onCompleted(data) {
-  //     setCardData(data.getGiftCard)
-  //   }
-  // })
+  const [getGiftCard, {loading: getGiftCardLoading}] = useLazyQuery(GET_GIFT_CARD, {
+    variables: {
+      cardNumber: searchTerm.slice(0, 16)
+    },
+    onCompleted(data) {
+      props.history.push(`/gift_cards/store/${props.match.params.storeId}/logs/gift_card/${data.getGiftCard.id}`)
+    }
+  })
+
+  const onSubmit = data => {
+    getGiftCard()
+  }
+
   const showGiftCardLog = (giftCardId) => {
     props.history.push(`/gift_cards/store/${props.match.params.storeId}/logs/gift_card/${giftCardId}`)
   }
 
-  const onSubmit = data => {
-    // getGiftCard()
-  }
-
   if (giftCardsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  if (getGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <div>

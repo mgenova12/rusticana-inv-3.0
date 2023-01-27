@@ -14,5 +14,6 @@ module Types
     field :invoiced_quantity, Integer, null: true
     field :invoiced_price, Float, null: true
     field :invoiced_product_price, Float, null: true
+    field :order, OrderType, null: true
   end
 end

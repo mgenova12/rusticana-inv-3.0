@@ -8,7 +8,7 @@ const AddValue = ({ cardData, storeId }) => {
   const [value, setValue] = useState(0)
   const [cardAmount, setcardAmount] = useState(cardData.amount)
   
-  const [editGiftCardValue, {loading: editGiftCardValueLoading}] = useMutation(EDIT_GIFT_CARD_VALUE, {
+  const [editGiftCardValue] = useMutation(EDIT_GIFT_CARD_VALUE, {
     onCompleted(data) {
       setcardAmount(data.editGiftCardValue.giftCard.amount)
     }
@@ -66,7 +66,6 @@ const AddValue = ({ cardData, storeId }) => {
        </Button>
 
       </div>
-
     </div>
   )
 }

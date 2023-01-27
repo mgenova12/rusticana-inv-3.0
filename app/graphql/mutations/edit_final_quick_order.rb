@@ -6,7 +6,7 @@ class Mutations::EditFinalQuickOrder < Mutations::BaseMutation
   def resolve(order_id:)
     order = Order.find(order_id)
 
-    inventories = order.is_prepcenter_inventories
+    inventories = order.inventories
 
     inventories.each do |inventory|
       product = inventory.store_good_including_deleted.product

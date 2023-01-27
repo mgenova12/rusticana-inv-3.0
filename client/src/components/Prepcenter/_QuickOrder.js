@@ -26,7 +26,7 @@ const QuickOrder = ({...props}) => {
 
   if (storeGoodsLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
-  let result = storeGoodsQuery.getOrder.store.isPrepcenterStoreGoods.filter(storeGood =>
+  let result = storeGoodsQuery.getOrder.store.storeGoods.filter(storeGood =>
       storeGood.product.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
