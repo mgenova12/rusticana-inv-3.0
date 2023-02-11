@@ -15,6 +15,7 @@ gem 'jwt'
 gem 'bcrypt'
 gem 'acts_as_paranoid'
 gem "pry-rails"
+gem 'bundler', '~> 2.3.25'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 
