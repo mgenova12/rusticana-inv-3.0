@@ -190,8 +190,6 @@ GEM
 
 PLATFORMS
   ruby
-  x86_64-darwin-21
-  x86_64-linux
 
 DEPENDENCIES
   acts_as_paranoid
@@ -215,6 +213,3 @@ DEPENDENCIES
 
 RUBY VERSION
    ruby 3.1.2p20
-
-BUNDLED WITH
-   2.4.5
