@@ -192,7 +192,6 @@ DEPENDENCIES
   awesome_print
   bcrypt
   bootsnap (>= 1.4.2)
-  bundler (~> 2.1.4)
   byebug
   graphiql-rails
   graphql
@@ -211,3 +210,5 @@ DEPENDENCIES
 RUBY VERSION
    ruby 3.1.2p20
 
+BUNDLED WITH
+   2.1.4
