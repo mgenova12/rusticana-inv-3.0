@@ -16,14 +16,6 @@ gem 'bcrypt'
 gem 'acts_as_paranoid'
 gem "pry-rails"
 
-# https://github.com/gdelugre/origami/issues/81
-gem 'matrix'
-
-# https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
-gem 'net-smtp', require: false
-gem 'net-imap', require: false
-gem 'net-pop', require: false
-
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 
