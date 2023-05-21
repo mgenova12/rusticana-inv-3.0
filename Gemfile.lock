@@ -184,7 +184,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-21
-  x86_64-linux  
+  x86_64-linux
 
 DEPENDENCIES
   acts_as_paranoid
@@ -204,6 +204,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets (~> 3.7.2)
+  sprockets-rails (~> 3.4, >= 3.4.2)
   tzinfo-data
 
 RUBY VERSION

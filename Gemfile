@@ -10,6 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.3.5'
 gem 'graphql'
+gem 'sprockets-rails', '~> 3.4', '>= 3.4.2'
 gem 'sprockets', '~>3.7.2'
 gem 'jwt'
 gem 'bcrypt'
