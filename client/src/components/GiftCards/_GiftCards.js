@@ -26,7 +26,8 @@ const GiftCards = ({...props}) => {
     createGiftCard({
       variables: {
         cardNumber: data.cardNumber.slice(0, 16),
-        amount: parseFloat(data.amount)
+        amount: parseFloat(data.amount),
+        storeId: parseInt(props.match.params.storeId)
       }
     })
     reset()

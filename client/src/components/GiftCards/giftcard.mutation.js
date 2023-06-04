@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_GIFTCARD = gql`
-  mutation createGiftCard( $cardNumber: String!, $amount: Float!) {
-    createGiftCard(input: { cardNumber: $cardNumber,  amount: $amount}) {
+  mutation createGiftCard( $cardNumber: String!, $amount: Float!, $storeId: Int!) {
+    createGiftCard(input: { cardNumber: $cardNumber,  amount: $amount, storeId: $storeId}) {
 			giftCard{
 	      id
 	    }

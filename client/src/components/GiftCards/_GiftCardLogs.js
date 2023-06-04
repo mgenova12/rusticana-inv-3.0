@@ -12,7 +12,9 @@ const GiftCardLogs = ({...props}) => {
   const { register, handleSubmit } = useForm({mode: "onBlur"});
   const [searchTerm, setSearchTerm] = useState('')
 
-  const {data: giftCardsQuery, loading: giftCardsQueryLoading} = useQuery(GET_GIFT_CARDS)
+  const {data: giftCardsQuery, loading: giftCardsQueryLoading} = useQuery(GET_GIFT_CARDS, {
+    fetchPolicy: "network-only"
+  })
 
   const [getGiftCard, {loading: getGiftCardLoading}] = useLazyQuery(GET_GIFT_CARD, {
     variables: {
