@@ -23,7 +23,7 @@ const ProductsDrawer = ({ categories, visible, currentProduct, onClose, containe
         categoryId: parseInt(data.categoryId),
         caseQuantity: parseInt(data.caseQuantity),
         portionSize: parseInt(data.portionSize),
-        barcode: parseInt(data.barcode),
+        barcode: parseFloat(data.barcode),
         markUp: parseInt(data.markUp),
         daysTillExpire: parseInt(data.daysTillExpire),
         description: data.description,

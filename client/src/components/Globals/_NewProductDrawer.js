@@ -61,7 +61,7 @@ const NewProductDrawer = ({ visible, onClose, distributors, categories, products
         brand: data.brand,
         unitSize: data.unitSize,
         distributorNumber: data.distributorNumber,
-        barcode: parseInt(data.barcode),
+        barcode: parseFloat(data.barcode),
         aisleNumber: parseInt(data.aisleNumber),
         description: data.description,
         containerId: parseInt(data.containerId)

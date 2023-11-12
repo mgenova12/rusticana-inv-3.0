@@ -8,7 +8,7 @@ class Mutations::CreateProduct < Mutations::BaseMutation
   argument :brand, String, required: false
   argument :unit_size, String, required: false
   argument :distributor_number, String, required: false
-  argument :barcode, Integer, required: false
+  argument :barcode, Float, required: false
   argument :aisle_number, Integer, required: false
   argument :description, String, required: false
   argument :container_id, Integer, required: false

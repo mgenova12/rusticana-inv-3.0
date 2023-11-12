@@ -119,7 +119,7 @@ export const CREATE_PREPPED_PRODUCT = gql`
     $categoryId: Int!,
     $caseQuantity: Int,
     $portionSize: Int!,
-    $barcode: Int,
+    $barcode: Float,
     $markUp: Int!, 
     $daysTillExpire: Int,
     $description: String,
@@ -160,7 +160,7 @@ export const CREATE_PRODUCT = gql`
     $brand: String, 
     $unitSize: String, 
     $distributorNumber: String, 
-    $barcode: Int,
+    $barcode: Float,
     $aisleNumber: Int,
     $description: String,
     $containerId: Int

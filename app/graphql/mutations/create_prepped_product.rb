@@ -3,7 +3,7 @@ class Mutations::CreatePreppedProduct < Mutations::BaseMutation
   argument :category_id, Integer, required: true
   argument :case_quantity, Integer, required: false
   argument :portion_size, Integer, required: true
-  argument :barcode, Integer, required: false
+  argument :barcode, Float, required: false
   argument :mark_up, Integer, required: true
   argument :days_till_expire, Integer, required: false
   argument :description, String, required: false
