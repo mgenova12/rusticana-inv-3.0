@@ -10,7 +10,9 @@ class Mutations::CreateGiftCard< Mutations::BaseMutation
 
     gift_card = GiftCard.new(
       card_number: card_number,
-      amount: amount
+      amount: amount,
+      store_id: store_id,
+      money_owed: 0
     )
 
     if gift_card.save

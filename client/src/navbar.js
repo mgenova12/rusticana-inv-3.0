@@ -136,7 +136,7 @@ export const Navbar = ({...props}, currentUser) => {
           </React.Fragment>
           } 
 
-          { path[1] === 'store' && path[3] !== 'gift_cards' &&
+          { path[1] === 'store' && 
           <React.Fragment>
             <ListItem key={'Start Inventory'} component={Link} to={`/store/${props.match.params.storeId}/start_inventory`}>
               <ListItemIcon><Description/></ListItemIcon>
@@ -167,29 +167,23 @@ export const Navbar = ({...props}, currentUser) => {
               <ListItemIcon><LocationCity/></ListItemIcon>
               <ListItemText primary={'Locations'} />
             </ListItem>
+
+            <ListItem key={'Activate Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/activate`}>
+              <ListItemIcon><NoteAdd/></ListItemIcon>
+              <ListItemText primary={'Activate Gift Card'} />              
+            </ListItem>  
+
+            <ListItem key={'Swipe Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/swipe`}>
+              <ListItemIcon><NoteAdd/></ListItemIcon>
+              <ListItemText primary={'Swipe Gift Card'} />              
+            </ListItem>  
+
+            <ListItem key={'Gift Card Logs'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/logs`}>
+              <ListItemIcon><NoteAdd/></ListItemIcon>
+              <ListItemText primary={'Gift Card Logs'} />              
+            </ListItem>  
           </React.Fragment>
-          }
-
-          {
-            path[3] === 'gift_cards' &&
-            <React.Fragment>
-              <ListItem key={'Activate Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/activate`}>
-                <ListItemIcon><NoteAdd/></ListItemIcon>
-                <ListItemText primary={'Activate Gift Card'} />              
-              </ListItem>  
-
-              <ListItem key={'Swipe Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/swipe`}>
-                <ListItemIcon><NoteAdd/></ListItemIcon>
-                <ListItemText primary={'Swipe Gift Card'} />              
-              </ListItem>  
-
-              <ListItem key={'Gift Card Logs'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/logs`}>
-                <ListItemIcon><NoteAdd/></ListItemIcon>
-                <ListItemText primary={'Gift Card Logs'} />              
-              </ListItem>  
-            </React.Fragment>
-          }
-
+        }
 	    </List>
     </div>
 	)

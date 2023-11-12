@@ -13,9 +13,14 @@ class Mutations::EditGiftCardValue < Mutations::BaseMutation
       new_value = gift_card.amount + value
     else
       new_value = gift_card.amount - value
+
+      if gift_card.store_id != store_id
+        money_owed = gift_card.money_owed + value
+        gift_card.update!(money_owed: money_owed)
+      end
     end
 
-    GiftCardChange.create(
+    GiftCardChange.create!(
       change_value: value,
       change_event: action,
       store_id: store_id,

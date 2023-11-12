@@ -151,8 +151,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/store/:storeId/gift_cards/activate" component={GiftCards} />
           <PrivateRoute exact path="/store/:storeId/gift_cards/swipe" component={SwipeGiftCard} />
           <PrivateRoute exact path="/store/:storeId/gift_cards/logs" component={GiftCardLogs} />
-
-          <PrivateRoute exact path="/gift_cards/store/:storeId/logs/gift_card/:giftCardId" component={GiftCardLog} />
+          <PrivateRoute exact path="/store/:storeId/logs/gift_card/:giftCardId" component={GiftCardLog} />
 
       		<Route exact path='/login' component={Login} />
       </Switch>

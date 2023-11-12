@@ -46,9 +46,9 @@ const GiftCardLog = ({...props}) => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Store</th>
-                <th>Change Value</th>
                 <th>Card Number</th>
+                <th>Change Value</th>
+                <th>Store</th>
               </tr>
             </thead>
             <tbody>
@@ -56,13 +56,13 @@ const GiftCardLog = ({...props}) => {
             {getGiftCardChangesQuery.getGiftCardChanges.map((giftCardChange) => (
                 <tr key={giftCardChange.id}>
                   <td>{giftCardChange.id}</td>
-                  <td>{giftCardChange.store.name}</td>
-                  {giftCardChange.changeEvent === 'add' ? 
-                    <td> +{giftCardChange.changeValue} </td>
-                    :
-                    <td> -{giftCardChange.changeValue} </td>
-                  }
                   <td>{giftCardChange.giftCard.cardNumber}</td>
+                  {giftCardChange.changeEvent === 'add' ? 
+                    <td> + ${giftCardChange.changeValue} </td>
+                    :
+                    <td> - ${giftCardChange.changeValue} </td>
+                  }
+                  <td>{giftCardChange.store.name}</td>
                 </tr> 
             ))}
 

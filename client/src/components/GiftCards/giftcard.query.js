@@ -15,7 +15,12 @@ export const GET_GIFT_CARDS = gql`
 	  giftCards  {
 	  	id
 	    cardNumber
-	    amount	    
+	    amount
+	    moneyOwed
+	    store {
+	    	id
+	    	name
+	    }    
 	  }
 	}
 	`

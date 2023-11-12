@@ -12,6 +12,7 @@ import AddValue from './_AddValue.js'
 const SwipeGiftCard = ({...props}) => {
   const { register, handleSubmit } = useForm({mode: "onBlur"});
   const [searchTerm, setSearchTerm] = useState('')
+  const [success, setSuccess] = useState(false)
 
   const [cardData, setCardData] = useState(null)
   
@@ -31,7 +32,7 @@ const SwipeGiftCard = ({...props}) => {
   if (getGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   
   return (
-    <div> 
+    <div>
       <Container component="main" maxWidth="sm">
         <div>
           <h1> Swipe Gift Card </h1>

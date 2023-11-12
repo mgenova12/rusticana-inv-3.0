@@ -21,7 +21,7 @@ const GiftCardLogs = ({...props}) => {
       cardNumber: searchTerm.slice(0, 16)
     },
     onCompleted(data) {
-      props.history.push(`/gift_cards/store/${props.match.params.storeId}/logs/gift_card/${data.getGiftCard.id}`)
+      props.history.push(`/store/${props.match.params.storeId}/logs/gift_card/${data.getGiftCard.id}`)
     }
   })
 
@@ -30,7 +30,7 @@ const GiftCardLogs = ({...props}) => {
   }
 
   const showGiftCardLog = (giftCardId) => {
-    props.history.push(`/gift_cards/store/${props.match.params.storeId}/logs/gift_card/${giftCardId}`)
+    props.history.push(`/store/${props.match.params.storeId}/logs/gift_card/${giftCardId}`)
   }
 
   if (giftCardsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
@@ -70,6 +70,8 @@ const GiftCardLogs = ({...props}) => {
                 <th>ID</th>
                 <th>Card Number</th>
                 <th>Currrent Amount</th>
+                <th>Purchased At</th>
+                <th>Money Owed</th>
               </tr>
             </thead>
             <tbody>
@@ -79,6 +81,8 @@ const GiftCardLogs = ({...props}) => {
                   <td>{giftCard.id}</td>
                   <td>{giftCard.cardNumber}</td> 
                   <td>${giftCard.amount}</td>
+                  <td>{giftCard.store.name}</td>
+                  <td>${giftCard.moneyOwed}</td>
                 </tr> 
             ))}
 

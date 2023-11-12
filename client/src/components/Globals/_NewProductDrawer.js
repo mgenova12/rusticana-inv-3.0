@@ -79,21 +79,21 @@ const NewProductDrawer = ({ visible, onClose, distributors, categories, products
 
   return (
     <div>
-      <Snackbar 
-        open={isOpen} 
+      <Snackbar
+        open={isOpen}
         autoHideDuration={6000} 
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
-        }}        
+        }}
       >
         <Alert onClose={handleClose} severity="success">
           Product has been saved!
         </Alert>
       </Snackbar>
 
-			<Drawer 
+			<Drawer
         open={visible}
         variant="temporary"
         keepMounted={true}
