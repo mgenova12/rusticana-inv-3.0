@@ -28,7 +28,7 @@ const Login = () => {
     }).then(({ data }) => {
         const token = data.loginUser && data.loginUser.token
         if (token) {
-          console.log(data.loginUser.user)
+          // console.log(data.loginUser.user)
           setToken(token)
           history.push('/')
         } else {

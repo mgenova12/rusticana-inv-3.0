@@ -10,6 +10,16 @@ import { gql } from '@apollo/client';
 	  }
 	`
 
+	export const GET_GIFT_CARD_BY_ID = gql`
+	  query getGiftCardById($giftCardId: Int!) {
+	    getGiftCardById(giftCardId: $giftCardId) {
+	    	id
+	      amount
+	      cardNumber
+	    }
+	  }
+	`	
+
 export const GET_GIFT_CARDS = gql`
 	query {
 	  giftCards  {

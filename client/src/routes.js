@@ -30,10 +30,12 @@ import QuickOrder from './components/Prepcenter/_QuickOrder.js';
 import SubmitQuickOrder from './components/Prepcenter/_SubmitQuickOrder.js';
 import QuickOrderSuccess from './components/Prepcenter/_QuickOrderSuccess.js';
 
-import GiftCards from './components/GiftCards/_GiftCards.js';
+import ActivateGiftCard from './components/GiftCards/_ActivateGiftCard.js';
 import SwipeGiftCard from './components/GiftCards/_SwipeGiftCard.js';
 import GiftCardLogs from './components/GiftCards/_GiftCardLogs.js';
 import GiftCardLog from './components/GiftCards/_GiftCardLog.js';
+import GiftCardPurchase from './components/GiftCards/_GiftCardPurchase.js';
+import AddValue from './components/GiftCards/_AddValue.js';
 
 import Users from './components/Users/_Users.js';
 
@@ -148,10 +150,12 @@ export const Routes = () => {
 
           <PrivateRoute exact path="/users" component={Users} />
 
-          <PrivateRoute exact path="/store/:storeId/gift_cards/activate" component={GiftCards} />
-          <PrivateRoute exact path="/store/:storeId/gift_cards/swipe" component={SwipeGiftCard} />
-          <PrivateRoute exact path="/store/:storeId/gift_cards/logs" component={GiftCardLogs} />
-          <PrivateRoute exact path="/store/:storeId/logs/gift_card/:giftCardId" component={GiftCardLog} />
+          <PrivateRoute exact path="/store/:storeId/activate_gift_cards" component={ActivateGiftCard} />
+          <PrivateRoute exact path="/store/:storeId/swipe_gift_cards" component={SwipeGiftCard} />
+          <PrivateRoute exact path="/store/:storeId/gift_card_logs" component={GiftCardLogs} />
+          <PrivateRoute exact path="/store/:storeId/gift_card/:giftCardId/gift_card_logs" component={GiftCardLog} />
+          <PrivateRoute exact path="/store/:storeId/gift_card/:giftCardId/purchase" component={GiftCardPurchase} />
+          <PrivateRoute exact path="/store/:storeId/gift_card/:giftCardId/add_value" component={AddValue} />
 
       		<Route exact path='/login' component={Login} />
       </Switch>

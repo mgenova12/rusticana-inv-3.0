@@ -21,7 +21,7 @@ const GiftCardLogs = ({...props}) => {
       cardNumber: searchTerm.slice(0, 16)
     },
     onCompleted(data) {
-      props.history.push(`/store/${props.match.params.storeId}/logs/gift_card/${data.getGiftCard.id}`)
+      props.history.push(`/store/${props.match.params.storeId}/gift_card/${data.getGiftCard.id}/gift_card_logs`)
     }
   })
 
@@ -30,7 +30,7 @@ const GiftCardLogs = ({...props}) => {
   }
 
   const showGiftCardLog = (giftCardId) => {
-    props.history.push(`/store/${props.match.params.storeId}/logs/gift_card/${giftCardId}`)
+    props.history.push(`/store/${props.match.params.storeId}/gift_card/${giftCardId}/gift_card_logs`)
   }
 
   if (giftCardsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>

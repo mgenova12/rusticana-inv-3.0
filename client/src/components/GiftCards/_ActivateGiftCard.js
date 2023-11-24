@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
 import BeatLoader from "react-spinners/BeatLoader"
 
-const GiftCards = ({...props}) => {
+const ActivateGiftCard = ({...props}) => {
   const { register, handleSubmit, reset } = useForm({mode: "onBlur"});
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState(false)
@@ -32,7 +32,6 @@ const GiftCards = ({...props}) => {
     })
     reset()
   }
-
   if (createGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
@@ -58,6 +57,7 @@ const GiftCards = ({...props}) => {
               placeholder="Swipe the card or enter the card number"
               inputProps={{ maxLength: 16 }}
               fullWidth
+              defaultValue={props.location.data ? props.location.data.currentCardNumber : ''}
               type='number'
               margin="normal"
               variant="outlined"
@@ -92,4 +92,4 @@ const GiftCards = ({...props}) => {
   )
 }
 
-export default GiftCards
+export default ActivateGiftCard

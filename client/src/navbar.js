@@ -168,17 +168,17 @@ export const Navbar = ({...props}, currentUser) => {
               <ListItemText primary={'Locations'} />
             </ListItem>
 
-            <ListItem key={'Activate Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/activate`}>
+            <ListItem key={'Activate Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/activate_gift_cards`}>
               <ListItemIcon><NoteAdd/></ListItemIcon>
               <ListItemText primary={'Activate Gift Card'} />              
             </ListItem>  
 
-            <ListItem key={'Swipe Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/swipe`}>
+            <ListItem key={'Swipe Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/swipe_gift_cards`}>
               <ListItemIcon><NoteAdd/></ListItemIcon>
               <ListItemText primary={'Swipe Gift Card'} />              
             </ListItem>  
 
-            <ListItem key={'Gift Card Logs'} component={Link} to={`/store/${props.match.params.storeId}/gift_cards/logs`}>
+            <ListItem key={'Gift Card Logs'} component={Link} to={`/store/${props.match.params.storeId}/gift_card_logs`}>
               <ListItemIcon><NoteAdd/></ListItemIcon>
               <ListItemText primary={'Gift Card Logs'} />              
             </ListItem>  

@@ -8,7 +8,7 @@ import { EDIT_GIFT_CARD_VALUE } from './giftcard.mutation'
 import { GET_GIFT_CARD_BY_ID } from './giftcard.query'
 import BeatLoader from "react-spinners/BeatLoader"
 
-const AddValue = ({...props}) => {
+const GiftCardPurchase = ({...props}) => {
   const [value, setValue] = useState(0)
 
   const {data: getGiftCardByIdQuery, loading: getGiftCardByIdQueryLoading} = useQuery(GET_GIFT_CARD_BY_ID, {
@@ -44,10 +44,10 @@ const AddValue = ({...props}) => {
       <h2>Card Number: {getGiftCardByIdQuery.getGiftCardById.cardNumber}</h2>
 
       <TextField
-          label="Value Amount"
+          label="Purchase Amount"
           name="cardNumber"
           onChange={e => setValue(e.target.value)}
-          placeholder="Value Amount"
+          placeholder="Purchase Amount"
           fullWidth
           margin="normal"
           type="number"
@@ -63,13 +63,13 @@ const AddValue = ({...props}) => {
           color="primary" 
           size="large" 
           className="button mr-2" 
-          onClick={() => handleAddValue('add', value)}
+          onClick={() => handleAddValue('subtract', value)}
         >
-          Add Value
+          Make Purchase
       </Button>
       </Container>
     </div>
   )
 }
 
-export default AddValue
+export default GiftCardPurchase

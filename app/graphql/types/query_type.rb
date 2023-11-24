@@ -21,6 +21,7 @@ module Types
     field :get_prepcenter, resolver: Queries::GetPrepcenter
     
     field :get_gift_card, resolver: Queries::GetGiftCard
+    field :get_gift_card_by_id, resolver: Queries::GetGiftCardById
     field :gift_cards, resolver: Queries::GiftCards
     field :get_gift_card_changes, resolver: Queries::GetGiftCardChanges
 
