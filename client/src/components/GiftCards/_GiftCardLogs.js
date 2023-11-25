@@ -68,6 +68,9 @@ const GiftCardLogs = ({...props}) => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
                 <th>Card Number</th>
                 <th>Currrent Amount</th>
                 <th>Purchased At</th>
@@ -79,6 +82,9 @@ const GiftCardLogs = ({...props}) => {
             {giftCardsQuery.giftCards.map((giftCard) => (
                 <tr key={giftCard.id} onClick={() => showGiftCardLog(giftCard.id)}>
                   <td>{giftCard.id}</td>
+                  <td>{giftCard.firstName}</td>
+                  <td>{giftCard.lastName}</td>
+                  <td>{giftCard.phoneNumber}</td>
                   <td>{giftCard.cardNumber}</td> 
                   <td>${giftCard.amount}</td>
                   <td>{giftCard.store.name}</td>

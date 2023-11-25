@@ -5,5 +5,6 @@ module Types
     field :gift_card, GiftCardType, null: true
     field :change_value, Float, null: true
     field :change_event, String, null: true
+    field :payment_method, String, null: true
   end
 end

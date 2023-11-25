@@ -6,11 +6,18 @@ import { CREATE_GIFTCARD } from './giftcard.mutation'
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
 import BeatLoader from "react-spinners/BeatLoader"
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const ActivateGiftCard = ({...props}) => {
   const { register, handleSubmit, reset } = useForm({mode: "onBlur"});
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState(false)
+
+  const [paymentMethod, setPaymentMethod] = useState({
+    credit: false,
+    cash: false,
+  });
 
   const [createGiftCard, {loading: createGiftCardLoading}] = useMutation(CREATE_GIFTCARD, {
     onCompleted(data) {
@@ -21,18 +28,47 @@ const ActivateGiftCard = ({...props}) => {
     }
   });
 
+  const handleChange = (event) => {
+    if (event.target.name === "cash") {
+      setPaymentMethod({
+        ...paymentMethod,
+        cash: true,
+        credit: false
+      });
+    } else {
+      setPaymentMethod({
+        ...paymentMethod,
+        cash: false,
+        credit: true
+      });
+    }
+  };
+
   const onSubmit = data => {
     setSuccess(false)
-    createGiftCard({
-      variables: {
-        cardNumber: data.cardNumber.slice(0, 16),
-        amount: parseFloat(data.amount),
-        storeId: parseInt(props.match.params.storeId)
-      }
-    })
-    reset()
+    const activePaymentMethod = paymentMethod.cash ? 'cash' : 'credit'
+
+    if (props.location.data) {
+      createGiftCard({
+        variables: {
+          cardNumber: props.location.data.currentCardNumber,
+          amount: parseFloat(data.amount),
+          storeId: parseInt(props.match.params.storeId),
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phoneNumber: data.phoneNumber,
+          paymentMethod: activePaymentMethod
+        }
+      })
+      reset()
+    }
+      else {
+      setErrors(['ERROR'])
+    }
   }
   if (createGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+
+  const { cash, credit } = paymentMethod;
 
   return (
     <div>
@@ -49,39 +85,94 @@ const ActivateGiftCard = ({...props}) => {
       <Container component="main" maxWidth="sm">
         <div>
           <h1> Activate Gift Card </h1>
+          <h2>Card Number: {props.location.data?.currentCardNumber} </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
-              label="Swipe the card or enter the card number"
-              name="cardNumber"
+              label="First Name"
+              name="firstName"
               inputRef={register({required: true})}
-              placeholder="Swipe the card or enter the card number"
-              inputProps={{ maxLength: 16 }}
+              placeholder="First Name"
               fullWidth
-              defaultValue={props.location.data ? props.location.data.currentCardNumber : ''}
-              type='number'
               margin="normal"
+              type="text"
               variant="outlined"
+              inputProps={{
+                step: 0.5,
+              }}
               InputLabelProps={{
                 shrink: true,
               }}
             />
-
+            <TextField
+              label="Last Name"
+              name="lastName"
+              inputRef={register({required: true})}
+              placeholder="Last Name"
+              fullWidth
+              margin="normal"
+              type="text"
+              variant="outlined"
+              inputProps={{
+                step: 0.5,
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <TextField
+              label="Phone Number"
+              name="phoneNumber"
+              inputRef={register({required: true})}
+              placeholder="Phone Number"
+              fullWidth
+              margin="normal"
+              type="tel"
+              variant="outlined"
+              inputProps={{
+                step: 0.5,
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />                        
             <TextField
               label="Enter Gift Card Amount"
               name="amount"
               inputRef={register({required: true})}
-              placeholder="Enter Gift Card Amount"
+              placeholder="Starting Amount"
               fullWidth
               margin="normal"
               type="number"
               variant="outlined"
               inputProps={{
                 step: 0.5,
-              }}          
+              }}
               InputLabelProps={{
                 shrink: true,
               }}
             />
+              <FormControlLabel
+                control={
+                  <Checkbox 
+                    checked={cash} 
+                    onChange={handleChange} 
+                    name="cash"
+                  />
+                }
+                label="Cash"
+              />
+
+              <FormControlLabel
+                control={
+                  <Checkbox 
+                    checked={credit} 
+                    onChange={handleChange} 
+                    name="credit"
+                  />
+                }
+                label="Credit"
+              />                         
+
              <Button type='submit' variant="contained" color="primary" size="large" >
                 Activate Gift Card
              </Button>        

@@ -67,7 +67,8 @@ const SwipeGiftCard = ({...props}) => {
 
           {(cardData == null && cardSwiped) &&
           <div>
-            <h1> Card with number: {currentCardNumber} NOT FOUND</h1>
+            <h2> Card number: {currentCardNumber}</h2>
+            <h2>NOT FOUND</h2>
 
              <Button 
               type='submit' 

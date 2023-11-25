@@ -5,5 +5,8 @@ module Types
     field :amount, Float, null: true
     field :store, StoreType, null: true
     field :money_owed, Float, null: true
+    field :first_name, String, null: true
+    field :last_name, String, null: true
+    field :phone_number, String, null: true
   end
 end

@@ -30,7 +30,8 @@ const GiftCardPurchase = ({...props}) => {
         cardNumber: getGiftCardByIdQuery.getGiftCardById.cardNumber.slice(0, 16),
         value: parseFloat(value),
         action: action,
-        storeId: parseInt(props.match.params.storeId)
+        storeId: parseInt(props.match.params.storeId),
+        paymentMethod: null
       }
     })
   }

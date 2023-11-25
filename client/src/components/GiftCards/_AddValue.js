@@ -7,9 +7,15 @@ import { useQuery } from '@apollo/client';
 import { EDIT_GIFT_CARD_VALUE } from './giftcard.mutation'
 import { GET_GIFT_CARD_BY_ID } from './giftcard.query'
 import BeatLoader from "react-spinners/BeatLoader"
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const AddValue = ({...props}) => {
   const [value, setValue] = useState(0)
+  const [paymentMethod, setPaymentMethod] = useState({
+    credit: false,
+    cash: false,
+  });  
 
   const {data: getGiftCardByIdQuery, loading: getGiftCardByIdQueryLoading} = useQuery(GET_GIFT_CARD_BY_ID, {
     fetchPolicy: "network-only",
@@ -24,18 +30,38 @@ const AddValue = ({...props}) => {
     }
   });
 
+  const handleChange = (event) => {
+    if (event.target.name === "cash") {
+      setPaymentMethod({
+        ...paymentMethod,
+        cash: true,
+        credit: false
+      });
+    } else {
+      setPaymentMethod({
+        ...paymentMethod,
+        cash: false,
+        credit: true
+      });
+    }
+  };
+
   const handleAddValue = (action, value) => {
+    const activePaymentMethod = paymentMethod.cash ? 'cash' : 'credit'
+
     editGiftCardValue({
       variables: {
         cardNumber: getGiftCardByIdQuery.getGiftCardById.cardNumber.slice(0, 16),
         value: parseFloat(value),
         action: action,
-        storeId: parseInt(props.match.params.storeId)
+        storeId: parseInt(props.match.params.storeId),
+        paymentMethod: activePaymentMethod
       }
     })
   }
 
   if (getGiftCardByIdQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  const { cash, credit } = paymentMethod;
 
   return (
     <div>
@@ -56,7 +82,27 @@ const AddValue = ({...props}) => {
             shrink: true,
           }}
         />
+        <FormControlLabel
+          control={
+            <Checkbox 
+              checked={cash} 
+              onChange={handleChange} 
+              name="cash"
+            />
+          }
+          label="Cash"
+        />
 
+        <FormControlLabel
+          control={
+            <Checkbox 
+              checked={credit} 
+              onChange={handleChange} 
+              name="credit"
+            />
+          }
+          label="Credit"
+        />   
       <Button 
           type='submit' 
           variant="contained" 

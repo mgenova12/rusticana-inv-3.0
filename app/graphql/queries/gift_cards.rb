@@ -6,7 +6,7 @@ module Queries
     type [Types::GiftCardType], null: false
 
     def resolve
-      GiftCard.all
+      GiftCard.all.reverse
     end
   end
 end

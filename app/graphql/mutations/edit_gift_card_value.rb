@@ -3,11 +3,12 @@ class Mutations::EditGiftCardValue < Mutations::BaseMutation
   argument :value, Float, required: true
   argument :action, String, required: true
   argument :store_id, Integer, required: true
+  argument :payment_method, String, required: false
 
   field :gift_card, Types::GiftCardType, null: false
   field :errors, [String], null: false
 
-  def resolve(card_number:, value:, action:, store_id:)
+  def resolve(card_number:, value:, action:, store_id:, payment_method:)
     gift_card = GiftCard.find_by(card_number: card_number)
     if action == 'add'
       new_value = gift_card.amount + value
@@ -24,7 +25,8 @@ class Mutations::EditGiftCardValue < Mutations::BaseMutation
       change_value: value,
       change_event: action,
       store_id: store_id,
-      gift_card_id: gift_card.id
+      gift_card_id: gift_card.id,
+      payment_method: payment_method
     )
 
     if gift_card.update(amount: new_value)
