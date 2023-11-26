@@ -9,9 +9,12 @@ import { GET_GIFT_CARD_BY_ID } from './giftcard.query'
 import BeatLoader from "react-spinners/BeatLoader"
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { useForm } from "react-hook-form";
 
 const AddValue = ({...props}) => {
-  const [value, setValue] = useState(0)
+  const { register, handleSubmit } = useForm({mode: "onBlur"});
+  const [errors, setErrors] = useState([])
+
   const [paymentMethod, setPaymentMethod] = useState({
     credit: false,
     cash: false,
@@ -46,18 +49,18 @@ const AddValue = ({...props}) => {
     }
   };
 
-  const handleAddValue = (action, value) => {
+  const onSubmit = data => {
+    const giftCardData = data
     const activePaymentMethod = paymentMethod.cash ? 'cash' : 'credit'
+    giftCardData.cardNumber = getGiftCardByIdQuery.getGiftCardById.cardNumber
+    giftCardData.amount = getGiftCardByIdQuery.getGiftCardById.amount
+    giftCardData.paymentMethod = activePaymentMethod
 
-    editGiftCardValue({
-      variables: {
-        cardNumber: getGiftCardByIdQuery.getGiftCardById.cardNumber.slice(0, 16),
-        value: parseFloat(value),
-        action: action,
-        storeId: parseInt(props.match.params.storeId),
-        paymentMethod: activePaymentMethod
-      }
-    })
+    if (giftCardData) {
+      props.history.push({pathname:`/store/${props.match.params.storeId}/add_value_review`, data: giftCardData })
+    } else {
+      setErrors(['ERROR'])
+    }
   }
 
   if (getGiftCardByIdQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
@@ -70,51 +73,54 @@ const AddValue = ({...props}) => {
       <hr/>
       <h2>Amount: ${getGiftCardByIdQuery.getGiftCardById.amount}</h2>
       <h2>Card Number: {getGiftCardByIdQuery.getGiftCardById.cardNumber}</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+            label="Value Amount"
+            name="valueAmount"
+            placeholder="Value Amount"
+            fullWidth
+            margin="normal"
+            type="number"
+            variant="outlined"
+            inputProps={{
+              step: 'any',
+            }}            
+            inputRef={register({required: true})}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox 
+                checked={cash} 
+                onChange={handleChange} 
+                name="cash"
+              />
+            }
+            label="Cash"
+          />
 
-      <TextField
-          label="Value Amount"
-          name="cardNumber"
-          onChange={e => setValue(e.target.value)}
-          placeholder="Value Amount"
-          fullWidth
-          margin="normal"
-          type="number"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox 
-              checked={cash} 
-              onChange={handleChange} 
-              name="cash"
-            />
-          }
-          label="Cash"
-        />
-
-        <FormControlLabel
-          control={
-            <Checkbox 
-              checked={credit} 
-              onChange={handleChange} 
-              name="credit"
-            />
-          }
-          label="Credit"
-        />   
-      <Button 
-          type='submit' 
-          variant="contained" 
-          color="primary" 
-          size="large" 
-          className="button mr-2" 
-          onClick={() => handleAddValue('add', value)}
-        >
-          Add Value
-      </Button>
+          <FormControlLabel
+            control={
+              <Checkbox 
+                checked={credit} 
+                onChange={handleChange} 
+                name="credit"
+              />
+            }
+            label="Credit"
+          />   
+        <Button 
+            type='submit' 
+            variant="contained" 
+            color="primary" 
+            size="large" 
+            className="button mr-2" 
+          >
+            Next
+        </Button>
+      </form>
       </Container>
     </div>
   )

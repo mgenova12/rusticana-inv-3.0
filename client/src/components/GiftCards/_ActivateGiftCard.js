@@ -68,9 +68,6 @@ const ActivateGiftCard = ({...props}) => {
               margin="normal"
               type="text"
               variant="outlined"
-              inputProps={{
-                step: 0.5,
-              }}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -84,9 +81,6 @@ const ActivateGiftCard = ({...props}) => {
               margin="normal"
               type="text"
               variant="outlined"
-              inputProps={{
-                step: 0.5,
-              }}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -100,9 +94,6 @@ const ActivateGiftCard = ({...props}) => {
               margin="normal"
               type="tel"
               variant="outlined"
-              inputProps={{
-                step: 0.5,
-              }}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -117,7 +108,7 @@ const ActivateGiftCard = ({...props}) => {
               type="number"
               variant="outlined"
               inputProps={{
-                step: 0.5,
+                step: 'any',
               }}
               InputLabelProps={{
                 shrink: true,

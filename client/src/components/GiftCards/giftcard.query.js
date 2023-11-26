@@ -46,6 +46,7 @@ export const GET_GIFT_CARD_CHANGES = gql`
       changeEvent
       paymentMethod
       createdAt
+      ticketNumber
       store {
       	id
       	name

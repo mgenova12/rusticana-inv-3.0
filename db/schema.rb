@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_25_180555) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_26_155812) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_25_180555) do
     t.integer "store_id"
     t.integer "gift_card_id"
     t.string "payment_method"
+    t.string "ticket_number"
   end
 
   create_table "gift_cards", force: :cascade do |t|

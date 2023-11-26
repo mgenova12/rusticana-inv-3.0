@@ -8,6 +8,7 @@ import BeatLoader from "react-spinners/BeatLoader"
 const GiftCardReview = ({...props}) => {
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState(false)
+  const [buttonToggle, setbuttonToggle] = useState(false)
 
   const [createGiftCard, {loading: createGiftCardLoading}] = useMutation(CREATE_GIFTCARD, {
     onCompleted(data) {
@@ -32,6 +33,7 @@ const GiftCardReview = ({...props}) => {
           paymentMethod: data.paymentMethod
         }
       })
+      setbuttonToggle(true)
     }
       else {
       setErrors(['ERROR'])
@@ -61,11 +63,23 @@ const GiftCardReview = ({...props}) => {
           <h3>Phone Number: {cardInfo?.phoneNumber} </h3>
           <h3>Payment Method: {cardInfo?.paymentMethod}</h3>
           <h3>Card Number: {cardInfo?.cardNumber} </h3>
-
+          <h3>Starting Amount: ${cardInfo?.amount} </h3>
+          { 
+            (!buttonToggle) ?
            <Button type='submit' variant="contained" color="primary" size="large" onClick={() => onSubmit()} >
               Activate Gift Card
-           </Button>           
-
+           </Button> 
+           :
+           <Button 
+              type='submit' 
+              variant="contained" 
+              color="primary" 
+              size="large"
+              onClick={() => props.history.push(`/store/${props.match.params.storeId}/swipe_gift_cards`)} 
+            >
+              Back Home
+           </Button>                   
+         }
         </div>
       </Container>
     </div>

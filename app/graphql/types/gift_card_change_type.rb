@@ -7,5 +7,6 @@ module Types
     field :change_event, String, null: true
     field :payment_method, String, null: true
     field :created_at, String, null: true
+    field :ticket_number, String, null: true
   end
 end

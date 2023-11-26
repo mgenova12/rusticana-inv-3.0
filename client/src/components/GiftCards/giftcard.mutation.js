@@ -12,8 +12,8 @@ export const CREATE_GIFTCARD = gql`
 `;
 
 export const EDIT_GIFT_CARD_VALUE = gql`
-  mutation editGiftCardValue( $cardNumber: String!, $value: Float!, $action: String!, $storeId: Int!, $paymentMethod: String) {
-    editGiftCardValue(input: { cardNumber: $cardNumber,  value: $value, action: $action, storeId: $storeId, paymentMethod: $paymentMethod}) {
+  mutation editGiftCardValue( $cardNumber: String!, $value: Float!, $action: String!, $storeId: Int!, $paymentMethod: String, $ticketNumber: String) {
+    editGiftCardValue(input: { cardNumber: $cardNumber,  value: $value, action: $action, storeId: $storeId, paymentMethod: $paymentMethod, ticketNumber: $ticketNumber}) {
       giftCard{
         id
         amount
