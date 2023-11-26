@@ -66,6 +66,8 @@ const AddValue = ({...props}) => {
   return (
     <div>
       <Container component="main" maxWidth="sm">
+      <h1> Add Value </h1>
+      <hr/>
       <h2>Amount: ${getGiftCardByIdQuery.getGiftCardById.amount}</h2>
       <h2>Card Number: {getGiftCardByIdQuery.getGiftCardById.cardNumber}</h2>
 

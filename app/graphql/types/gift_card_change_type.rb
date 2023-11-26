@@ -6,5 +6,6 @@ module Types
     field :change_value, Float, null: true
     field :change_event, String, null: true
     field :payment_method, String, null: true
+    field :created_at, String, null: true
   end
 end

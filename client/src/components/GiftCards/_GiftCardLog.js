@@ -25,6 +25,7 @@ const GiftCardLog = ({...props}) => {
                 <th>Change Value</th>
                 <th>Store</th>
                 <th>Payment Method</th>
+                <th>Time Stamp</th>
               </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@ const GiftCardLog = ({...props}) => {
                   }
                   <td>{giftCardChange.store.name}</td>
                   <td>{giftCardChange.paymentMethod}</td>
+                  <td>{giftCardChange.createdAt}</td>
                 </tr> 
             ))}
 
