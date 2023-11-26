@@ -1,31 +1,18 @@
 import React, {useState } from 'react';
-import { useMutation } from '@apollo/client';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
-import { CREATE_GIFTCARD } from './giftcard.mutation'
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
-import BeatLoader from "react-spinners/BeatLoader"
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const ActivateGiftCard = ({...props}) => {
-  const { register, handleSubmit, reset } = useForm({mode: "onBlur"});
+  const { register, handleSubmit } = useForm({mode: "onBlur"});
   const [errors, setErrors] = useState([])
-  const [success, setSuccess] = useState(false)
 
   const [paymentMethod, setPaymentMethod] = useState({
     credit: false,
     cash: false,
-  });
-
-  const [createGiftCard, {loading: createGiftCardLoading}] = useMutation(CREATE_GIFTCARD, {
-    onCompleted(data) {
-      setErrors(data.createGiftCard.errors)
-      if (data.createGiftCard.errors.length === 0) {
-        setSuccess(true)
-      }
-    }
   });
 
   const handleChange = (event) => {
@@ -45,28 +32,17 @@ const ActivateGiftCard = ({...props}) => {
   };
 
   const onSubmit = data => {
-    setSuccess(false)
+    const giftCardData = data
     const activePaymentMethod = paymentMethod.cash ? 'cash' : 'credit'
+    giftCardData.paymentMethod = activePaymentMethod
+    giftCardData.cardNumber = props.location.data?.currentCardNumber.slice(0, 16)
 
-    if (props.location.data) {
-      createGiftCard({
-        variables: {
-          cardNumber: props.location.data.currentCardNumber,
-          amount: parseFloat(data.amount),
-          storeId: parseInt(props.match.params.storeId),
-          firstName: data.firstName,
-          lastName: data.lastName,
-          phoneNumber: data.phoneNumber,
-          paymentMethod: activePaymentMethod
-        }
-      })
-      reset()
-    }
-      else {
+    if (giftCardData.cardNumber) {
+      props.history.push({pathname:`/store/${props.match.params.storeId}/review_gift_card`, data: giftCardData })
+    } else {
       setErrors(['ERROR'])
     }
   }
-  if (createGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   const { cash, credit } = paymentMethod;
 
@@ -77,14 +53,10 @@ const ActivateGiftCard = ({...props}) => {
           {errors[0]}
         </div>   
       }
-      { success &&
-        <div className="alert alert-success" role="alert">
-          Gift Card Activated!
-        </div>         
-      }
       <Container component="main" maxWidth="sm">
         <div>
           <h1> Activate Gift Card </h1>
+          <hr/>
           <h2>Card Number: {props.location.data?.currentCardNumber} </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
@@ -174,7 +146,7 @@ const ActivateGiftCard = ({...props}) => {
               />                         
 
              <Button type='submit' variant="contained" color="primary" size="large" >
-                Activate Gift Card
+                Next
              </Button>        
           </form>
         </div>

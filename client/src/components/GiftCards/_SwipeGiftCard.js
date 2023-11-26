@@ -19,6 +19,7 @@ const SwipeGiftCard = ({...props}) => {
 
 
   const [getGiftCard, {loading: getGiftCardLoading}] = useLazyQuery(GET_GIFT_CARD, {
+    fetchPolicy: "network-only",
     onCompleted(data) {
       setCardData(data.getGiftCard)
       setCardSwiped(true)
@@ -31,13 +32,14 @@ const SwipeGiftCard = ({...props}) => {
   }
 
   if (getGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
-  if (redirect) return <Redirect to={{ pathname: `/store/${props.match.params.storeId}/activate_gift_cards`, data: { currentCardNumber } }} />
+  if (redirect) return <Redirect to={{ pathname: `/store/${props.match.params.storeId}/activate_gift_card`, data: { currentCardNumber } }} />
 
   return (
     <div>
       <Container component="main" maxWidth="sm">
         <div>
           <h1> Swipe Gift Card </h1>
+          <hr/>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               label="Swipe the card or enter the card number"
@@ -47,6 +49,7 @@ const SwipeGiftCard = ({...props}) => {
               fullWidth
               margin="normal"
               variant="outlined"
+              onInput = {(e) =>{ e.target.value = e.target.value.toString().slice(0,16)}}
               type="number"
               InputLabelProps={{
                 shrink: true,

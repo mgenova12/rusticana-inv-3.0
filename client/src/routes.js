@@ -36,6 +36,7 @@ import GiftCardLogs from './components/GiftCards/_GiftCardLogs.js';
 import GiftCardLog from './components/GiftCards/_GiftCardLog.js';
 import GiftCardPurchase from './components/GiftCards/_GiftCardPurchase.js';
 import AddValue from './components/GiftCards/_AddValue.js';
+import GiftCardReview from './components/GiftCards/_GiftCardReview.js';
 
 import Users from './components/Users/_Users.js';
 
@@ -150,7 +151,8 @@ export const Routes = () => {
 
           <PrivateRoute exact path="/users" component={Users} />
 
-          <PrivateRoute exact path="/store/:storeId/activate_gift_cards" component={ActivateGiftCard} />
+          <PrivateRoute exact path="/store/:storeId/activate_gift_card" component={ActivateGiftCard} />
+          <PrivateRoute exact path="/store/:storeId/review_gift_card" component={GiftCardReview} />
           <PrivateRoute exact path="/store/:storeId/swipe_gift_cards" component={SwipeGiftCard} />
           <PrivateRoute exact path="/store/:storeId/gift_card_logs" component={GiftCardLogs} />
           <PrivateRoute exact path="/store/:storeId/gift_card/:giftCardId/gift_card_logs" component={GiftCardLog} />
