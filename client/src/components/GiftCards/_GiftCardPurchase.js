@@ -37,11 +37,11 @@ const GiftCardPurchase = ({...props}) => {
       {errors.length > 0 &&
         <div className="alert alert-danger" role="alert">
           {errors[0]}
-        </div>   
-      }    
+        </div>
+      }
       <Container component="main" maxWidth="sm">
       <h1> Make Purchase </h1>
-      <hr/>      
+      <hr/>
       <h2>Amount on Card: ${getGiftCardByIdQuery.getGiftCardById.amount}</h2>
       <h2>Card Number: {getGiftCardByIdQuery.getGiftCardById.cardNumber}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>

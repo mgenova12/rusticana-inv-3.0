@@ -117,7 +117,7 @@ const ActivateGiftCard = ({...props}) => {
               <FormControlLabel
                 control={
                   <Checkbox 
-                    checked={cash} 
+                    checked={cash}
                     onChange={handleChange} 
                     name="cash"
                   />
@@ -134,11 +134,11 @@ const ActivateGiftCard = ({...props}) => {
                   />
                 }
                 label="Credit"
-              />                         
+              />
 
              <Button type='submit' variant="contained" color="primary" size="large" >
                 Next
-             </Button>        
+             </Button>
           </form>
         </div>
       </Container>

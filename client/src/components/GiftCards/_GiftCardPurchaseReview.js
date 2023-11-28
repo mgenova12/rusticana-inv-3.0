@@ -51,16 +51,22 @@ const GiftCardPurchaseReview = ({...props}) => {
       <h3>New Card Amount: ${(parseFloat(cardInfo?.amount) - parseFloat(cardInfo?.purchaseAmount)).toFixed(2)}</h3>
 
       { (!buttonToggle) ?
-        <Button
-            type='submit'
-            variant="contained" 
-            color="primary" 
-            size="large"
-            className="button mr-2"
-            onClick={() => onSubmit()}
-          >
-            Make Purchase
-        </Button>
+        <div>
+          <Button
+              type='submit'
+              variant="contained"
+              color="primary"
+              size="large"
+              className="button mr-2"
+              onClick={() => onSubmit()}
+            >
+              Make Purchase
+          </Button>
+           <h10
+            onClick={() => props.history.push(`/store/${props.match.params.storeId}/swipe_gift_cards`)}
+           > start over
+           </h10>
+        </div>
       :
        <Button 
           type='submit' 
@@ -70,7 +76,7 @@ const GiftCardPurchaseReview = ({...props}) => {
           onClick={() => props.history.push(`/store/${props.match.params.storeId}/swipe_gift_cards`)} 
         >
           Back Home
-       </Button> 
+       </Button>
       }
       </Container>
     </div>

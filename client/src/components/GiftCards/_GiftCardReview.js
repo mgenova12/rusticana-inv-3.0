@@ -66,9 +66,15 @@ const GiftCardReview = ({...props}) => {
           <h3>Starting Amount: ${cardInfo?.amount} </h3>
           { 
             (!buttonToggle) ?
-           <Button type='submit' variant="contained" color="primary" size="large" onClick={() => onSubmit()} >
-              Activate Gift Card
-           </Button> 
+          <div>
+             <Button type='submit' variant="contained" color="primary" size="large" onClick={() => onSubmit()} >
+                Activate Gift Card
+             </Button>
+             <h10
+              onClick={() => props.history.push(`/store/${props.match.params.storeId}/swipe_gift_cards`)}
+             > start over
+             </h10>
+           </div>
            :
            <Button 
               type='submit' 
