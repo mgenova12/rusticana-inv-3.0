@@ -40,6 +40,8 @@ import GiftCardReview from './components/GiftCards/_GiftCardReview.js';
 import GiftCardPurchaseReview from './components/GiftCards/_GiftCardPurchaseReview.js';
 import AddValueReview from './components/GiftCards/_AddValueReview.js';
 
+import GiftCardInvoices from './components/GiftCards/_GiftCardInvoices.js';
+
 import Users from './components/Users/_Users.js';
 
 import Invoices from './components/Invoices/_Invoices.js';
@@ -150,18 +152,22 @@ export const Routes = () => {
 
           <PrivateRoute exact path="/invoices" component={Invoices} />
           <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} />
+          <PrivateRoute exact path="/gift_card_invoices" component={GiftCardInvoices} />
 
           <PrivateRoute exact path="/users" component={Users} />
 
-          <PrivateRoute exact path="/store/:storeId/activate_gift_card" component={ActivateGiftCard} />
-          <PrivateRoute exact path="/store/:storeId/review_gift_card" component={GiftCardReview} />
-          <PrivateRoute exact path="/store/:storeId/add_value_review" component={AddValueReview} />
-          <PrivateRoute exact path="/store/:storeId/gift_card_purchase_review" component={GiftCardPurchaseReview} />
-          <PrivateRoute exact path="/store/:storeId/swipe_gift_cards" component={SwipeGiftCard} />
-          <PrivateRoute exact path="/store/:storeId/gift_card_logs" component={GiftCardLogs} />
-          <PrivateRoute exact path="/store/:storeId/gift_card/:giftCardId/gift_card_logs" component={GiftCardLog} />
-          <PrivateRoute exact path="/store/:storeId/gift_card/:giftCardId/purchase" component={GiftCardPurchase} />
-          <PrivateRoute exact path="/store/:storeId/gift_card/:giftCardId/add_value" component={AddValue} />
+          <PrivateRoute exact path="/gift_cards/store/:storeId/swipe" component={SwipeGiftCard} />
+          <PrivateRoute exact path="/gift_cards/store/:storeId/activate" component={ActivateGiftCard} />
+
+          <PrivateRoute exact path="/gift_cards/store/:storeId/review_gift_card" component={GiftCardReview} />
+          <PrivateRoute exact path="/gift_cards/store/:storeId/add_value_review" component={AddValueReview} />
+          <PrivateRoute exact path="/gift_cards/store/:storeId/purchase_review" component={GiftCardPurchaseReview} />
+
+          <PrivateRoute exact path="/gift_cards/store/:storeId/logs" component={GiftCardLogs} />
+          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/log" component={GiftCardLog} />
+          
+          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/purchase" component={GiftCardPurchase} />
+          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/add_value" component={AddValue} />
 
       		<Route exact path='/login' component={Login} />
       </Switch>

@@ -6,6 +6,7 @@ class Store < ApplicationRecord
   has_many :products, through: :store_goods
   has_many :orders, -> { order(created_at: :desc) }
   has_many :store_orders, through: :orders
+  has_many :gift_cards
   default_scope { where active: true }
 
   def order_status
@@ -20,5 +21,9 @@ class Store < ApplicationRecord
 
   def is_prepcenter_store_goods
     self.store_goods.with_deleted.where(is_prepcenter: true)
+  end
+
+  def gift_card_money_owed
+    gift_cards.sum(:money_owed)
   end
 end

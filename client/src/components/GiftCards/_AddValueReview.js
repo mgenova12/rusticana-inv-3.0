@@ -51,7 +51,7 @@ const AddValueReview = ({...props}) => {
       <h3>New Card Amount: ${(parseFloat(cardInfo?.amount) + parseFloat(cardInfo?.valueAmount)).toFixed(2)}</h3>
 
       { (!buttonToggle) ?
-        <div>
+        <div className="d-inline-block">
           <Button
               type='submit'
               variant="contained"
@@ -62,10 +62,16 @@ const AddValueReview = ({...props}) => {
             >
               Add Value
           </Button>
-           <h10
-            onClick={() => props.history.push(`/store/${props.match.params.storeId}/swipe_gift_cards`)}
-           > start over
-           </h10>
+           <Button 
+              type='submit' 
+              variant="contained"
+              color="secondary" 
+              size="large" 
+              className="button m-2" 
+              onClick={() => props.history.push(`/gift_cards/store/${props.match.params.storeId}/swipe`)}
+              >
+              Start Over
+           </Button> 
           </div>
       :
        <Button 
@@ -73,7 +79,7 @@ const AddValueReview = ({...props}) => {
           variant="contained" 
           color="primary" 
           size="large"
-          onClick={() => props.history.push(`/store/${props.match.params.storeId}/swipe_gift_cards`)} 
+          onClick={() => props.history.push(`/gift_cards/store/${props.match.params.storeId}/swipe`)} 
         >
           Back Home
        </Button> 

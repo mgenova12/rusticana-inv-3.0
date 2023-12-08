@@ -29,6 +29,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 
+import CardGiftcard from '@material-ui/icons/CardGiftcard';
+import CreditCard from '@material-ui/icons/CreditCard';
+
 export const Navbar = ({...props}, currentUser) => {
   let path = props.match.path.split('/')
 
@@ -68,10 +71,13 @@ export const Navbar = ({...props}, currentUser) => {
 	          <div className="h4" style={{fontFamily: 'cursive'}}> Rusticana </div>
 	        </ListItem>
           <hr/>
+
+          { path[1] !== 'gift_cards' &&
 	        <ListItem component={Link} to={`/`} key={'Home'}>
 	          <ListItemIcon><Home/></ListItemIcon>
 	          <ListItemText primary={'Home'} />
 	        </ListItem> 
+          }
 
           { path[1] === 'globals' &&
             <React.Fragment>
@@ -136,7 +142,7 @@ export const Navbar = ({...props}, currentUser) => {
           </React.Fragment>
           } 
 
-          { path[1] === 'store' && 
+          { path[1] === 'store' &&
           <React.Fragment>
             <ListItem key={'Start Inventory'} component={Link} to={`/store/${props.match.params.storeId}/start_inventory`}>
               <ListItemIcon><Description/></ListItemIcon>
@@ -168,17 +174,31 @@ export const Navbar = ({...props}, currentUser) => {
               <ListItemText primary={'Locations'} />
             </ListItem>
 
-            <ListItem key={'Swipe Gift Card'} component={Link} to={`/store/${props.match.params.storeId}/swipe_gift_cards`}>
-              <ListItemIcon><NoteAdd/></ListItemIcon>
+            <ListItem key={'Swipe Gift Card'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/swipe`}>
+              <ListItemIcon><CreditCard/></ListItemIcon>
               <ListItemText primary={'Swipe Gift Card'} />              
             </ListItem>  
 
-            <ListItem key={'Gift Card Logs'} component={Link} to={`/store/${props.match.params.storeId}/gift_card_logs`}>
-              <ListItemIcon><NoteAdd/></ListItemIcon>
+            <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/logs`}>
+              <ListItemIcon><CardGiftcard/></ListItemIcon>
+              <ListItemText primary={'Gift Card Logs'} />              
+            </ListItem>              
+          </React.Fragment>
+          }
+
+          { path[1] === 'gift_cards' &&
+          <React.Fragment>
+            <ListItem key={'Swipe Gift Card'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/swipe`}>
+              <ListItemIcon><CreditCard/></ListItemIcon>
+              <ListItemText primary={'Swipe Gift Card'} />              
+            </ListItem>  
+
+            <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/logs`}>
+              <ListItemIcon><CardGiftcard/></ListItemIcon>
               <ListItemText primary={'Gift Card Logs'} />              
             </ListItem>  
           </React.Fragment>
-        }
+          }
 	    </List>
     </div>
 	)

@@ -25,6 +25,10 @@ const SwipeGiftCard = ({...props}) => {
       setCardSwiped(true)
     }
   })
+  
+  const handleStartOver = () => {
+    setCardSwiped(false)
+  }  
 
   const onSubmit = data => {
     setCurrentCardNumber(data.cardNumber)
@@ -32,7 +36,7 @@ const SwipeGiftCard = ({...props}) => {
   }
 
   if (getGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
-  if (redirect) return <Redirect to={{ pathname: `/store/${props.match.params.storeId}/activate_gift_card`, data: { currentCardNumber } }} />
+  if (redirect) return <Redirect to={{ pathname: `/gift_cards/store/${props.match.params.storeId}/activate`, data: { currentCardNumber } }} />
 
   return (
     <div>
@@ -65,6 +69,7 @@ const SwipeGiftCard = ({...props}) => {
               cardData={cardData}
               storeId={parseInt(props.match.params.storeId)}
               history={props.history}
+              startOver={handleStartOver}
             />
           }
 
@@ -73,8 +78,8 @@ const SwipeGiftCard = ({...props}) => {
             <h2> Card number: {currentCardNumber}</h2>
             <h2>NOT FOUND</h2>
 
-             <Button 
-              type='submit' 
+             <Button
+              type='submit'
               variant="contained" 
               color="primary" 
               size="large" 

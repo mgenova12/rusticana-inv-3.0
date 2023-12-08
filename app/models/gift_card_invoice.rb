@@ -1,0 +1,3 @@
+class GiftCardInvoice < ApplicationRecord
+  
+end

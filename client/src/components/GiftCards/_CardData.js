@@ -3,12 +3,14 @@ import Button from '@material-ui/core/Button';
 
 const CardData = ({...props}) => {
   const handlePurchaseRedirct = () => {
-    props.history.push(`/store/${props.storeId}/gift_card/${props.cardData.id}/purchase`)
+    props.history.push(`/gift_cards/store/${props.storeId}/gift_card/${props.cardData.id}/purchase`)
   }
 
   const handleAddValueRedirct = () => {
-    props.history.push(`/store/${props.storeId}/gift_card/${props.cardData.id}/add_value`)
+    props.history.push(`/gift_cards/store/${props.storeId}/gift_card/${props.cardData.id}/add_value`)
   }
+  
+  const { startOver } = props;
 
   return (
     <div>
@@ -35,6 +37,17 @@ const CardData = ({...props}) => {
           onClick={() => handleAddValueRedirct()}>
           Add Value
        </Button>
+
+       <Button 
+          type='submit' 
+          variant="contained" 
+          color="secondary"
+          size="large"
+          className="button m-2"
+          onClick={() => startOver()}
+          >
+          Start Over
+       </Button>       
       </div>
     </div>
   )

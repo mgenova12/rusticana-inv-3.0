@@ -29,15 +29,14 @@ const Home = () => {
         <ListItem button className="border" component={Link} to={'/users'}>
           <ListItemText primary="Accounts" />
         </ListItem>
-        {false &&
-        <ListItem button className="border" component={Link} to={'/gift_cards/activate'}>
+        <ListItem button className="border" component={Link} to={'/gift_card_invoices'}>
           <ListItemText primary="Gift Cards" />
-        </ListItem>   }              	        
+        </ListItem>     	        
       </List>
 
     	<h4>Stores</h4>
       <List component="nav">
-	      {storesQuery.stores.map(store => 
+	      {storesQuery.stores.map(store =>
 	        <ListItem key={store.id} button className="border" component={Link} to={`store/${store.id}/orders`}>
 	          <ListItemText primary={store.name} />
 	        </ListItem>

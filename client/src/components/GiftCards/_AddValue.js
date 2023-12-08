@@ -57,7 +57,7 @@ const AddValue = ({...props}) => {
     giftCardData.paymentMethod = activePaymentMethod
 
     if (giftCardData) {
-      props.history.push({pathname:`/store/${props.match.params.storeId}/add_value_review`, data: giftCardData })
+      props.history.push({pathname:`/gift_cards/store/${props.match.params.storeId}/add_value_review`, data: giftCardData })
     } else {
       setErrors(['ERROR'])
     }

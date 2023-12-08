@@ -24,7 +24,7 @@ const GiftCardPurchase = ({...props}) => {
     giftCardData.amount = getGiftCardByIdQuery.getGiftCardById.amount
 
     if (giftCardData) {
-      props.history.push({pathname:`/store/${props.match.params.storeId}/gift_card_purchase_review`, data: giftCardData })
+      props.history.push({pathname:`/gift_cards/store/${props.match.params.storeId}/purchase_review`, data: giftCardData })
     } else {
       setErrors(['ERROR'])
     }

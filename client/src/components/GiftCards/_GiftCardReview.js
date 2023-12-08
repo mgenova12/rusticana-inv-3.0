@@ -66,14 +66,20 @@ const GiftCardReview = ({...props}) => {
           <h3>Starting Amount: ${cardInfo?.amount} </h3>
           { 
             (!buttonToggle) ?
-          <div>
+          <div className="d-inline-block">
              <Button type='submit' variant="contained" color="primary" size="large" onClick={() => onSubmit()} >
                 Activate Gift Card
              </Button>
-             <h10
-              onClick={() => props.history.push(`/store/${props.match.params.storeId}/swipe_gift_cards`)}
-             > start over
-             </h10>
+             <Button 
+                type='submit' 
+                variant="contained" 
+                color="secondary" 
+                size="large" 
+                className="button m-2" 
+                onClick={() => props.history.push(`/gift_cards/store/${props.match.params.storeId}/swipe`)}
+                >
+                Start Over
+             </Button>
            </div>
            :
            <Button 
@@ -81,7 +87,7 @@ const GiftCardReview = ({...props}) => {
               variant="contained" 
               color="primary" 
               size="large"
-              onClick={() => props.history.push(`/store/${props.match.params.storeId}/swipe_gift_cards`)} 
+              onClick={() => props.history.push(`/gift_cards/store/${props.match.params.storeId}/swipe`)} 
             >
               Back Home
            </Button>                   

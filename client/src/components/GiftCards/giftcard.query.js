@@ -38,6 +38,17 @@ export const GET_GIFT_CARDS = gql`
 	}
 	`
 
+
+export const GET_STORES = gql`
+  query {
+    stores  {
+      id
+      name
+      giftCardMoneyOwed
+    }
+  }
+  `  
+
 export const GET_GIFT_CARD_CHANGES = gql`
   query getGiftCardChanges($giftCardId: Int!) {
     getGiftCardChanges(giftCardId: $giftCardId) {

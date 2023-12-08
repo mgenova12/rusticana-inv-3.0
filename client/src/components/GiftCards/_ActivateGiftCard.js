@@ -38,7 +38,7 @@ const ActivateGiftCard = ({...props}) => {
     giftCardData.cardNumber = props.location.data?.currentCardNumber.slice(0, 16)
 
     if (giftCardData.cardNumber) {
-      props.history.push({pathname:`/store/${props.match.params.storeId}/review_gift_card`, data: giftCardData })
+      props.history.push({pathname:`/gift_cards/store/${props.match.params.storeId}/review_gift_card`, data: giftCardData })
     } else {
       setErrors(['ERROR'])
     }
