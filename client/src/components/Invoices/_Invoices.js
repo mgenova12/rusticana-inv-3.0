@@ -77,7 +77,7 @@ const Invoices = ({...props}) => {
     : invoicesQuery.invoices.filter(invoice =>
         invoice.store.id === activeTab
       );
-
+    console.log(storesQuery.stores)
   return (
     <div>
        <AppBar position="static" color="default">

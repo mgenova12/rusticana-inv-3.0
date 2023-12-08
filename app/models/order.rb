@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   has_many :inventories, -> { order(created_at: :desc) }
-  belongs_to :store, optional: true
+  belongs_to :store, -> { unscope(where: :active) }, optional: true
   belongs_to :prepcenter, optional: true
   belongs_to :store_order, optional: true
 
