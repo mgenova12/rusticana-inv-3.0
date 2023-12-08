@@ -680,13 +680,13 @@
 # end
 
 
-def scan_order(order_id)
-  Order.find(order_id).inventories.each do |inv|
-    if (inv.quantity_needed > 0)
-      inv.update_columns(scanned:true, quantity_needed:0, invoiced_quantity: inv.quantity_needed)
-    end
-  end
-end
+# def scan_order(order_id)
+#   Order.find(order_id).inventories.each do |inv|
+#     if (inv.quantity_needed > 0)
+#       inv.update_columns(scanned:true, quantity_needed:0, invoiced_quantity: inv.quantity_needed)
+#     end
+#   end
+# end
 
 
 
@@ -694,27 +694,26 @@ end
 # Order.find(55).update(status:"pending")
 
 
-def update_orders(order_id)
-  order = Order.find(order_id)
-  scanned_inventories = order.scanned_inventories
+# def update_orders(order_id)
+#   order = Order.find(order_id)
+#   scanned_inventories = order.scanned_inventories
 
-  scanned_inventories.each do |inventory|
-    product = inventory.store_good_including_deleted.product
+#   scanned_inventories.each do |inventory|
+#     product = inventory.store_good_including_deleted.product
 
-    if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good_including_deleted.replenish_by != "CASE")
-      total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity
-      inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
-    else
-      total = product.marked_up_price * inventory.invoiced_quantity
-      inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
-    end
+#     if ([nil, 0].exclude?(product.case_quantity) && inventory.store_good_including_deleted.replenish_by != "CASE")
+#       total = (product.marked_up_price / product.case_quantity) * inventory.invoiced_quantity
+#       inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
+#     else
+#       total = product.marked_up_price * inventory.invoiced_quantity
+#       inventory.update_columns(invoiced_price: total.round(2), invoiced_product_price: product.marked_up_price)
+#     end
     
-  end 
+#   end 
 
-  sum = scanned_inventories.sum(:invoiced_price)
-  order.update(sale_total: sum.round(2), status: 'complete')
-
-end
+#   sum = scanned_inventories.sum(:invoiced_price)
+#   order.update(sale_total: sum.round(2), status: 'complete')
+# end
 
 
 # def update_inventory(order_id)

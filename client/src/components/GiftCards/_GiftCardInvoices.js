@@ -8,6 +8,7 @@ import { GET_STORES } from './giftcard.query'
 
 const GiftCardInvoices = ({...props}) => {
   const [totalMoneyOwed, setTotalMoneyOwed] = useState(null)
+  const [storeWithMoneyOwed, setStoreWithMoneyOwed] = useState(null)
 
   const {data: storesQuery, loading: storesQueryLoading } = useQuery(GET_STORES, {
     fetchPolicy: "network-only",
@@ -24,15 +25,15 @@ const GiftCardInvoices = ({...props}) => {
       <br/>
       <div className="row">
         {storesQuery.stores.map(store =>
-          <div class="col-lg">
-            <h3 key={store.id}>{store.name}: ${store.giftCardMoneyOwed}</h3>
+          <div key={store.id} className="col-lg">
+            <h4>{store.name}: ${store.giftCardMoneyOwed}</h4>
           </div>
         )}
-        <div class="col-lg">
-        <h3>Create invoice for ${totalMoneyOwed}</h3>
+        <div className="col-lg">
+        <h4>Create invoice for ${totalMoneyOwed}</h4>
         </div>
       
-        <div class="col-lg">
+        <div className="col-lg">
          <Button 
           type='submit' 
           variant="contained" 

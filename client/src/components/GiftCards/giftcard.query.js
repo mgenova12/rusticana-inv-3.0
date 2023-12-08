@@ -30,6 +30,7 @@ export const GET_GIFT_CARDS = gql`
       firstName
       lastName
       phoneNumber
+      createdAt
 	    store {
 	    	id
 	    	name

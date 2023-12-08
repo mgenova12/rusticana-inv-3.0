@@ -86,7 +86,16 @@ const SwipeGiftCard = ({...props}) => {
               onClick={() => setRedirect(true)} >
                 Activate Now
              </Button>
-
+             <Button
+                type='submit' 
+                variant="contained" 
+                color="secondary"
+                size="large"
+                className="button m-2"
+                onClick={() => handleStartOver()}
+                >
+                Start Over
+             </Button>              
           </div>
           }
 

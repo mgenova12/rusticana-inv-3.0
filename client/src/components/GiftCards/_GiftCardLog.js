@@ -43,7 +43,7 @@ const GiftCardLog = ({...props}) => {
                   <td>{giftCardChange.store.name}</td>
                   <td>{giftCardChange.paymentMethod}</td>
                   <td>{giftCardChange.ticketNumber}</td>
-                  <td>{giftCardChange.createdAt}</td>
+                  <td>{new Date(giftCardChange.createdAt.replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</td>
                 </tr> 
             ))}
 

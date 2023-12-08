@@ -75,6 +75,7 @@ const GiftCardLogs = ({...props}) => {
                 <th>Currrent Amount</th>
                 <th>Purchased At</th>
                 <th>Money Owed</th>
+                <th>Created At</th>
               </tr>
             </thead>
             <tbody>
@@ -89,6 +90,7 @@ const GiftCardLogs = ({...props}) => {
                   <td>${giftCard.amount}</td>
                   <td>{giftCard.store.name}</td>
                   <td>${giftCard.moneyOwed}</td>
+                  <td>{new Date(giftCard.createdAt.replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</td>
                 </tr> 
             ))}
 

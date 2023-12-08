@@ -40,17 +40,16 @@ export const Navbar = ({...props}, currentUser) => {
     let id = props.match.params.storeId
     if (path === 'prepcenter'){
       return 'Trappe'
-    } else if(path === 'store' && id === '1'){
+    } else if((path === 'store' || path === 'gift_cards') && id === '1'){
       return 'Dover Road'
-    } else if(path === 'store' && id === '2'){
+    } else if((path === 'store' || path === 'gift_cards') && id === '2'){
       return 'Bypass'
-    } else if(path === 'store' && id === '3'){
+    } else if((path === 'store' || path === 'gift_cards') && id === '3'){
       return 'Cambridge'
     } else {
       return 'Rusticana'
     }
   };
-
   const history = useHistory();
   const [state, setState] = useState({open: false});
 
