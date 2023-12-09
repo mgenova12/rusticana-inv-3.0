@@ -139,6 +139,16 @@ const ActivateGiftCard = ({...props}) => {
              <Button type='submit' variant="contained" color="primary" size="large" >
                 Next
              </Button>
+             <Button 
+                type='submit' 
+                variant="contained"
+                color="secondary" 
+                size="large" 
+                className="button m-2" 
+                onClick={() => props.history.push(`/gift_cards/store/${props.match.params.storeId}/swipe`)}
+                >
+                Start Over
+             </Button>      
           </form>
         </div>
       </Container>

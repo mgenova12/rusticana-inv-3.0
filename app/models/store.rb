@@ -1,4 +1,5 @@
 class Store < ApplicationRecord
+  default_scope { where active: true }
   belongs_to :prepcenter
   has_many :inventories
   has_many :locations
@@ -7,7 +8,7 @@ class Store < ApplicationRecord
   has_many :orders, -> { order(created_at: :desc) }
   has_many :store_orders, through: :orders
   has_many :gift_cards
-  default_scope { where active: true }
+  has_many :gift_card_invoices
 
   def order_status
     current_store_order = StoreOrder.order(:delivery_date).last

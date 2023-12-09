@@ -1,10 +1,8 @@
 import React, {useState } from 'react';
-import {  useMutation } from '@apollo/client';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { useQuery } from '@apollo/client';
-import { EDIT_GIFT_CARD_VALUE } from './giftcard.mutation'
 import { GET_GIFT_CARD_BY_ID } from './giftcard.query'
 import BeatLoader from "react-spinners/BeatLoader"
 import Checkbox from '@material-ui/core/Checkbox';
@@ -26,12 +24,6 @@ const AddValue = ({...props}) => {
       giftCardId: parseInt(props.match.params.giftCardId)
     }
   })
-
-  const [editGiftCardValue] = useMutation(EDIT_GIFT_CARD_VALUE, {
-    onCompleted(data) {
-      // setcardAmount(data.editGiftCardValue.giftCard.amount)
-    }
-  });
 
   const handleChange = (event) => {
     if (event.target.name === "cash") {
@@ -64,14 +56,20 @@ const AddValue = ({...props}) => {
   }
 
   if (getGiftCardByIdQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  
   const { cash, credit } = paymentMethod;
+
+  let USDollar = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+  });
 
   return (
     <div>
       <Container component="main" maxWidth="sm">
       <h1> Add Value </h1>
       <hr/>
-      <h2>Amount: ${getGiftCardByIdQuery.getGiftCardById.amount}</h2>
+      <h2>Amount: {USDollar.format(getGiftCardByIdQuery.getGiftCardById.amount)}</h2>
       <h2>Card Number: {getGiftCardByIdQuery.getGiftCardById.cardNumber}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField

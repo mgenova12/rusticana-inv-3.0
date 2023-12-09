@@ -8,5 +8,6 @@ module Types
     field :locations, [LocationType], null: true
     field :is_prepcenter_store_goods, [StoreGoodType], null: true
     field :gift_card_money_owed, Float, null: true
+    field :gift_card_invoices, [GiftCardInvoiceType], null: true
   end
 end

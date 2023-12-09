@@ -32,6 +32,11 @@ const GiftCardPurchase = ({...props}) => {
 
   if (getGiftCardByIdQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
+  let USDollar = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+  });
+
   return (
     <div>
       {errors.length > 0 &&
@@ -42,7 +47,7 @@ const GiftCardPurchase = ({...props}) => {
       <Container component="main" maxWidth="sm">
       <h1> Make Purchase </h1>
       <hr/>
-      <h2>Amount on Card: ${getGiftCardByIdQuery.getGiftCardById.amount}</h2>
+      <h2>Amount on Card: {USDollar.format(getGiftCardByIdQuery.getGiftCardById.amount)}</h2>
       <h2>Card Number: {getGiftCardByIdQuery.getGiftCardById.cardNumber}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField

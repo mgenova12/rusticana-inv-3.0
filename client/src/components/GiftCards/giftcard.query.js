@@ -46,6 +46,15 @@ export const GET_STORES = gql`
       id
       name
       giftCardMoneyOwed
+      giftCardInvoices {
+        id
+        amountPaid
+        createdAt
+        store {
+          id
+          name
+        }
+      }
     }
   }
   `  

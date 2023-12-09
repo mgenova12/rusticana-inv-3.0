@@ -13,6 +13,11 @@ const GiftCardLog = ({...props}) => {
   })
 
   if (getGiftCardChangesQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  
+  let USDollar = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+  });
 
   return (
     <div>
@@ -35,10 +40,10 @@ const GiftCardLog = ({...props}) => {
                 <tr key={giftCardChange.id}>
                   <td>{giftCardChange.id}</td>
                   <td>{giftCardChange.giftCard.cardNumber}</td>
-                  {giftCardChange.changeEvent === 'add' ? 
-                    <td> + ${giftCardChange.changeValue} </td>
+                  {giftCardChange.changeEvent === 'add' ?
+                    <td> + {USDollar.format(giftCardChange.changeValue)} </td>
                     :
-                    <td> - ${giftCardChange.changeValue} </td>
+                    <td> - {USDollar.format(giftCardChange.changeValue)} </td>
                   }
                   <td>{giftCardChange.store.name}</td>
                   <td>{giftCardChange.paymentMethod}</td>

@@ -12,9 +12,14 @@ const CardData = ({...props}) => {
   
   const { startOver } = props;
 
+  let USDollar = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+  });
+
   return (
     <div>
-      <h2>Amount: ${props.cardData.amount} </h2>
+      <h2>Amount: {USDollar.format(props.cardData.amount)} </h2>
       <h2>Card Number: {props.cardData.cardNumber} </h2>
 
       <div className="d-inline-block">

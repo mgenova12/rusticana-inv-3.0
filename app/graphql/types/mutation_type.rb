@@ -31,5 +31,6 @@ module Types
     field :edit_final_quick_order, mutation: Mutations::EditFinalQuickOrder
     field :create_gift_card, mutation: Mutations::CreateGiftCard
     field :edit_gift_card_value, mutation: Mutations::EditGiftCardValue
+    field :create_gift_card_invoice, mutation: Mutations::CreateGiftCardInvoice
   end
 end

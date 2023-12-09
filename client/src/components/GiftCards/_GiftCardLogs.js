@@ -35,6 +35,11 @@ const GiftCardLogs = ({...props}) => {
 
   if (giftCardsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (getGiftCardLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+  
+  let USDollar = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+  });
 
   return (
     <div>
@@ -87,9 +92,9 @@ const GiftCardLogs = ({...props}) => {
                   <td>{giftCard.lastName}</td>
                   <td>{giftCard.phoneNumber}</td>
                   <td>{giftCard.cardNumber}</td> 
-                  <td>${giftCard.amount}</td>
+                  <td>{USDollar.format(giftCard.amount)}</td>
                   <td>{giftCard.store.name}</td>
-                  <td>${giftCard.moneyOwed}</td>
+                  <td>{USDollar.format(giftCard.moneyOwed)}</td>
                   <td>{new Date(giftCard.createdAt.replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</td>
                 </tr> 
             ))}

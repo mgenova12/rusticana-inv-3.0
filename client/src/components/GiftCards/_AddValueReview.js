@@ -34,6 +34,11 @@ const AddValueReview = ({...props}) => {
 
   const cardInfo = props.location?.data;
 
+  let USDollar = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+  });
+
   return (
     <div>
       { success &&
@@ -46,9 +51,9 @@ const AddValueReview = ({...props}) => {
       <hr/>
       <h3>Card Number: {cardInfo?.cardNumber}</h3>
       <h3>Payment Method: {cardInfo?.paymentMethod}</h3>
-      <h3>Current Card Amount: ${cardInfo?.amount}</h3>
-      <h3>Payment Amount: ${cardInfo?.valueAmount}</h3>
-      <h3>New Card Amount: ${(parseFloat(cardInfo?.amount) + parseFloat(cardInfo?.valueAmount)).toFixed(2)}</h3>
+      <h3>Current Card Amount: {USDollar.format(cardInfo?.amount)}</h3>
+      <h3>Payment Amount: {USDollar.format(cardInfo?.valueAmount)}</h3>
+      <h3>New Card Amount: {USDollar.format(parseFloat(cardInfo?.amount) + parseFloat(cardInfo?.valueAmount))}</h3>
 
       { (!buttonToggle) ?
         <div className="d-inline-block">
