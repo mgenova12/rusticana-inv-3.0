@@ -12,6 +12,7 @@ import BeatLoader from "react-spinners/BeatLoader"
 const Inventory = ({...props}) => {
   const { register, handleSubmit, errors, getValues } = useForm({mode: "onChange"});
   const [editInventoryQuantity] = useMutation(EDIT_INVENTORY_QUANTITY);
+
   const [editInventoryQuantityNeeded, { loading: inventoryQuantityNeededLoading, data: mutationData }] = useMutation(EDIT_INVENTORY_QUANTITY_NEEDED,{
     onCompleted(data) {
       if (data.editInventoryQuantityNeeded.errors.length < 1){
@@ -58,16 +59,17 @@ const Inventory = ({...props}) => {
 
   const onSubmit = data => {
     editInventoryQuantityNeeded({
-      variables: { 
+      variables: {
         orderId: parseInt(props.match.params.orderId),
+        inventoryInput: [JSON.stringify(data)]
       }
     })
   }
-  
+
   if (inventoryQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (locationsQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
   if (inventoryQuantityNeededLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
-  
+
   return (
     <div>
       {mutationData && mutationData.editInventoryQuantityNeeded.errors.length > 0 &&
@@ -90,6 +92,7 @@ const Inventory = ({...props}) => {
               <tr align='center'> 
                 <th colSpan="3">{location.name}</th>
               </tr>
+
               {inventoryQuery.getOrder.pendingInventories.map((inventory) => (
                 (inventory.storeGood.location.id === location.id &&
                   <tr key={inventory.id}> 
@@ -100,7 +103,7 @@ const Inventory = ({...props}) => {
                         <TextField
                           inputRef={register({required: true})}
                           error={errors[inventory.id] ? true : false} 
-                          onChange={() => handleSave(inventory.id)}                    
+                          onChange={() => handleSave(inventory.id)}
                           pattern="\d*"
                           onKeyDown={handleEnter}
                           type="number"
@@ -144,11 +147,12 @@ const Inventory = ({...props}) => {
                           <option key='75' value='75'>75%</option>
                           <option key='100' value='100'>100%</option>
                         </TextField>
-                      )}                         
+                      )}
                     </td> 
                   </tr>
                 )
               ))}
+
             </thead>
           ))}
         </table> 

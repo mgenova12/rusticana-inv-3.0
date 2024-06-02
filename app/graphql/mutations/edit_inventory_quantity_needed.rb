@@ -1,11 +1,21 @@
 class Mutations::EditInventoryQuantityNeeded < Mutations::BaseMutation
   argument :order_id, Integer, required: true
+  argument :inventory_input, [String], required: true
 
   field :errors, [String], null: false
 
-  def resolve(order_id:)
+  def resolve(order_id:, inventory_input:)
+    submitted_inventory = eval(inventory_input[0])
     order = Order.find(order_id)
-    
+
+    submitted_inventory.each do |inventory_id, quantity|
+      found_inventory = order.inventories.find_by(id: inventory_id.to_s)
+
+      if found_inventory && found_inventory.quantity.nil?
+        found_inventory.update(quantity: quantity.to_i)
+      end
+    end
+
     if order.inventories.where(quantity: nil).size > 0
       {
         errors: ['You must fill out all fields!']
