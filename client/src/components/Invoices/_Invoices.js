@@ -31,6 +31,14 @@ const Invoices = ({...props}) => {
     props.history.push(`/invoices/order/${rowData.id}`)
   }
 
+  const handleDeliveryDate = (rowData) => {
+    if (rowData.isQuickOrder) {
+      return 'Quick Order'
+    } else {
+      return (new Date(rowData.storeOrder?.deliveryDate?.replace(/-/g, '/')).toLocaleDateString([], "en-US", { weekday: 'long'}))
+    }
+  }
+
   const [components] = useState({
     Toolbar: props => (
       <div>
@@ -77,7 +85,7 @@ const Invoices = ({...props}) => {
     : invoicesQuery.invoices.filter(invoice =>
         invoice.store.id === activeTab
       );
-    console.log(storesQuery.stores)
+
   return (
     <div>
        <AppBar position="static" color="default">
@@ -123,6 +131,9 @@ const Invoices = ({...props}) => {
       
           columns={[
             { title: 'ID', field: 'id', editable: 'never' },
+            { title: 'Delivery Date',
+              render: rowData => handleDeliveryDate(rowData)
+            },
             { title: 'Time Placed', field: 'createdAt', 
               render: row => <span>{ new Date(row["createdAt"].replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
             },

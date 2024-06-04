@@ -1,12 +1,19 @@
 class Mutations::EditFinalInventoryOrder < Mutations::BaseMutation
   argument :order_id, Integer, required: true
   argument :store_order_id, Integer, required: true
+  argument :reason_code_input, [String], required: true
 
   field :errors, [String], null: false
 
-  def resolve(order_id:, store_order_id:)
+  def resolve(order_id:, store_order_id:, reason_code_input:)
     order = Order.find(order_id)
     store_order = StoreOrder.find(store_order_id)
+    reason_codes = eval(reason_code_input[0])
+
+    reason_codes.each do |inventory_id, reason_code|
+      found_inventory = order.inventories.find_by(id: inventory_id.to_s)
+      found_inventory.update(reason_code: reason_code)
+    end
 
     if store_order.orders_complete >= 3
       store_order.update(status: 'Delivered')

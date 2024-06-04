@@ -5,10 +5,13 @@ import { gql } from '@apollo/client';
 	    invoices {
 	      id
 	      createdAt
-	      deliveryDay
 	      status
 	      saleTotal
 	      isQuickOrder
+	      storeOrder {
+	      	id
+	      	deliveryDate
+	      }
 	      store {
 	      	id
 	      	name
@@ -29,6 +32,7 @@ import { gql } from '@apollo/client';
 		      invoicedPrice
 		      invoicedQuantity
 		      invoicedProductPrice
+		      reasonCode
 		      storeGoodIncludingDeleted {
 		      	id
 		      	isPrepcenter

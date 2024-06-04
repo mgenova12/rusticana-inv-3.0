@@ -38,6 +38,16 @@ const Invoice = ({...props}) => {
     }    
   })
 
+  const handleData = (rowData) => {
+    if (rowData.reasonCode) {
+      return <p className="text-danger">{rowData.reasonCode}</p>
+    } else if (rowData.invoicedProductPrice) {
+      return (parseFloat(rowData.invoicedProductPrice)).toLocaleString('en-US', {style: 'currency',currency: 'USD'})
+    } else {
+      return ''
+    }
+  }
+
   if (invoiceQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   let result
@@ -71,9 +81,7 @@ const Invoice = ({...props}) => {
             { title: 'Product', field: 'storeGoodIncludingDeleted.product.name' },
             
             { title: 'Invoiced Price',  
-              render: rowData => (
-                (parseFloat(rowData.invoicedProductPrice)).toLocaleString('en-US', {style: 'currency',currency: 'USD'})
-              )   
+              render: rowData => (handleData(rowData))
             },            
             { title: 'Case Quantity', field: 'storeGoodIncludingDeleted.product.caseQuantity' },
             { title: 'Quantity Invoiced', field: 'invoicedQuantity' },

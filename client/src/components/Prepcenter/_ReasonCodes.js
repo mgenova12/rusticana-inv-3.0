@@ -20,12 +20,12 @@ const ReasonCodes = ({...props}) => {
 
   const onSubmit = data => {
     editFinalInventoryOrder({ 
-      variables: { 
+      variables: {
         orderId: parseInt(props.match.params.orderId),
         storeOrderId: parseInt(props.match.params.storeOrderId),
+        reasonCodeInput: [JSON.stringify(data)]
       }
-    }).then(() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory_success`)); 
-
+    }).then(() => props.history.push(`/prepcenter/${props.match.params.prepcenterId}/inventory_success`));
   }
 
   if (unscannedStoreOrderInventoriesLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
