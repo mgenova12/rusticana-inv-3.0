@@ -5,12 +5,13 @@ class Mutations::CreateGiftCard< Mutations::BaseMutation
   argument :first_name, String, required: true
   argument :last_name, String, required: true
   argument :phone_number, String, required: true
+  argument :email, String, required: true
   argument :payment_method, String, required: true
 
   field :gift_card, Types::GiftCardType, null: true
   field :errors, [String], null: false
 
-  def resolve(card_number:, amount:, store_id:, first_name:, last_name:, phone_number:, payment_method:)
+  def resolve(card_number:, amount:, store_id:, first_name:, last_name:, phone_number:, email:, payment_method:)
 
     gift_card = GiftCard.new(
       card_number: card_number,
@@ -20,6 +21,7 @@ class Mutations::CreateGiftCard< Mutations::BaseMutation
       first_name: first_name,
       last_name: last_name,
       phone_number: phone_number,
+      email: email,
     )
 
     if gift_card.save

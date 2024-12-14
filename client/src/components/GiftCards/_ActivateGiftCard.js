@@ -97,7 +97,20 @@ const ActivateGiftCard = ({...props}) => {
               InputLabelProps={{
                 shrink: true,
               }}
-            />                        
+            />
+            <TextField
+              label="Email"
+              name="email"
+              inputRef={register({required: true})}
+              placeholder="Email"
+              fullWidth
+              margin="normal"
+              type="email"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
             <TextField
               label="Enter Gift Card Amount"
               name="amount"

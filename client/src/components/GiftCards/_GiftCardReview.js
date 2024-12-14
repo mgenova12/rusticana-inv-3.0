@@ -30,6 +30,7 @@ const GiftCardReview = ({...props}) => {
           firstName: data.firstName,
           lastName: data.lastName,
           phoneNumber: data.phoneNumber,
+          email: data.email,
           paymentMethod: data.paymentMethod
         }
       })
@@ -61,6 +62,7 @@ const GiftCardReview = ({...props}) => {
           <h3>First Name: {cardInfo?.firstName}</h3>
           <h3>Last Name: {cardInfo?.lastName} </h3>
           <h3>Phone Number: {cardInfo?.phoneNumber} </h3>
+          <h3>Email: {cardInfo?.email} </h3>
           <h3>Payment Method: {cardInfo?.paymentMethod}</h3>
           <h3>Card Number: {cardInfo?.cardNumber} </h3>
           <h3>Starting Amount: ${cardInfo?.amount} </h3>
