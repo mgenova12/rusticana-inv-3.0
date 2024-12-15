@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 
 const AddValue = ({...props}) => {
   const { register, handleSubmit } = useForm({mode: "onBlur"});
-  const [errors, setErrors] = useState([])
 
   const [paymentMethod, setPaymentMethod] = useState({
     credit: false,
@@ -50,8 +49,6 @@ const AddValue = ({...props}) => {
 
     if (giftCardData) {
       props.history.push({pathname:`/gift_cards/store/${props.match.params.storeId}/add_value_review`, data: giftCardData })
-    } else {
-      setErrors(['ERROR'])
     }
   }
 

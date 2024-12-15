@@ -16,7 +16,7 @@ const AddValueReview = ({...props}) => {
 
   const onSubmit = () => {
     const data = props.location.data
-    console.log(data)
+
     if (data) {
       editGiftCardValue({
         variables: {

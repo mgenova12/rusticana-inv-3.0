@@ -23,10 +23,10 @@ const GiftCardPurchase = ({...props}) => {
     giftCardData.cardNumber = getGiftCardByIdQuery.getGiftCardById.cardNumber
     giftCardData.amount = getGiftCardByIdQuery.getGiftCardById.amount
 
-    if (giftCardData) {
+    if (giftCardData && (data.purchaseAmount <= getGiftCardByIdQuery.getGiftCardById.amount)) {
       props.history.push({pathname:`/gift_cards/store/${props.match.params.storeId}/purchase_review`, data: giftCardData })
     } else {
-      setErrors(['ERROR'])
+      setErrors(['Cannot make purchase higher then card amount'])
     }
   }
 

@@ -23,16 +23,18 @@ const CardData = ({...props}) => {
       <h2>Card Number: {props.cardData.cardNumber} </h2>
 
       <div className="d-inline-block">
-      <Button 
-          type='submit' 
-          variant="contained" 
-          color="primary" 
-          size="large" 
-          className="button mr-2" 
-          onClick={() => handlePurchaseRedirct()}>
-          Make Purchase
-      </Button>
 
+      { props.cardData.amount > 0 &&
+        <Button
+            type='submit'
+            variant="contained"
+            color="primary"
+            size="large"
+            className="button mr-2"
+            onClick={() => handlePurchaseRedirct()}>
+            Make Purchase
+        </Button>
+      }
        <Button 
           type='submit' 
           variant="contained" 

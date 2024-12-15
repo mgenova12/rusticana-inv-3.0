@@ -17,7 +17,6 @@ const SwipeGiftCard = ({...props}) => {
   const [currentCardNumber, setCurrentCardNumber] = useState(null)
   const [redirect, setRedirect] = useState(false);
 
-
   const [getGiftCard, {loading: getGiftCardLoading}] = useLazyQuery(GET_GIFT_CARD, {
     fetchPolicy: "network-only",
     onCompleted(data) {
