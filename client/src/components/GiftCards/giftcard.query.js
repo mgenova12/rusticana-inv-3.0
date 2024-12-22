@@ -27,9 +27,12 @@ export const GET_GIFT_CARDS = gql`
 	    cardNumber
 	    amount
 	    moneyOwed
-      firstName
-      lastName
-      phoneNumber
+      customer {
+        id
+        firstName
+        lastName
+        phoneNumber
+      }
       createdAt
 	    store {
 	    	id

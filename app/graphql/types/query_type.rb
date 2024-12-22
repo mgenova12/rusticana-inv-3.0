@@ -25,5 +25,6 @@ module Types
     field :gift_cards, resolver: Queries::GiftCards
     field :get_gift_card_changes, resolver: Queries::GetGiftCardChanges
 
+    # field :customers, resolver: Queries::Customers
   end
 end

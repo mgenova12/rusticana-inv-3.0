@@ -12,16 +12,23 @@ class Mutations::CreateGiftCard< Mutations::BaseMutation
   field :errors, [String], null: false
 
   def resolve(card_number:, amount:, store_id:, first_name:, last_name:, phone_number:, email:, payment_method:)
+    found_customer = Customer.find_by(first_name: first_name.strip, last_name: last_name.strip)
+
+    if !found_customer
+      found_customer = Customer.create!(
+        first_name: first_name,
+        last_name: last_name,
+        phone_number: phone_number,
+        email: email
+      )
+    end
 
     gift_card = GiftCard.new(
       card_number: card_number,
       amount: amount,
       store_id: store_id,
       money_owed: 0,
-      first_name: first_name,
-      last_name: last_name,
-      phone_number: phone_number,
-      email: email,
+      customer_id: found_customer.id
     )
 
     if gift_card.save
