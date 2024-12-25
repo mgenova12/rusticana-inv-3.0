@@ -42,6 +42,8 @@ import AddValueReview from './components/GiftCards/_AddValueReview.js';
 
 import GiftCardInvoices from './components/GiftCards/_GiftCardInvoices.js';
 
+import Customers from './components/Customers/_Customers.js';
+
 import Users from './components/Users/_Users.js';
 
 import Invoices from './components/Invoices/_Invoices.js';
@@ -168,6 +170,8 @@ export const Routes = () => {
           
           <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/purchase" component={GiftCardPurchase} />
           <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/add_value" component={AddValue} />
+
+          <PrivateRoute exact path="/customers" component={Customers} />
 
       		<Route exact path='/login' component={Login} />
       </Switch>

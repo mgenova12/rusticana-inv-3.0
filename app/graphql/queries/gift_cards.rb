@@ -6,7 +6,7 @@ module Queries
     type [Types::GiftCardType], null: false
 
     def resolve
-      GiftCard.all.reverse
+      GiftCard.order('created_at DESC')
     end
   end
 end

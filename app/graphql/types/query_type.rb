@@ -15,16 +15,16 @@ module Types
     field :invoices, resolver: Queries::Invoices
     field :current_user, resolver: Queries::CurrentUser
     field :users, resolver: Queries::Users
-    
+
     field :get_order, resolver: Queries::GetOrder
     field :get_store, resolver: Queries::GetStore
     field :get_prepcenter, resolver: Queries::GetPrepcenter
-    
+
     field :get_gift_card, resolver: Queries::GetGiftCard
     field :get_gift_card_by_id, resolver: Queries::GetGiftCardById
     field :gift_cards, resolver: Queries::GiftCards
     field :get_gift_card_changes, resolver: Queries::GetGiftCardChanges
 
-    # field :customers, resolver: Queries::Customers
+    field :customers, resolver: Queries::Customers
   end
 end

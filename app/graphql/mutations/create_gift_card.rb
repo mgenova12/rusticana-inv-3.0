@@ -12,7 +12,10 @@ class Mutations::CreateGiftCard< Mutations::BaseMutation
   field :errors, [String], null: false
 
   def resolve(card_number:, amount:, store_id:, first_name:, last_name:, phone_number:, email:, payment_method:)
-    found_customer = Customer.find_by(first_name: first_name.strip, last_name: last_name.strip)
+    found_customer = Customer.find_by(
+      "LOWER(first_name)= ? AND LOWER(last_name) = ? AND phone_number = ?",
+      first_name.strip.downcase, last_name.strip.downcase, phone_number
+    )
 
     if !found_customer
       found_customer = Customer.create!(
