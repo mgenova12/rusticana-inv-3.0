@@ -8,6 +8,8 @@ export const GET_CUSTOMERS = gql`
 			lastName
 			phoneNumber
    		email
+   		giftCardCount
+			createdAt
 	  }
 	}
 	`

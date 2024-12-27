@@ -6,7 +6,7 @@ module Queries
     type [Types::CustomerType], null: false
 
     def resolve
-      Customer.all
+      Customer.order('created_at DESC')
     end
 
   end

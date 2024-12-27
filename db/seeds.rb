@@ -741,26 +741,23 @@
 
 # order_ids.each{|x| update_orders(x)}
 
-
-
 # GiftCard.all.each do |gc|
-#   found_customer = Customer.find_by(first_name: gc.first_name.strip, last_name: gc.last_name.strip)
+#   found_customer = Customer.find_by(
+#     "LOWER(first_name)= ? AND LOWER(last_name) = ?",
+#     gc.first_name.strip.downcase, gc.last_name.strip.downcase
+#   )
 
 #   if !found_customer
-#     puts "creating new Customer"
+#     puts "creating new Customer for #{gc.id}"
 #     new_cus = Customer.create!(
-#       first_name: gc.first_name,
-#       last_name: gc.last_name,
+#       first_name: gc.first_name.strip,
+#       last_name: gc.last_name.strip,
 #       phone_number: gc.phone_number,
 #       email: gc.email
 #     )
 #     gc.update!(customer_id: new_cus.id)
 #   else
-#     puts "customer found!"
+#     puts "customer found! updating - #{gc.id}"
 #     gc.update!(customer_id: found_customer.id)
 #   end
 # end
-
-
-
-
