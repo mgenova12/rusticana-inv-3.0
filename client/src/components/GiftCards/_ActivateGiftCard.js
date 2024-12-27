@@ -46,6 +46,27 @@ const ActivateGiftCard = ({...props}) => {
 
   const { cash, credit } = paymentMethod;
 
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const formatPhoneNumber = (value) => {
+    // Remove all non-numeric characters
+    const numericValue = value.replace(/\D/g, '');
+
+    // Format as (XXX) XXX-XXXX
+    if (numericValue.length <= 3) {
+      return `(${numericValue}`;
+    } else if (numericValue.length <= 6) {
+      return `(${numericValue.slice(0, 3)}) ${numericValue.slice(3)}`;
+    } else {
+      return `(${numericValue.slice(0, 3)}) ${numericValue.slice(3, 6)}-${numericValue.slice(6, 10)}`;
+    }
+  };
+
+  const handlePhoneChange = (e) => {
+    const formattedNumber = formatPhoneNumber(e.target.value);
+    setPhoneNumber(formattedNumber);
+  };
+
   return (
     <div>
       {errors.length > 0 &&
@@ -88,6 +109,8 @@ const ActivateGiftCard = ({...props}) => {
             <TextField
               label="Phone Number"
               name="phoneNumber"
+              value={phoneNumber}
+              onChange={handlePhoneChange}
               inputRef={register({required: true})}
               placeholder="Phone Number"
               fullWidth

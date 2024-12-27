@@ -761,3 +761,17 @@
 #     gc.update!(customer_id: found_customer.id)
 #   end
 # end
+
+
+# Customer.where.not("phone_number ~* ?", '^\(\d{3}\) \d{3}-\d{4}$').find_each do |user|
+#   raw_phone = user.phone_number.gsub(/\D/, '') # Remove non-digit characters
+
+#   # Skip if the phone number is empty or has invalid length
+#   next if raw_phone.empty? || raw_phone.length != 10
+
+#   # Format phone number (e.g., from 1234567890 to (123) 456-7890)
+#   formatted_phone = raw_phone.gsub(/^(\d{3})(\d{3})(\d{4})$/, '(\1) \2-\3')
+
+#   # Update the user phone number
+#   user.update(phone_number: formatted_phone)
+# end
