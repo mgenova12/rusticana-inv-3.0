@@ -15,7 +15,13 @@ function Alert(props) {
 }
 
 const NewProductDrawer = ({ visible, onClose, customersRetch }) => {
-  const [createCustomer] = useMutation(CREATE_CUSTOMER);
+  const [createCustomer] = useMutation(CREATE_CUSTOMER, {
+    onCompleted(data) {
+      customersRetch()
+      handleOpen()
+      onClose()
+    }
+  });
 
   const { register, handleSubmit, errors, reset } = useForm({mode: "onBlur"});
 
@@ -32,10 +38,7 @@ const NewProductDrawer = ({ visible, onClose, customersRetch }) => {
         email: data.email,
       }
     });
-    handleOpen()
-    customersRetch()
 		reset()
-		onClose()
   }
 
   const [phoneNumber, setPhoneNumber] = useState('');
