@@ -28,28 +28,29 @@ import Restaurant from '@material-ui/icons/Restaurant';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-
 import CardGiftcard from '@material-ui/icons/CardGiftcard';
 import CreditCard from '@material-ui/icons/CreditCard';
 
 export const Navbar = ({...props}, currentUser) => {
+  const currentLocation = props.currentLocation
+
   let path = props.match.path.split('/')
 
   const getName = () => {
-    let path = props.match.path.split('/')[1]
     let id = props.match.params.storeId
-    if (path === 'prepcenter'){
+    if (currentLocation === 'prepcenter'){
       return 'Trappe'
-    } else if((path === 'store' || path === 'gift_cards') && id === '1'){
+    } else if((currentLocation === 'store' || path === 'giftCard') && id === '1'){
       return 'Dover Road'
-    } else if((path === 'store' || path === 'gift_cards') && id === '2'){
+    } else if((currentLocation === 'store' || path === 'giftCard') && id === '2'){
       return 'Bypass'
-    } else if((path === 'store' || path === 'gift_cards') && id === '3'){
+    } else if((currentLocation === 'store' || path === 'giftCard') && id === '3'){
       return 'Cambridge'
     } else {
       return 'Rusticana'
     }
   };
+
   const history = useHistory();
   const [state, setState] = useState({open: false});
 
@@ -71,14 +72,14 @@ export const Navbar = ({...props}, currentUser) => {
 	        </ListItem>
           <hr/>
 
-          { path[1] !== 'gift_cards' &&
-	        <ListItem component={Link} to={`/`} key={'Home'}>
-	          <ListItemIcon><Home/></ListItemIcon>
-	          <ListItemText primary={'Home'} />
-	        </ListItem> 
+          { currentLocation !== 'giftCard' &&
+  	        <ListItem component={Link} to={`/`} key={'Home'}>
+  	          <ListItemIcon><Home/></ListItemIcon>
+  	          <ListItemText primary={'Home'} />
+  	        </ListItem>
           }
 
-          { path[1] === 'globals' &&
+          { currentLocation === 'global' &&
             <React.Fragment>
               <ListItem component={Link} to={`/globals/products`} key={'Products'}>
                 <ListItemIcon><Restaurant/></ListItemIcon>
@@ -93,110 +94,110 @@ export const Navbar = ({...props}, currentUser) => {
               <ListItem component={Link} to={`/globals/distributors`} key={'Distrubtors'}>
                 <ListItemIcon><LocalShipping/></ListItemIcon>
                 <ListItemText primary={'Distrubtors'} />
-              </ListItem> 
+              </ListItem>
             </React.Fragment>
           }
 
-          { path[1] === 'prepcenter' &&
-          <React.Fragment>
-            <ListItem key={'Store Orders'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/store_orders`}>
-              <ListItemIcon><ChromeReaderMode/></ListItemIcon>
-              <ListItemText primary={'Store Orders'} />
-            </ListItem>
+          { currentLocation === 'prepcenter' &&
+            <React.Fragment>
+              <ListItem key={'Store Orders'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/store_orders`}>
+                <ListItemIcon><ChromeReaderMode/></ListItemIcon>
+                <ListItemText primary={'Store Orders'} />
+              </ListItem>
 
-            <ListItem key={'Start Inventory'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/start_inventory`}>
-              <ListItemIcon><Description/></ListItemIcon>
-              <ListItemText primary={'Start Inventory'} />
-            </ListItem> 
+              <ListItem key={'Start Inventory'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/start_inventory`}>
+                <ListItemIcon><Description/></ListItemIcon>
+                <ListItemText primary={'Start Inventory'} />
+              </ListItem>
 
-            <ListItem key={'Submitted Inventory'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/orders`}>
-              <ListItemIcon><EventNote/></ListItemIcon>
-              <ListItemText primary={'Submitted Inventory'} />
-            </ListItem> 
+              <ListItem key={'Submitted Inventory'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/orders`}>
+                <ListItemIcon><EventNote/></ListItemIcon>
+                <ListItemText primary={'Submitted Inventory'} />
+              </ListItem> 
 
-            <ListItem key={'Print Labels'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/print_labels`}>
-              <ListItemIcon><Print/></ListItemIcon>
-              <ListItemText primary={'Print Labels'} />
-            </ListItem> 
+              <ListItem key={'Print Labels'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/print_labels`}>
+                <ListItemIcon><Print/></ListItemIcon>
+                <ListItemText primary={'Print Labels'} />
+              </ListItem>
 
-            <ListItem key={'Store Goods'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/store_goods`}>
-              <ListItemIcon><LocalDining/></ListItemIcon>
-              <ListItemText primary={'Store Goods'} />
-            </ListItem> 
+              <ListItem key={'Store Goods'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/store_goods`}>
+                <ListItemIcon><LocalDining/></ListItemIcon>
+                <ListItemText primary={'Store Goods'} />
+              </ListItem>
 
-            <ListItem key={'Add Store Goods'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/add_store_goods`}>
-              <ListItemIcon><AddShoppingCart/></ListItemIcon>
-              <ListItemText primary={'Add Store Goods'} />
-            </ListItem>
+              <ListItem key={'Add Store Goods'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/add_store_goods`}>
+                <ListItemIcon><AddShoppingCart/></ListItemIcon>
+                <ListItemText primary={'Add Store Goods'} />
+              </ListItem>
 
-            <ListItem key={'Locations'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/locations`}>
-              <ListItemIcon><LocationCity/></ListItemIcon>
-              <ListItemText primary={'Locations'} />
-            </ListItem>
+              <ListItem key={'Locations'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/locations`}>
+                <ListItemIcon><LocationCity/></ListItemIcon>
+                <ListItemText primary={'Locations'} />
+              </ListItem>
 
-            <ListItem key={'Quick Order'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/start_quick_order`}>
-              <ListItemIcon><AccessAlarmIcon/></ListItemIcon>
-              <ListItemText primary={'Quick Order'} />
-            </ListItem>
-          </React.Fragment>
-          } 
-
-          { path[1] === 'store' &&
-          <React.Fragment>
-            <ListItem key={'Start Inventory'} component={Link} to={`/store/${props.match.params.storeId}/start_inventory`}>
-              <ListItemIcon><Description/></ListItemIcon>
-              <ListItemText primary={'Start Inventory'} />
-            </ListItem> 
-
-            <ListItem  key={'Orders'} component={Link} to={`/store/${props.match.params.storeId}/orders`}>
-              <ListItemIcon><EventNote/></ListItemIcon>
-              <ListItemText primary={'Submitted Inventory'} />
-            </ListItem> 
-
-            <ListItem key={'Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/store_goods`}>
-              <ListItemIcon><LocalDining/></ListItemIcon>
-              <ListItemText primary={'Store Goods'} />
-            </ListItem>
-
-            <ListItem key={'Adjust Inventory'}>
-              <ListItemIcon><NoteAdd/></ListItemIcon>
-              <ListItemText primary={'Adjust Inventory'} />
-            </ListItem>  
-
-            <ListItem key={'Add Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/add_store_goods`}>
-              <ListItemIcon><AddShoppingCart/></ListItemIcon>
-              <ListItemText primary={'Add Store Goods'} />
-            </ListItem>
-
-            <ListItem key={'Locations'} component={Link} to={`/store/${props.match.params.storeId}/locations`}>
-              <ListItemIcon><LocationCity/></ListItemIcon>
-              <ListItemText primary={'Locations'} />
-            </ListItem>
-
-            <ListItem key={'Swipe Gift Card'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/swipe`}>
-              <ListItemIcon><CreditCard/></ListItemIcon>
-              <ListItemText primary={'Swipe Gift Card'} />              
-            </ListItem>  
-
-            <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/logs`}>
-              <ListItemIcon><CardGiftcard/></ListItemIcon>
-              <ListItemText primary={'Gift Card Logs'} />              
-            </ListItem>              
-          </React.Fragment>
+              <ListItem key={'Quick Order'} component={Link} to={`/prepcenter/${props.match.params.prepcenterId}/start_quick_order`}>
+                <ListItemIcon><AccessAlarmIcon/></ListItemIcon>
+                <ListItemText primary={'Quick Order'} />
+              </ListItem>
+            </React.Fragment>
           }
 
-          { path[1] === 'gift_cards' &&
-          <React.Fragment>
-            <ListItem key={'Swipe Gift Card'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/swipe`}>
-              <ListItemIcon><CreditCard/></ListItemIcon>
-              <ListItemText primary={'Swipe Gift Card'} />              
-            </ListItem>  
+          { currentLocation === 'store' &&
+            <React.Fragment>
+              <ListItem key={'Start Inventory'} component={Link} to={`/store/${props.match.params.storeId}/start_inventory`}>
+                <ListItemIcon><Description/></ListItemIcon>
+                <ListItemText primary={'Start Inventory'} />
+              </ListItem>
 
-            <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/logs`}>
-              <ListItemIcon><CardGiftcard/></ListItemIcon>
-              <ListItemText primary={'Gift Card Logs'} />              
-            </ListItem>  
-          </React.Fragment>
+              <ListItem  key={'Orders'} component={Link} to={`/store/${props.match.params.storeId}/orders`}>
+                <ListItemIcon><EventNote/></ListItemIcon>
+                <ListItemText primary={'Submitted Inventory'} />
+              </ListItem>
+
+              <ListItem key={'Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/store_goods`}>
+                <ListItemIcon><LocalDining/></ListItemIcon>
+                <ListItemText primary={'Store Goods'} />
+              </ListItem>
+
+              <ListItem key={'Adjust Inventory'}>
+                <ListItemIcon><NoteAdd/></ListItemIcon>
+                <ListItemText primary={'Adjust Inventory'} />
+              </ListItem>
+
+              <ListItem key={'Add Store Goods'} component={Link} to={`/store/${props.match.params.storeId}/add_store_goods`}>
+                <ListItemIcon><AddShoppingCart/></ListItemIcon>
+                <ListItemText primary={'Add Store Goods'} />
+              </ListItem>
+
+              <ListItem key={'Locations'} component={Link} to={`/store/${props.match.params.storeId}/locations`}>
+                <ListItemIcon><LocationCity/></ListItemIcon>
+                <ListItemText primary={'Locations'} />
+              </ListItem>
+
+              <ListItem key={'Swipe Gift Card'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/swipe`}>
+                <ListItemIcon><CreditCard/></ListItemIcon>
+                <ListItemText primary={'Swipe Gift Card'} />
+              </ListItem>
+
+              <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/logs`}>
+                <ListItemIcon><CardGiftcard/></ListItemIcon>
+                <ListItemText primary={'Gift Card Logs'} />
+              </ListItem>
+            </React.Fragment>
+          }
+
+          { currentLocation === 'giftCard' &&
+            <React.Fragment>
+              <ListItem key={'Swipe Gift Card'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/swipe`}>
+                <ListItemIcon><CreditCard/></ListItemIcon>
+                <ListItemText primary={'Swipe Gift Card'} />
+              </ListItem>
+
+              <ListItem key={'Gift Card Logs'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/logs`}>
+                <ListItemIcon><CardGiftcard/></ListItemIcon>
+                <ListItemText primary={'Gift Card Logs'} />
+              </ListItem>
+            </React.Fragment>
           }
 	    </List>
     </div>

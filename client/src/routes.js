@@ -56,28 +56,20 @@ import { Navbar } from './navbar'
 
 import { useQuery } from '@apollo/client';
 import { GET_CURRENT_USER } from './components/Auth/auth.query'
-// import { GET_CURRENT_STORE} from './components/Auth/auth.query'
 import BeatLoader from "react-spinners/BeatLoader"
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ currentLocation, component: Component, ...rest}) => {
 
   const {data: currentUserQuery, loading: currentUserQueryLoading} = useQuery(GET_CURRENT_USER)
-  // const {data: currentStoreQuery, loading: currentStoreQueryLoading} = useQuery(GET_CURRENT_STORE, {
-  //   fetchPolicy: "network-only",
-  //   variables: {
-  //     id: rest.computedMatch.params.storeId ? parseInt(rest.computedMatch.params.storeId) : parseInt(rest.computedMatch.params.prepcenterId),
-  //     storeName: rest.computedMatch.path.split('/')[1]
-  //   } 
-  // })
 
   if (currentUserQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
-  // if (currentStoreQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
 
   return (
     <Route
       {...rest}
       render={props => {
-       //  console.log(props)
+        // console.log(rest)
+        // console.log(props)
 
         const isLoggedIn = !!getToken();
 
@@ -87,7 +79,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               <Navbar
                 {...props}
                 currentUser={currentUserQuery.currentUser}
-                // currentStore={currentStoreQuery}
+                currentLocation={currentLocation}
               />
            
               <Component {...props} />
@@ -115,63 +107,57 @@ export const Routes = () => {
     <div>
       
       <Switch>
-	        <PrivateRoute exact path="/" component={Home}  />
-          
-	        <PrivateRoute exact path="/globals/products" component={Products}/>
-          <PrivateRoute exact path="/globals/prepped_products" component={PreppedProducts} />
-	        <PrivateRoute exact path="/globals/distributors" component={Distributors} />
-          
-          <PrivateRoute exact path="/store/:storeId/locations" component={Locations} />
-          <PrivateRoute exact path="/store/:storeId/store_goods" component={StoreGoods} />
-          <PrivateRoute exact path="/store/:storeId/add_store_goods" component={AddStoreGood} />
-          <PrivateRoute exact path="/store/:storeId/start_inventory" component={StartInventory} />
+	        <PrivateRoute exact path="/" component={Home} currentLocation={'home'}/>
+          <PrivateRoute exact path="/invoices" component={Invoices} currentLocation={'home'}/>
+          <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} currentLocation={'home'}/>
+          <PrivateRoute exact path="/gift_card_invoices" component={GiftCardInvoices} currentLocation={'home'}/>
+          <PrivateRoute exact path="/users" component={Users} currentLocation={'home'}/>
+          <PrivateRoute exact path="/customers" component={Customers} currentLocation={'home'}/>
 
-          <PrivateRoute exact path="/store/:storeId/order/:orderId/inventory" component={Inventory} />
-          <PrivateRoute exact path="/store/:storeId/inventory_success" component={InventorySuccess} />
 
-          <PrivateRoute exact path="/store/:storeId/orders" component={Orders} />
-          <PrivateRoute exact path="/store/:storeId/orders/:orderId" component={Order} />
+	        <PrivateRoute exact path="/globals/products" component={Products} currentLocation={'global'}/>
+          <PrivateRoute exact path="/globals/prepped_products" component={PreppedProducts} currentLocation={'global'}/>
+	        <PrivateRoute exact path="/globals/distributors" component={Distributors} currentLocation={'global'}/>
 
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders" component={StoreOrders} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId/orders/:orderId" component={StoreOrder} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId/orders/:orderId/reason_codes" component={ReasonCodes} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId" component={CombinedStoreOrders} />
 
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/start_inventory" component={StartPrepcenterInventory} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_goods" component={PrepcenterStoreGoods} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/locations" component={PrepcenterLocations} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/add_store_goods" component={AddPrepcenterStoreGood} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/inventory" component={PrepcenterInventory} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory_success" component={InventorySuccess} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/orders" component={PrepcenterOrders} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/orders/:orderId" component={PrepcenterOrder} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/print_labels" component={PrintLabels} />
-          
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/start_quick_order" component={StartQuickOrder} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/quick_order" component={QuickOrder} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/submit_quick_order" component={SubmitQuickOrder} />
-          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/quick_order_success" component={QuickOrderSuccess} />
+          <PrivateRoute exact path="/store/:storeId/locations" component={Locations} currentLocation={'store'}/>
+          <PrivateRoute exact path="/store/:storeId/store_goods" component={StoreGoods} currentLocation={'store'}/>
+          <PrivateRoute exact path="/store/:storeId/add_store_goods" component={AddStoreGood} currentLocation={'store'}/>
+          <PrivateRoute exact path="/store/:storeId/start_inventory" component={StartInventory} currentLocation={'store'}/>
+          <PrivateRoute exact path="/store/:storeId/order/:orderId/inventory" component={Inventory} currentLocation={'store'}/>
+          <PrivateRoute exact path="/store/:storeId/inventory_success" component={InventorySuccess} currentLocation={'store'}/>
+          <PrivateRoute exact path="/store/:storeId/orders" component={Orders} currentLocation={'store'}/>
+          <PrivateRoute exact path="/store/:storeId/orders/:orderId" component={Order} currentLocation={'store'}/>
 
-          <PrivateRoute exact path="/invoices" component={Invoices} />
-          <PrivateRoute exact path="/invoices/order/:orderId" component={Invoice} />
-          <PrivateRoute exact path="/gift_card_invoices" component={GiftCardInvoices} />
 
-          <PrivateRoute exact path="/users" component={Users} />
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders" component={StoreOrders} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId/orders/:orderId" component={StoreOrder} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId/orders/:orderId/reason_codes" component={ReasonCodes} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_orders/:storeOrderId" component={CombinedStoreOrders} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/start_inventory" component={StartPrepcenterInventory} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/store_goods" component={PrepcenterStoreGoods} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/locations" component={PrepcenterLocations} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/add_store_goods" component={AddPrepcenterStoreGood} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/inventory" component={PrepcenterInventory} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/inventory_success" component={InventorySuccess} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/orders" component={PrepcenterOrders} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/orders/:orderId" component={PrepcenterOrder} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/print_labels" component={PrintLabels} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/start_quick_order" component={StartQuickOrder} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/quick_order" component={QuickOrder} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/submit_quick_order" component={SubmitQuickOrder} currentLocation={'prepcenter'}/>
+          <PrivateRoute exact path="/prepcenter/:prepcenterId/order/:orderId/quick_order_success" component={QuickOrderSuccess} currentLocation={'prepcenter'}/>
 
-          <PrivateRoute exact path="/gift_cards/store/:storeId/swipe" component={SwipeGiftCard} />
-          <PrivateRoute exact path="/gift_cards/store/:storeId/activate" component={ActivateGiftCard} />
 
-          <PrivateRoute exact path="/gift_cards/store/:storeId/review_gift_card" component={GiftCardReview} />
-          <PrivateRoute exact path="/gift_cards/store/:storeId/add_value_review" component={AddValueReview} />
-          <PrivateRoute exact path="/gift_cards/store/:storeId/purchase_review" component={GiftCardPurchaseReview} />
-
-          <PrivateRoute exact path="/gift_cards/store/:storeId/logs" component={GiftCardLogs} />
-          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/log" component={GiftCardLog} />
-          
-          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/purchase" component={GiftCardPurchase} />
-          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/add_value" component={AddValue} />
-
-          <PrivateRoute exact path="/customers" component={Customers} />
+          <PrivateRoute exact path="/gift_cards/store/:storeId/swipe" component={SwipeGiftCard} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/activate" component={ActivateGiftCard} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/review_gift_card" component={GiftCardReview} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/add_value_review" component={AddValueReview} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/purchase_review" component={GiftCardPurchaseReview} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/logs" component={GiftCardLogs} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/log" component={GiftCardLog} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/purchase" component={GiftCardPurchase} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/add_value" component={AddValue} currentLocation={'giftCard'}/>
 
       		<Route exact path='/login' component={Login} />
       </Switch>
