@@ -10,9 +10,18 @@ import { gql } from '@apollo/client';
 		}
 		`
 
-	export const GET_CURRENT_STORE = gql`
-	  query currentStore($id: Int!, $storeName: String!) { 
-	    currentStore(id: $id, storeName: $storeName) {
+	export const GET_STORE = gql`
+	  query getStore($storeId: Int!) {
+	    getStore(storeId: $storeId) {
+	      id
+	      name
+	    }
+	  }
+	`
+
+	export const GET_PREPCENTER = gql`
+	  query getPrepcenter($prepcenterId: Int!) {
+	    getPrepcenter(prepcenterId: $prepcenterId) {
 	      id
 	      name
 	    }

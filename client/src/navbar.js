@@ -31,21 +31,34 @@ import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import CardGiftcard from '@material-ui/icons/CardGiftcard';
 import CreditCard from '@material-ui/icons/CreditCard';
 
+import { useQuery } from '@apollo/client';
+import { GET_STORE } from './components/Auth/auth.query'
+import { GET_PREPCENTER } from './components/Auth/auth.query'
+
 export const Navbar = ({...props}, currentUser) => {
   const currentLocation = props.currentLocation
+  const storeId = props.match.params.storeId
+  const prepcenterId = props.match.params.prepcenterId
 
-  let path = props.match.path.split('/')
+  const {data: getStoreQuery, loading: getStoreQueryLoading} = useQuery(GET_STORE, {
+    skip: !storeId,
+    variables: {
+      storeId: parseInt(storeId)
+    }
+  })
+
+  const {data: getPrepcenterQuery, loading: getPrepcenterQueryLoading} = useQuery(GET_PREPCENTER, {
+    skip: !prepcenterId,
+    variables: {
+      prepcenterId: parseInt(prepcenterId)
+    }
+  })
 
   const getName = () => {
-    let id = props.match.params.storeId
-    if (currentLocation === 'prepcenter'){
-      return 'Trappe'
-    } else if((currentLocation === 'store' || path === 'giftCard') && id === '1'){
-      return 'Dover Road'
-    } else if((currentLocation === 'store' || path === 'giftCard') && id === '2'){
-      return 'Bypass'
-    } else if((currentLocation === 'store' || path === 'giftCard') && id === '3'){
-      return 'Cambridge'
+    if (getPrepcenterQuery){
+      return getPrepcenterQuery.getPrepcenter.name
+    } else if(getStoreQuery){
+      return getStoreQuery.getStore.name
     } else {
       return 'Rusticana'
     }
@@ -212,23 +225,23 @@ export const Navbar = ({...props}, currentUser) => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };  
+  };
+
+  if (getStoreQueryLoading) return <div></div>
+  if (getPrepcenterQueryLoading) return <div></div>
 
   return (
     <div >
       <AppBar position="static">
         <Toolbar >
-
-          { path !== '' &&
-            <IconButton 
-            	onClick={toggleDrawer(!state['open'])} 
-            	edge="start" 
-            	color="inherit" 
-            	aria-label="Menu"
-            >
-              <MenuIcon />
-            </IconButton>
-          }
+          <IconButton
+          	onClick={toggleDrawer(!state['open'])}
+          	edge="start"
+          	color="inherit"
+          	aria-label="Menu"
+          >
+            <MenuIcon />
+          </IconButton>
 
           <Typography variant="h6" style={{flexGrow: 1}}>
             {getName()}
@@ -279,11 +292,11 @@ export const Navbar = ({...props}, currentUser) => {
       </AppBar>
       
       <Drawer 
-          open={state['open']}
-          onClose={toggleDrawer(false)}
-          variant="temporary"
-          keepMounted={true}
-          anchor="left"
+        open={state['open']}
+        onClose={toggleDrawer(false)}
+        variant="temporary"
+        keepMounted={true}
+        anchor="left"
       >
         {drawerList}
       </Drawer>
