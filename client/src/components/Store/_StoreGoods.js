@@ -56,7 +56,15 @@ const StoreGoods = ({...props}) => {
           title="Store Goods"
           options={{
             paging: false,
-            actionsColumnIndex: -1
+            actionsColumnIndex: -1,
+            maxBodyHeight: '500px',
+            headerStyle: {
+              position: 'sticky',
+              top: 0,
+              backgroundColor: '#f5f5f5',
+              fontWeight: 'bold',
+              zIndex: 1
+            }
           }} 
           editable={{
             onRowUpdate: (newData, oldData) =>

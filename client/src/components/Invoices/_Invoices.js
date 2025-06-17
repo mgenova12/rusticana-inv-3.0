@@ -33,7 +33,7 @@ const Invoices = ({...props}) => {
 
   const handleDeliveryDate = (rowData) => {
     if (rowData.isQuickOrder) {
-      return 'Quick Order'
+      return (new Date(rowData.createdAt?.replace(/-/g, '/')).toLocaleDateString([], "en-US", { weekday: 'long'}))
     } else {
       return (new Date(rowData.storeOrder?.deliveryDate?.replace(/-/g, '/')).toLocaleDateString([], "en-US", { weekday: 'long'}))
     }
@@ -54,7 +54,7 @@ const Invoices = ({...props}) => {
               <p style={{textAlign: 'center'}}>
                 {props.selectedRows.length} Item(s) Selected <br/>
                 Total: $ {props.selectedRows.reduce((a, b) => +a + +b.saleTotal, 0)}
-              
+
               <Button 
                 style={{
                   position:'absolute',
@@ -86,6 +86,12 @@ const Invoices = ({...props}) => {
         invoice.store.id === activeTab
       );
 
+  const calculateUnpaidTotal = (storeId) => {
+    return invoicesQuery.invoices
+      .filter(invoice => invoice.store.id === storeId && invoice.status !== 'PAID')
+      .reduce((total, invoice) => total + parseFloat(invoice.saleTotal), 0);
+  };
+
   return (
     <div>
        <AppBar position="static" color="default">
@@ -106,7 +112,7 @@ const Invoices = ({...props}) => {
           {storesQuery.stores.map(store =>
             <Tab
               key={store.id}
-              label={store.name}
+              label={`${store.name} (Unpaid: $${calculateUnpaidTotal(store.id).toFixed(2)})`}
               style={{outlineStyle:'none'}}
               onClick={() => selectTab(store.id)}
               value={store.id}
@@ -128,26 +134,25 @@ const Invoices = ({...props}) => {
             selection: true,
             showTextRowsSelected: false,
           }}
-      
+
           columns={[
             { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Delivery Date',
               render: rowData => handleDeliveryDate(rowData)
             },
-            { title: 'Time Placed', field: 'createdAt', 
+            { title: 'Time Placed', field: 'createdAt',
               render: row => <span>{ new Date(row["createdAt"].replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</span>
             },
             { title: 'Store', field: 'store',
               render: row => row['isQuickOrder'] ? <span>{row["store"].name}(quick order)</span> : row["store"].name
             },
-            { title: 'Status', field: 'status', 
+            { title: 'Status', field: 'status',
               render: row => row['status'] === 'PAID' ? <span className="text-success"> {row["status"]}</span> : <span>{row['status']}</span>
-            },            
+            },
             { title: 'Total', field: 'saleTotal', type: "currency" },
           ]}
-          data={JSON.parse(JSON.stringify(results))}           
-        />      	
-        
+          data={JSON.parse(JSON.stringify(results))}   
+        />
     </div>
   )
 }
