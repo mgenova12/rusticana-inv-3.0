@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_27_141533) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_28_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_27_141533) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "coupons", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,6 +45,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_27_141533) do
     t.string "last_name"
     t.string "phone_number"
     t.string "email"
+    t.integer "coupon_id"
+    t.index ["coupon_id"], name: "index_customers_on_coupon_id", unique: true
   end
 
   create_table "distributors", force: :cascade do |t|

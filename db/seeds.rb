@@ -775,3 +775,24 @@
 #   # Update the user phone number
 #   user.update(phone_number: formatted_phone)
 # end
+
+
+# prefixes = ['P', 'F', 'A', 'S']
+# generated_codes = []
+
+# prefixes.each do |prefix|
+#   10.times do
+#     code = nil
+#     loop do
+#       digits = 5.times.map { rand(0..9) }.join
+#       code = "#{prefix}#{digits}"
+#       break unless generated_codes.include?(code) || Coupon.exists?(code: code)
+#     end
+
+#     generated_codes << code
+#     Coupon.create!(code: code)
+#     puts "Created coupon: #{code}"
+#   end
+# end
+
+# puts "\nSuccessfully created 40 coupons!"

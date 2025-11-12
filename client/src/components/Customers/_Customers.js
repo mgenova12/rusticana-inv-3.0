@@ -2,20 +2,29 @@ import React, { useState, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import BeatLoader from "react-spinners/BeatLoader"
 import NewCustomerDrawer from './_NewCustomerDrawer.js'
 import { GET_CUSTOMERS} from './customers.query'
 
 const Customers = ({...props}) => {
   const [visibleNewCustomerDrawer, setVisibleNewCustomerDrawer] = useState(false);
+  const [activeTab, setActiveTab] = useState('all');
   const openNewCustomerDrawer = useCallback(() => setVisibleNewCustomerDrawer(true), []);
   const closeNewCustomerDrawer = useCallback(() => setVisibleNewCustomerDrawer(false), []);
+  const selectTab = useCallback((tab) => setActiveTab(tab), []);
 
   const {data: customersQuery, loading: customersQueryLoading, refetch: customersRetch} = useQuery(GET_CUSTOMERS, {
     fetchPolicy: "network-only"
   })
 
   if (customersQueryLoading) return <div className="center"><BeatLoader color={"#3f51b5"} size={50} /></div>
+
+  const filteredCustomers = activeTab === 'withCoupons'
+    ? customersQuery.customers.filter(customer => customer.coupon !== null)
+    : customersQuery.customers;
 
   return (
     <div>
@@ -35,6 +44,26 @@ const Customers = ({...props}) => {
       </div>
     </Container>
     <br/>
+      <AppBar position="static" color="default">
+        <Tabs
+          indicatorColor="primary"
+          textColor="primary"
+          value={activeTab}
+        >
+          <Tab
+            label="All"
+            style={{outlineStyle:'none'}}
+            value="all"
+            onClick={() => selectTab('all')}
+          />
+          <Tab
+            label="With Coupons"
+            style={{outlineStyle:'none'}}
+            value="withCoupons"
+            onClick={() => selectTab('withCoupons')}
+          />
+        </Tabs>
+      </AppBar>
       <div className="table-responsive">
           <table className="table table-striped">
             <thead>
@@ -45,11 +74,12 @@ const Customers = ({...props}) => {
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Total Gift Cards</th>
+                <th>Coupon Code</th>
                 <th>Date Added</th>
               </tr>
             </thead>
             <tbody>
-            {customersQuery.customers.map((customer) => (
+            {filteredCustomers.map((customer) => (
                 <tr key={customer.id}>
                   <td>{customer.id}</td>
                   <td>{customer.firstName}</td>
@@ -57,6 +87,7 @@ const Customers = ({...props}) => {
                   <td>{customer.phoneNumber}</td>
                   <td>{customer.email}</td>
                   <td>{customer.giftCardCount}</td>
+                  <td>{customer.coupon ? customer.coupon.code : '-'}</td>
                   <td>{new Date(customer.createdAt.replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</td>
                 </tr> 
             ))}

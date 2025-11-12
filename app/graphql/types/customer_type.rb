@@ -6,6 +6,7 @@ module Types
     field :phone_number, String, null: true
     field :email, String, null: true
     field :gift_card_count, Integer, null: true
+    field :coupon, Types::CouponType, null: true
     field :created_at, String, null: true
 
     alias customer object

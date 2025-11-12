@@ -10,6 +10,10 @@ export const GET_CUSTOMERS = gql`
    		email
    		giftCardCount
 			createdAt
+			coupon {
+				id
+				code
+			}
 	  }
 	}
 	`
