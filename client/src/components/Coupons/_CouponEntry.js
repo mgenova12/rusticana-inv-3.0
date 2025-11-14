@@ -167,8 +167,12 @@ const CouponEntry = ({...props}) => {
             <TextField
               label="Coupon Code"
               name="couponCode"
-              inputRef={register({required: false})}
+              inputRef={register({
+                required: "Coupon code is required",
+                validate: value => value.trim() !== "" || "Coupon code cannot be empty"
+              })}
               error={errors.couponCode ? true : false}
+              helperText={errors.couponCode?.message}
               placeholder="Coupon Code"
               fullWidth
               margin="normal"
