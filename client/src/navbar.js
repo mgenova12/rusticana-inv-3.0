@@ -210,6 +210,16 @@ export const Navbar = ({...props}, currentUser) => {
                 <ListItemIcon><CardGiftcard/></ListItemIcon>
                 <ListItemText primary={'Gift Card Logs'} />
               </ListItem>
+
+              <ListItem key={'Swipe Coupon'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/swipe_coupon`}>
+                <ListItemIcon><CreditCard/></ListItemIcon>
+                <ListItemText primary={'Swipe Coupon'} />
+              </ListItem>
+
+              <ListItem key={'Coupons'} component={Link} to={`/gift_cards/store/${props.match.params.storeId}/coupons`}>
+                <ListItemIcon><CardGiftcard/></ListItemIcon>
+                <ListItemText primary={'Coupons'} />
+              </ListItem>              
             </React.Fragment>
           }
 	    </List>
