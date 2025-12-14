@@ -9,6 +9,10 @@ import BeatLoader from "react-spinners/BeatLoader"
 import CouponData from './_CouponData.js'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Chip from '@material-ui/core/Chip';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -100,21 +104,46 @@ const SearchCoupon = ({...props}) => {
           }
 
           {(couponData == null && couponSwiped) &&
-          <div>
-            <h2> Coupon code: {currentCouponCode}</h2>
-            <h2>NOT FOUND</h2>
+          <Box mt={3}>
+            <Paper elevation={3} style={{ padding: '24px', marginBottom: '16px' }}>
+              <Box mb={2}>
+                <Typography variant="h4" component="h2" gutterBottom style={{ fontWeight: 'bold' }}>
+                  Coupon Code
+                </Typography>
+                <Typography variant="h5" component="div" style={{ fontFamily: 'monospace', letterSpacing: '2px', color: '#3f51b5' }}>
+                  {currentCouponCode}
+                </Typography>
+              </Box>
 
-             <Button
-                type='submit' 
+              <Box mb={2} display="flex" gap={1} flexWrap="wrap">
+                <Chip 
+                  label="Not Found" 
+                  style={{ backgroundColor: '#f44336', color: 'white', fontWeight: 'bold' }}
+                  size="small"
+                />
+              </Box>
+
+              <Box mb={2} p={1.5} style={{ backgroundColor: '#ffebee', borderRadius: '4px', borderLeft: '4px solid #f44336' }}>
+                <Typography variant="body1" style={{ color: '#c62828', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span>❌</span>
+                  <span>The coupon code you entered does not exist in our system. Please check the code and try again.</span>
+                </Typography>
+              </Box>
+            </Paper>
+
+            <Box mt={3} display="flex" gap={2} flexWrap="wrap">
+              <Button
+                type='button' 
                 variant="contained" 
                 color="secondary"
                 size="large"
-                className="button m-2"
                 onClick={() => handleStartOver()}
-                >
+                style={{ minWidth: '150px' }}
+              >
                 Start Over
-             </Button>              
-          </div>
+              </Button>              
+            </Box>
+          </Box>
           }
 
         </div>
