@@ -26,6 +26,8 @@ const Coupons = ({...props}) => {
                 <th>ID</th>
                 <th>Code</th>
                 <th>Used By</th>
+                <th>Activated Date</th>
+                <th>Redeemed Date</th>
               </tr>
             </thead>
             <tbody>
@@ -37,9 +39,11 @@ const Coupons = ({...props}) => {
                     {coupon.customer ? (
                       `${coupon.customer.firstName} ${coupon.customer.lastName} (${coupon.customer.email})`
                     ) : (
-                      'Not used'
+                      '-'
                     )}
                   </td>
+                  <td>{coupon.activatedOn ? new Date(coupon.activatedOn).toLocaleString() : '-'}</td>
+                  <td>{coupon.redeemedOn ? new Date(coupon.redeemedOn).toLocaleString() : '-'}</td>
                 </tr> 
             ))}
 

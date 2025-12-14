@@ -46,7 +46,7 @@ import Customers from './components/Customers/_Customers.js';
 
 import Coupons from './components/Coupons/_Coupons.js';
 import CouponEntry from './components/Coupons/_CouponEntry.js';
-import SwipeCoupon from './components/Coupons/_SwipeCoupon.js';
+import SearchCoupon from './components/Coupons/_SearchCoupon.js';
 
 import Users from './components/Users/_Users.js';
 
@@ -163,7 +163,7 @@ export const Routes = () => {
           <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/purchase" component={GiftCardPurchase} currentLocation={'giftCard'}/>
           <PrivateRoute exact path="/gift_cards/store/:storeId/gift_card/:giftCardId/add_value" component={AddValue} currentLocation={'giftCard'}/>
           <PrivateRoute exact path="/gift_cards/store/:storeId/coupons" component={Coupons} currentLocation={'giftCard'}/>
-          <PrivateRoute exact path="/gift_cards/store/:storeId/swipe_coupon" component={SwipeCoupon} currentLocation={'giftCard'}/>
+          <PrivateRoute exact path="/gift_cards/store/:storeId/search_coupon" component={SearchCoupon} currentLocation={'giftCard'}/>
 
 
       		<Route exact path='/login' component={Login} />

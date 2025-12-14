@@ -5,6 +5,8 @@ export const GET_COUPONS = gql`
 	  coupons  {
 	  	id
 		code
+		activatedOn
+		redeemedOn
 		customer {
 		  id
 		  firstName

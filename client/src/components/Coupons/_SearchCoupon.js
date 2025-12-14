@@ -8,7 +8,7 @@ import { GET_COUPON } from './coupons.query'
 import BeatLoader from "react-spinners/BeatLoader"
 import CouponData from './_CouponData.js'
 
-const SwipeCoupon = ({...props}) => {
+const SearchCoupon = ({...props}) => {
   const { register, handleSubmit } = useForm({mode: "onBlur"});
   
   const [couponData, setCouponData] = useState(null)
@@ -39,14 +39,14 @@ const SwipeCoupon = ({...props}) => {
     <div>
       <Container component="main" maxWidth="sm">
         <div>
-          <h1> Swipe Coupon </h1>
+          <h1> Search Coupon </h1>
           <hr/>
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
-              label="Swipe the coupon or enter the coupon code"
+              label="Enter the coupon code"
               name="couponCode"
               inputRef={register({required: true})}
-              placeholder="Swipe the coupon or enter the coupon code"
+              placeholder="Enter the coupon code"
               fullWidth
               margin="normal"
               variant="outlined"
@@ -90,5 +90,5 @@ const SwipeCoupon = ({...props}) => {
   )
 }
 
-export default SwipeCoupon
+export default SearchCoupon
 

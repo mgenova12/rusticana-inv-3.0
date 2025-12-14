@@ -38,6 +38,10 @@ class Mutations::CreateCustomer< Mutations::BaseMutation
       email: email,
       coupon_id: existing_coupon&.id
     )
+  
+    if existing_coupon
+      existing_coupon.update(activated_on: DateTime.now)
+    end
 
     if customer.save
       # Successful creation, return the created object with no errors

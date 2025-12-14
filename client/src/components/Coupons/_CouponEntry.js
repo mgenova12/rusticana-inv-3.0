@@ -85,7 +85,7 @@ const CouponEntry = ({...props}) => {
         }}
       >
         <Alert onClose={handleClose} severity="success">
-          Your code has been redeemed!
+          Your code has been activated!
         </Alert>
       </Snackbar>
       <Snackbar
