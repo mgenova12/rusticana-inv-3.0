@@ -22,6 +22,8 @@ export const GET_COUPON = gql`
     getCoupon(code: $code) {
     	id
       code
+      activatedOn
+      redeemedOn
       customer {
         id
         firstName

@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState, useCallback } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
@@ -7,6 +7,12 @@ import Button from '@material-ui/core/Button';
 import { GET_COUPON } from './coupons.query'
 import BeatLoader from "react-spinners/BeatLoader"
 import CouponData from './_CouponData.js'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const SearchCoupon = ({...props}) => {
   const { register, handleSubmit } = useForm({mode: "onBlur"});
@@ -14,8 +20,16 @@ const SearchCoupon = ({...props}) => {
   const [couponData, setCouponData] = useState(null)
   const [couponSwiped, setCouponSwiped] = useState(false)
   const [currentCouponCode, setCurrentCouponCode] = useState(null)
+  const [successOpen, setSuccessOpen] = useState(false)
+  
+  const handleSuccessOpen = useCallback(() => setSuccessOpen(true), []);
+  const handleSuccessClose = useCallback(() => setSuccessOpen(false), []);
+  
+  const handleRedeemSuccess = useCallback(() => {
+    handleSuccessOpen();
+  }, [handleSuccessOpen]);
 
-  const [getCoupon, {loading: getCouponLoading}] = useLazyQuery(GET_COUPON, {
+  const [getCoupon, {loading: getCouponLoading, refetch: refetchCoupon}] = useLazyQuery(GET_COUPON, {
     fetchPolicy: "network-only",
     onCompleted(data) {
       setCouponData(data.getCoupon)
@@ -37,6 +51,19 @@ const SearchCoupon = ({...props}) => {
 
   return (
     <div>
+      <Snackbar
+        open={successOpen}
+        autoHideDuration={3000} 
+        onClose={handleSuccessClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <Alert onClose={handleSuccessClose} severity="success">
+          Coupon has been redeemed successfully!
+        </Alert>
+      </Snackbar>
       <Container component="main" maxWidth="sm">
         <div>
           <h1> Search Coupon </h1>
@@ -63,6 +90,12 @@ const SearchCoupon = ({...props}) => {
             <CouponData
               couponData={couponData}
               startOver={handleStartOver}
+              onRedeemSuccess={handleRedeemSuccess}
+              refetch={() => {
+                if (currentCouponCode) {
+                  getCoupon({variables: { code: currentCouponCode }})
+                }
+              }}
             />
           }
 

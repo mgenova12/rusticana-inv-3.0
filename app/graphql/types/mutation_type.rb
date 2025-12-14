@@ -33,5 +33,6 @@ module Types
     field :edit_gift_card_value, mutation: Mutations::EditGiftCardValue
     field :create_gift_card_invoice, mutation: Mutations::CreateGiftCardInvoice
     field :create_customer, mutation: Mutations::CreateCustomer
+    field :redeem_coupon, mutation: Mutations::RedeemCoupon
   end
 end
